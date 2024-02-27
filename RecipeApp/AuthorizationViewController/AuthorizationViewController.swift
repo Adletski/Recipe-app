@@ -5,29 +5,9 @@ import UIKit
 
 /// Создание экрана авторизации
 class AuthorizationViewController: UIViewController {
+    // MARK: - Properties
+
     var presenter: AuthorizationPresenter?
-
-    // MARK: - Lifecycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        presenter = AuthorizationPresenter(viewController: self)
-        presenter?.setupGradientBackground()
-        setupUI()
-        setupInputAccessoryView()
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillShow(notification:)),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillHide(notification:)),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
-    }
 
     // MARK: - Visual Components
 
@@ -52,10 +32,11 @@ class AuthorizationViewController: UIViewController {
     }()
 
     /// Текстовое поле для ввода адреса электронной почты
-    let emailTextField: UITextField = {
+    lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter Email Address"
         textField.borderStyle = .roundedRect
+        textField.delegate = self
         return textField
     }()
 
@@ -70,16 +51,17 @@ class AuthorizationViewController: UIViewController {
     }()
 
     /// Текстовое поле для ввода пароля
-    let passwordTextField: UITextField = {
+    lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter Password"
         textField.borderStyle = .roundedRect
         textField.isSecureTextEntry = true
+        textField.delegate = self
         return textField
     }()
 
     /// Кнопка для входа
-    let loginButton: UIButton = {
+    lazy var loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("Login", for: .normal)
         button.backgroundColor = UIColor(named: "buttonColor")
@@ -117,6 +99,7 @@ class AuthorizationViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = UIColor(named: "plashkaColor")
         view.layer.cornerRadius = 12
+        view.isHidden = true
         return view
     }()
 
@@ -127,8 +110,19 @@ class AuthorizationViewController: UIViewController {
         label.textColor = .white
         label.textAlignment = .center
         label.numberOfLines = 0
+        label.isHidden = true
         return label
     }()
+
+    // MARK: - Lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupGradientBackground()
+        setupUI()
+        setupConstraints()
+        setupKeyboard()
+    }
 
     // MARK: - Private Methods
 
@@ -151,8 +145,125 @@ class AuthorizationViewController: UIViewController {
         view.addSubview(warningEmailLabel)
         view.addSubview(warningPassLabel)
         view.addSubview(errorView)
+        view.addSubview(errorMessageLabel)
     }
 
+    func setupConstraints() {
+        makeLabelLoginConstraints()
+        makeEmailLabelConstraints()
+        makeEmailTextFieldConstraints()
+        makePasswordLabelConstraints()
+        makePasswordTextFieldConstraints()
+        makeLoginButtonConstraints()
+        makeWarbibgLabelConstraints()
+        makeWarningLabelPassConstraints()
+        makeErrorViewConstraint()
+        makeErrorMessageLabel()
+        setupInputAccessoryView()
+    }
+
+    func updateValidationEmail(result: String) {
+        if result == "isEmpty" {
+            emailTextField.layer.borderColor = UIColor.clear.cgColor
+            emailTextField.layer.borderWidth = 0.0
+            emailLabel.textColor = UIColor(named: "loginColor")
+            warningEmailLabel.isHidden = true
+        } else if result == "noEmail" {
+            emailLabel.textColor = .red
+            emailTextField.layer.borderColor = UIColor.red.cgColor
+            emailTextField.layer.borderWidth = 1.0
+            emailTextField.layer.cornerRadius = 8
+            warningEmailLabel.isHidden = false
+        } else {
+            emailLabel.textColor = UIColor(named: "loginColor")
+            emailTextField.layer.borderColor = UIColor.clear.cgColor
+            emailTextField.layer.borderWidth = 0.0
+            warningEmailLabel.isHidden = true
+        }
+    }
+
+    /// Обработчик нажатия кнопки видимости пароля
+    @objc func togglePasswordVisibility() {
+//        presenter?.togglePasswordVisibility()
+    }
+
+    /// обработчик нажатия кнопки логин
+    @objc func loginButtonTapped() {
+        presenter?.loginButtonTapped(login: emailTextField.text ?? "", password: passwordTextField.text ?? "")
+    }
+
+    func chekIt(_ chek: Bool) {
+        if chek == true {
+            print("ypa")
+            loginButton.setTitleColor(.green, for: .normal)
+        } else {
+            loginButton.setTitleColor(.red, for: .normal)
+        }
+    }
+}
+
+// MARK: - ViewController: UITextFieldDelegate
+
+/// Расширение для управления текстовыми полями
+extension AuthorizationViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print(textField.text)
+        if textField == emailTextField {
+            presenter?.validateEmail(email: textField.text ?? "")
+        } else if textField == passwordTextField {
+            presenter?.validatePassword(password: textField.text ?? "")
+        }
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {}
+
+    @objc private func doneButtonTapped() {
+        view.endEditing(true)
+    }
+}
+
+// keyboard
+extension AuthorizationViewController {
+    func setupKeyboard() {
+        setupInputAccessoryView()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow(notification:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide(notification:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+
+    /// Обработчик появления клавиатуры
+    @objc func keyboardWillShow(notification: Notification) {
+        guard let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?
+            .cgRectValue else { return }
+
+        let keyboardHeight = keyboardFrame.height
+        let distanceBetweenButtonAndKeyboard: CGFloat = 10
+        let buttonYPosition = view.frame.height - keyboardHeight - loginButton.frame
+            .height - distanceBetweenButtonAndKeyboard
+
+        UIView.animate(withDuration: 0.3) {
+            self.loginButton.frame.origin.y = buttonYPosition
+        }
+    }
+
+    /// обработчик скрытия клавиатуры
+    @objc func keyboardWillHide(notification: Notification) {
+        UIView.animate(withDuration: 0.3) {
+            self.loginButton.frame.origin.y = self.view.frame.height - 45 - 20
+        }
+    }
+}
+
+extension AuthorizationViewController {
     /// Установка ограничений для лейбла "Login"
     func makeLabelLoginConstraints() {
         labelLogin.translatesAutoresizingMaskIntoConstraints = false
@@ -242,14 +353,6 @@ class AuthorizationViewController: UIViewController {
         errorMessageLabel.bottomAnchor.constraint(equalTo: errorView.bottomAnchor).isActive = true
     }
 
-    func validateEmail() {
-        presenter?.validateEmail()
-    }
-
-    func validatePassword() {
-        presenter?.validatePassword()
-    }
-
     /// Установка вспомогательной понели для ввода текста (Ок)
     func setupInputAccessoryView() {
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
@@ -270,51 +373,15 @@ class AuthorizationViewController: UIViewController {
         passwordTextField.inputAccessoryView = toolBar
     }
 
-    /// Обработчик нажатия кнопки видимости пароля
-    @objc func togglePasswordVisibility() {
-        presenter?.togglePasswordVisibility()
-    }
-
-    /// Обработчик появления клавиатуры
-    @objc func keyboardWillShow(notification: Notification) {
-        presenter?.keyboardWillShow(notification: notification)
-    }
-
-    /// обработчик скрытия клавиатуры
-    @objc func keyboardWillHide(notification: Notification) {
-        presenter?.keyboardWillHide(notification: notification)
-    }
-
-    /// обработчик нажатия кнопки логин
-    @objc func loginButtonTapped() {
-        presenter?.loginButtonTapped(login: emailTextField.text ?? "", password: passwordTextField.text ?? "")
-    }
-
-    func chekIt(_ chek: Bool) {
-        if chek == true {
-            print("ypa")
-            loginButton.setTitleColor(.green, for: .normal)
-        } else {
-            loginButton.setTitleColor(.red, for: .normal)
-        }
-    }
-}
-
-// MARK: - ViewController: UITextFieldDelegate
-
-/// Расширение для управления текстовыми полями
-extension AuthorizationViewController: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == emailTextField {
-            presenter?.validateEmail()
-        } else if textField == passwordTextField {
-            presenter?.validatePassword()
-        }
-    }
-
-    func textFieldDidBeginEditing(_ textField: UITextField) {}
-
-    @objc private func doneButtonTapped() {
-        view.endEditing(true)
+    func setupGradientBackground() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        gradientLayer.colors = [
+            UIColor.white.cgColor,
+            UIColor(red: 141 / 255, green: 218 / 255, blue: 247 / 255, alpha: 1.0).cgColor
+        ]
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+        view.layer.insertSublayer(gradientLayer, at: 0)
     }
 }
