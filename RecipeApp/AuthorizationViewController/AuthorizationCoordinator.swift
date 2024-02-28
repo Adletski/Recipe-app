@@ -1,0 +1,29 @@
+// AuthorizationCoordinator.swift
+// Copyright © RoadMap. All rights reserved.
+
+import UIKit
+
+/// Координатор навигации для экрана авторизации
+final class AuthorizationCoordinator: BaseCoordinator {
+    // MARK: - Public Properties
+
+    var rootController: UINavigationController?
+    var onFinishFlow: (() -> ())?
+
+    // MARK: - Public methods
+
+    override func start() {
+        showLogin()
+    }
+
+    func showLogin() {
+        let authViewController = AuthorizationViewController()
+        let authPresenter = AuthorizationPresenter(view: authViewController)
+        authViewController.presenter = authPresenter
+        authPresenter.coordinator = self
+
+        let rootController = UINavigationController(rootViewController: authViewController)
+        setAsRoot(rootController)
+        self.rootController = rootController
+    }
+}

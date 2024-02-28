@@ -5,12 +5,20 @@ import Foundation
 
 /// Протокол для презентера рецептов
 protocol RecipesPresenter {
-    var view: RecipesView! { get set }
+    init(view: RecipesView, coordinator: RecipeCoordinator)
 }
 
 /// Презентер для рецептов
 final class RecipesPresenterImpl: RecipesPresenter {
     // MARK: - Properties
 
-    weak var view: RecipesView!
+    weak var recipeCoordinator: RecipeCoordinator?
+    weak var view: RecipesView?
+
+    // MARK: - Initializer
+
+    init(view: RecipesView, coordinator: RecipeCoordinator) {
+        recipeCoordinator = coordinator
+        self.view = view
+    }
 }

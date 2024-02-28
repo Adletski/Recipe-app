@@ -5,7 +5,7 @@ import Foundation
 
 /// Протокол для профиля презентера
 protocol ProfilePresenter: AnyObject {
-    var view: ProfileView! { get set }
+    init(view: ProfileView, coordinator: ProfileCoordinator)
 
     func viewDidLoad()
     func editButtonDidPress()
@@ -15,7 +15,13 @@ protocol ProfilePresenter: AnyObject {
 final class ProfilePresenterImpl: ProfilePresenter {
     // MARK: - Properties
 
-    weak var view: ProfileView!
+    weak var profileCoordinator: ProfileCoordinator?
+    weak var view: ProfileView?
+
+    init(view: ProfileView, coordinator: ProfileCoordinator) {
+        self.view = view
+        profileCoordinator = coordinator
+    }
 
     // MARK: - Public methods
 

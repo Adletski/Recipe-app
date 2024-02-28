@@ -3,8 +3,19 @@
 
 import UIKit
 
+protocol AuthorizationView: AnyObject {
+    /// метод отработки появление плашки для презентора
+    func updateLoginButton(result: Bool)
+    /// Обновление визуала для адреса электронной почты на основе результата валидации
+    func updateValidationEmail(result: String)
+    /// Обновление визуала для пароля на основе результата валидации
+    func updateValidationPassword(result: String)
+    /// метод отработки скрытие пароля для презентора
+    func updatePasswordVisibilityButton(result: Bool)
+}
+
 /// Создание экрана авторизации
-final class AuthorizationViewController: UIViewController {
+final class AuthorizationViewController: UIViewController, AuthorizationView {
     // MARK: - Properties
 
     /// Презентер для авторизации
@@ -233,6 +244,7 @@ final class AuthorizationViewController: UIViewController {
 
     /// обработчик нажатия кнопки логин
     @objc private func loginButtonTapped() {
+//        presenter?.openVC()
         /// скрытие текста кнопки
         loginButton.setTitle("", for: .normal)
 
@@ -285,7 +297,8 @@ extension AuthorizationViewController: UITextFieldDelegate {
     }
 }
 
-// keyboard
+// MARK: - Keyboard methods
+
 extension AuthorizationViewController {
     func setupKeyboard() {
         setupInputAccessoryView()
@@ -325,6 +338,8 @@ extension AuthorizationViewController {
         }
     }
 }
+
+// MARK: - SetupConstraints
 
 extension AuthorizationViewController {
     /// Установка ограничений для лейбла "Login"

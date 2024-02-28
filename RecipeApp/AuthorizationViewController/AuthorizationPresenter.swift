@@ -3,12 +3,33 @@
 
 import UIKit
 
-/// Создание презентора для реализации mvp
-final class AuthorizationPresenter {
-    weak var viewController: AuthorizationViewController?
+/// Протокол презентера экрана авторизации
+protocol AutorizationPresenterProtocol: AnyObject {
+    /// Координатор флоу экрана
+    var coordinator: AuthorizationCoordinator? { get set }
+    /// Инициализатор с присвоением вью
+    init(view: AuthorizationView)
+    /// отработка для валидации почты
+    func validateEmail(email: String)
+    /// отработка для валидации пароля
+    func validatePassword(password: String)
+    /// отработка для кнопки с плашкой
+    func loginButtonTapped(login: String, password: String)
+    /// отработка нажатия скрытие пароля
+    func createPasswordVisibilityButton(tapped: Bool)
+}
 
-    init(viewController: AuthorizationViewController) {
-        self.viewController = viewController
+/// Создание презентора для реализации mvp
+final class AuthorizationPresenter: AutorizationPresenterProtocol {
+    // MARK: - Public Properties
+
+    weak var view: AuthorizationView?
+    weak var coordinator: AuthorizationCoordinator?
+
+    // MARK: - Initializers
+
+    init(view: AuthorizationView) {
+        self.view = view
     }
 
     // MARK: - Text Field and Keyboard Interaction Methods
@@ -16,40 +37,40 @@ final class AuthorizationPresenter {
     /// отработка для валидации почты
     func validateEmail(email: String) {
         if email.isEmpty {
-            viewController?.updateValidationEmail(result: "isEmpty")
+            view?.updateValidationEmail(result: "isEmpty")
         } else if email.isEmpty || !email.contains("@mail.ru") {
-            viewController?.updateValidationEmail(result: "noEmail")
+            view?.updateValidationEmail(result: "noEmail")
         } else {
-            viewController?.updateValidationEmail(result: "good")
+            view?.updateValidationEmail(result: "good")
         }
     }
 
     /// отработка для валидации пароля
     func validatePassword(password: String) {
         if password.isEmpty {
-            viewController?.updateValidationPassword(result: "isEmpty")
+            view?.updateValidationPassword(result: "isEmpty")
         } else if password.isEmpty || !password.contains("qwerty12345") {
-            viewController?.updateValidationPassword(result: "noPass")
+            view?.updateValidationPassword(result: "noPass")
         } else {
-            viewController?.updateValidationPassword(result: "good")
+            view?.updateValidationPassword(result: "good")
         }
     }
 
     /// отработка для кнопки с плашкой
     func loginButtonTapped(login: String, password: String) {
         if login == "123@mail.ru", password == "qwerty" {
-            viewController?.updateLoginButton(result: true)
+            view?.updateLoginButton(result: true)
         } else {
-            viewController?.updateLoginButton(result: false)
+            view?.updateLoginButton(result: false)
         }
     }
 
     /// отработка нажатия скрытие пароля
     func createPasswordVisibilityButton(tapped: Bool) {
         if tapped == true {
-            viewController?.updatePasswordVisibilityButton(result: true)
+            view?.updatePasswordVisibilityButton(result: true)
         } else {
-            viewController?.updatePasswordVisibilityButton(result: false)
+            view?.updatePasswordVisibilityButton(result: false)
         }
     }
 }

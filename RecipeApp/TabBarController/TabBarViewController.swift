@@ -7,7 +7,7 @@ import UIKit
 final class TabBarViewController: UITabBarController {
     // MARK: - Properties
 
-    weak var coordinator: TabBarCoordinator?
+//    weak var coordinator: TabBarCoordinator?
 
     // MARK: - Lifecycle
 

@@ -3,27 +3,12 @@
 
 import Foundation
 
-final class AppBuilder {
-    func makeRecipeModule() -> RecipesViewController {
-        RecipesViewController()
-    }
-
-    func makeFavoritesModule() -> FavoritesViewController {
-        FavoritesViewController()
-    }
-
-    func makeProfileModule() -> ProfileViewController {
-        ProfileViewController()
-    }
-}
-
 /// координатор главный приложения
 final class AppCoordinator: BaseCoordinator {
     private var tabBarViewController: TabBarViewController?
-    private var appBuilder = AppBuilder()
 
     override func start() {
-        if "admin" != "admin" {
+        if "admin" == "admin" {
             toMain()
         } else {
             toAuth()
@@ -34,18 +19,41 @@ final class AppCoordinator: BaseCoordinator {
         tabBarViewController = TabBarViewController()
 
         // recipe
-        let recipeModuleView = RecipesBuilder.createRecipe()
-        let recipeCoordinator = RecipeCoordinator(rootController: recipeModuleView)
-//        recipeModuleView.presenter?.coordinator = recipeCoordinator
+        let recipeCoordinator = RecipeCoordinator()
+        let recipeModuleView = RecipesBuilder.createRecipe(coordinator: recipeCoordinator)
+        recipeCoordinator.setRootController(viewController: recipeModuleView)
+        recipeModuleView.title = "Recipes"
+        recipeModuleView.navigationController?.navigationBar.prefersLargeTitles = true
+        add(coordinator: recipeCoordinator)
+
+        // profile
+        let profileCoordinator = ProfileCoordinator()
+        let profileModuleView = ProfileBuilder.createProfile(coordinator: profileCoordinator)
+        profileCoordinator.setupRootController(viewController: profileModuleView)
+        profileModuleView.title = "Profile"
+        profileModuleView.navigationController?.navigationBar.prefersLargeTitles = true
+        add(coordinator: profileCoordinator)
+
+        guard let recipeRootController = recipeCoordinator.rootController else { return }
+        guard let profileRootController = profileCoordinator.rootController else { return }
+
+        tabBarViewController?.setViewControllers([
+            recipeRootController,
+            profileRootController
+        ], animated: true)
+
+        if let tabBarViewController {
+            setAsRoot(tabBarViewController)
+        }
     }
 
     private func toAuth() {
-//        let authCoordinator = AuthCoordinator()
-//        authCoordinator.onFinishFlow = { [weak self] in
-//            self?.remove(coordinator: authCoordinator)
-//            self?.toMain()
-//        }
-//        add(coordinator: authCoordinator)
-//        authCoordinator.start()
+        let authCoordinator = AuthorizationCoordinator()
+        authCoordinator.onFinishFlow = { [weak self] in
+            self?.remove(coordinator: authCoordinator)
+            self?.toMain()
+        }
+        add(coordinator: authCoordinator)
+        authCoordinator.start()
     }
 }

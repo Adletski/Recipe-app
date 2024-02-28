@@ -15,8 +15,9 @@ final class ProfileTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "bonus")
         imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .cyan
+        imageView.contentMode = .center
+        imageView.backgroundColor = #colorLiteral(red: 0.9535714984, green: 0.9660330415, blue: 0.9660820365, alpha: 1)
+        imageView.layer.cornerRadius = 12
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

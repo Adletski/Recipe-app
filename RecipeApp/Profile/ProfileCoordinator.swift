@@ -1,10 +1,10 @@
-// RecipeCoordinator.swift
+// ProfileCoordinator.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
-/// Рутовый координатор для рецептов
-final class RecipeCoordinator: BaseCoordinator {
+// Координатор для профиля
+final class ProfileCoordinator: BaseCoordinator {
     // MARK: - Properties
 
     var rootController: UINavigationController?
@@ -12,7 +12,7 @@ final class RecipeCoordinator: BaseCoordinator {
 
     // MARK: - Initializer
 
-    func setRootController(viewController: UIViewController) {
+    func setupRootController(viewController: UIViewController) {
         rootController = UINavigationController(rootViewController: viewController)
     }
 }
