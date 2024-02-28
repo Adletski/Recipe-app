@@ -221,7 +221,8 @@ class AuthorizationViewController: UIViewController {
     @objc private func togglePasswordVisibility() {
         presenter?.createPasswordVisibilityButton(tapped: passwordTextField.isSecureTextEntry.self)
     }
-///метод отработки скрытие пароля для презентора
+
+    /// метод отработки скрытие пароля для презентора
     func updatePasswordVisibilityButton(result: Bool) {
         if result == true {
             passwordTextField.isSecureTextEntry.toggle()
@@ -254,7 +255,8 @@ class AuthorizationViewController: UIViewController {
             )
         }
     }
-///метод отработки появление плашки для презентора
+
+    /// метод отработки появление плашки для презентора
     func updateLoginButton(result: Bool) {
         if result == false {
             errorView.isHidden = false

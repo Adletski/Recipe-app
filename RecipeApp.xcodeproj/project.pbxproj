@@ -32,6 +32,9 @@
 		7FE564242B8E5239002562F3 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE564232B8E5239002562F3 /* BaseCoordinator.swift */; };
 		7FE564282B8E5285002562F3 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE564272B8E5285002562F3 /* AppCoordinator.swift */; };
 		7FE5642F2B8F011C002562F3 /* RecipeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE5642E2B8F011C002562F3 /* RecipeCoordinator.swift */; };
+		7FE564782B8F2871002562F3 /* AuthorizationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE564752B8F2871002562F3 /* AuthorizationPresenter.swift */; };
+		7FE564792B8F2871002562F3 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE564762B8F2871002562F3 /* AuthorizationViewController.swift */; };
+		7FE5647A2B8F2871002562F3 /* AuthorizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE564772B8F2871002562F3 /* AuthorizationModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +76,9 @@
 		7FE564232B8E5239002562F3 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		7FE564272B8E5285002562F3 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		7FE5642E2B8F011C002562F3 /* RecipeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCoordinator.swift; sourceTree = "<group>"; };
+		7FE564752B8F2871002562F3 /* AuthorizationPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationPresenter.swift; sourceTree = "<group>"; };
+		7FE564762B8F2871002562F3 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
+		7FE564772B8F2871002562F3 /* AuthorizationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,7 @@
 		7FE563802B8CD095002562F3 /* RecipeApp */ = {
 			isa = PBXGroup;
 			children = (
+				7FE564742B8F2871002562F3 /* AuthorizationViewController */,
 				7FE563A92B8D0EE5002562F3 /* Profile */,
 				7FE563A62B8D0ED4002562F3 /* Favorites */,
 				7FE563A32B8D0D8E002562F3 /* Recipes */,
@@ -189,6 +196,16 @@
 				7FE563B82B8DBC95002562F3 /* RecipeAppTests.swift */,
 			);
 			path = RecipeAppTests;
+			sourceTree = "<group>";
+		};
+		7FE564742B8F2871002562F3 /* AuthorizationViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7FE564752B8F2871002562F3 /* AuthorizationPresenter.swift */,
+				7FE564762B8F2871002562F3 /* AuthorizationViewController.swift */,
+				7FE564772B8F2871002562F3 /* AuthorizationModel.swift */,
+			);
+			path = AuthorizationViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,6 +352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FE564792B8F2871002562F3 /* AuthorizationViewController.swift in Sources */,
 				7FE563AD2B8D1BCE002562F3 /* RecipesPresenter.swift in Sources */,
 				7FE564242B8E5239002562F3 /* BaseCoordinator.swift in Sources */,
 				7FE5642F2B8F011C002562F3 /* RecipeCoordinator.swift in Sources */,
@@ -350,6 +368,8 @@
 				7FE563A02B8D0998002562F3 /* TabBarViewController.swift in Sources */,
 				7FE564282B8E5285002562F3 /* AppCoordinator.swift in Sources */,
 				7FE563C32B8DE487002562F3 /* HeaderView.swift in Sources */,
+				7FE5647A2B8F2871002562F3 /* AuthorizationModel.swift in Sources */,
+				7FE564782B8F2871002562F3 /* AuthorizationPresenter.swift in Sources */,
 				7FE563822B8CD095002562F3 /* AppDelegate.swift in Sources */,
 				7FE563A82B8D0EDF002562F3 /* FavoritesViewController.swift in Sources */,
 				7FE563AF2B8D23F5002562F3 /* RecipesBuilder.swift in Sources */,
