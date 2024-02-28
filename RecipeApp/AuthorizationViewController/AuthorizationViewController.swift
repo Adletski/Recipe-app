@@ -7,6 +7,7 @@ import UIKit
 class AuthorizationViewController: UIViewController {
     // MARK: - Properties
 
+    /// Презентер для авторизации
     var presenter: AuthorizationPresenter?
 
     // MARK: - Visual Components
@@ -37,6 +38,11 @@ class AuthorizationViewController: UIViewController {
         textField.placeholder = "Enter Email Address"
         textField.borderStyle = .roundedRect
         textField.delegate = self
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "letterImage")
+        imageView.contentMode = .scaleAspectFit
+        textField.leftView = imageView
+        textField.leftViewMode = .always
         return textField
     }()
 
@@ -57,6 +63,11 @@ class AuthorizationViewController: UIViewController {
         textField.borderStyle = .roundedRect
         textField.isSecureTextEntry = true
         textField.delegate = self
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "lockImage")
+        imageView.contentMode = .scaleAspectFit
+        textField.leftView = imageView
+        textField.leftViewMode = .always
         return textField
     }()
 
@@ -114,6 +125,15 @@ class AuthorizationViewController: UIViewController {
         return label
     }()
 
+    /// кнопка  видимости пароля
+    lazy var passwordVisibilityButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        button.tintColor = .gray
+        button.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
+        return button
+    }()
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -126,15 +146,7 @@ class AuthorizationViewController: UIViewController {
 
     // MARK: - Private Methods
 
-    /// Создание кнопки видимости пароля
-    func createPasswordVisibilityButton() -> UIButton {
-        let eyeButton = UIButton(type: .custom)
-        eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
-        eyeButton.tintColor = .gray
-        eyeButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
-        return eyeButton
-    }
-
+    /// добавление всех UI компонентов на экран
     func setupUI() {
         view.addSubview(labelLogin)
         view.addSubview(emailLabel)
@@ -148,6 +160,7 @@ class AuthorizationViewController: UIViewController {
         view.addSubview(errorMessageLabel)
     }
 
+    /// Установка всех ограничений для UI компонентов
     func setupConstraints() {
         makeLabelLoginConstraints()
         makeEmailLabelConstraints()
@@ -162,6 +175,7 @@ class AuthorizationViewController: UIViewController {
         setupInputAccessoryView()
     }
 
+    /// Обновление визуала для адреса электронной почты на основе результата валидации
     func updateValidationEmail(result: String) {
         if result == "isEmpty" {
             emailTextField.layer.borderColor = UIColor.clear.cgColor
@@ -182,22 +196,72 @@ class AuthorizationViewController: UIViewController {
         }
     }
 
+    /// Обновление визуала для пароля на основе результата валидации
+    func updateValidationPassword(result: String) {
+        if result == "isEmpty" {
+            passwordTextField.layer.borderColor = UIColor.clear.cgColor
+            passwordTextField.layer.borderWidth = 0.0
+            passwordLabel.textColor = UIColor(named: "loginColor")
+            warningPassLabel.isHidden = true
+        } else if result == "noPass" {
+            passwordLabel.textColor = .red
+            passwordTextField.layer.borderColor = UIColor.red.cgColor
+            passwordTextField.layer.borderWidth = 1.0
+            passwordTextField.layer.cornerRadius = 8
+            warningPassLabel.isHidden = false
+        } else {
+            passwordLabel.textColor = UIColor(named: "loginColor")
+            passwordTextField.layer.borderColor = UIColor.clear.cgColor
+            passwordTextField.layer.borderWidth = 0.0
+            warningPassLabel.isHidden = true
+        }
+    }
+
     /// Обработчик нажатия кнопки видимости пароля
-    @objc func togglePasswordVisibility() {
-//        presenter?.togglePasswordVisibility()
+    @objc private func togglePasswordVisibility() {
+        presenter?.createPasswordVisibilityButton(tapped: passwordTextField.isSecureTextEntry.self)
+    }
+///метод отработки скрытие пароля для презентора
+    func updatePasswordVisibilityButton(result: Bool) {
+        if result == true {
+            passwordTextField.isSecureTextEntry.toggle()
+        } else {
+            passwordTextField.isSecureTextEntry.toggle()
+        }
     }
 
     /// обработчик нажатия кнопки логин
     @objc func loginButtonTapped() {
-        presenter?.loginButtonTapped(login: emailTextField.text ?? "", password: passwordTextField.text ?? "")
-    }
+        /// скрытие текста кнопки
+        loginButton.setTitle("", for: .normal)
 
-    func chekIt(_ chek: Bool) {
-        if chek == true {
-            print("ypa")
-            loginButton.setTitleColor(.green, for: .normal)
+        /// создание и настройка индикатора загрузки
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.color = .white
+        activityIndicator.center = CGPoint(x: loginButton.bounds.midX, y: loginButton.bounds.midY)
+        activityIndicator.startAnimating()
+        loginButton.addSubview(activityIndicator)
+
+        /// таймер на 3 секунды
+        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { _ in
+            /// остановка анимации и скрытие ее
+            activityIndicator.stopAnimating()
+            activityIndicator.removeFromSuperview()
+
+            self.presenter?.loginButtonTapped(
+                login: self.emailTextField.text ?? "",
+                password: self.passwordTextField.text ?? ""
+            )
+        }
+    }
+///метод отработки появление плашки для презентора
+    func updateLoginButton(result: Bool) {
+        if result == false {
+            errorView.isHidden = false
+            errorMessageLabel.isHidden = false
         } else {
-            loginButton.setTitleColor(.red, for: .normal)
+            errorView.isHidden = false
+            errorMessageLabel.isHidden = false
         }
     }
 }
@@ -214,8 +278,6 @@ extension AuthorizationViewController: UITextFieldDelegate {
             presenter?.validatePassword(password: textField.text ?? "")
         }
     }
-
-    func textFieldDidBeginEditing(_ textField: UITextField) {}
 
     @objc private func doneButtonTapped() {
         view.endEditing(true)
@@ -307,7 +369,7 @@ extension AuthorizationViewController {
         passwordTextField.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 7).isActive = true
         passwordTextField.widthAnchor.constraint(equalToConstant: 350).isActive = true
         passwordTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        let eyeButton = createPasswordVisibilityButton()
+        let eyeButton = passwordVisibilityButton
         passwordTextField.rightView = eyeButton
         passwordTextField.rightViewMode = .always
     }
@@ -353,7 +415,7 @@ extension AuthorizationViewController {
         errorMessageLabel.bottomAnchor.constraint(equalTo: errorView.bottomAnchor).isActive = true
     }
 
-    /// Установка вспомогательной понели для ввода текста (Ок)
+    /// настройка панели toolBar для (Ок)
     func setupInputAccessoryView() {
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
         toolBar.barStyle = .default
@@ -373,6 +435,7 @@ extension AuthorizationViewController {
         passwordTextField.inputAccessoryView = toolBar
     }
 
+    /// настройка  градиента фона
     func setupGradientBackground() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = view.bounds
