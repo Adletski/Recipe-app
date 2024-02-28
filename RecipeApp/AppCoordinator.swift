@@ -40,12 +40,12 @@ final class AppCoordinator: BaseCoordinator {
     }
 
     private func toAuth() {
-        let authCoordinator = AuthCoordinator()
-        authCoordinator.onFinishFlow = { [weak self] in
-            self?.remove(coordinator: authCoordinator)
-            self?.toMain()
-        }
-        add(coordinator: authCoordinator)
-        authCoordinator.start()
+//        let authCoordinator = AuthCoordinator()
+//        authCoordinator.onFinishFlow = { [weak self] in
+//            self?.remove(coordinator: authCoordinator)
+//            self?.toMain()
+//        }
+//        add(coordinator: authCoordinator)
+//        authCoordinator.start()
     }
 }

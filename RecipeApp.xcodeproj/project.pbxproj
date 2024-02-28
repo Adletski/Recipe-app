@@ -30,10 +30,7 @@
 		7FE563ED2B8E12A1002562F3 /* ProfileBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE563EC2B8E12A1002562F3 /* ProfileBuilder.swift */; };
 		7FE563EF2B8E2E8C002562F3 /* DetentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE563EE2B8E2E8C002562F3 /* DetentsViewController.swift */; };
 		7FE564242B8E5239002562F3 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE564232B8E5239002562F3 /* BaseCoordinator.swift */; };
-		7FE564262B8E525C002562F3 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE564252B8E525C002562F3 /* AuthCoordinator.swift */; };
 		7FE564282B8E5285002562F3 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE564272B8E5285002562F3 /* AppCoordinator.swift */; };
-		7FE5642B2B8E5BA2002562F3 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE5642A2B8E5BA2002562F3 /* AuthorizationViewController.swift */; };
-		7FE5642D2B8E5C1E002562F3 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE5642C2B8E5C1E002562F3 /* AuthPresenter.swift */; };
 		7FE5642F2B8F011C002562F3 /* RecipeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE5642E2B8F011C002562F3 /* RecipeCoordinator.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,10 +71,7 @@
 		7FE563EC2B8E12A1002562F3 /* ProfileBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBuilder.swift; sourceTree = "<group>"; };
 		7FE563EE2B8E2E8C002562F3 /* DetentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetentsViewController.swift; sourceTree = "<group>"; };
 		7FE564232B8E5239002562F3 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
-		7FE564252B8E525C002562F3 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		7FE564272B8E5285002562F3 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		7FE5642A2B8E5BA2002562F3 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
-		7FE5642C2B8E5C1E002562F3 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
 		7FE5642E2B8F011C002562F3 /* RecipeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,7 +114,6 @@
 		7FE563802B8CD095002562F3 /* RecipeApp */ = {
 			isa = PBXGroup;
 			children = (
-				7FE564292B8E5B8E002562F3 /* Authorization */,
 				7FE563A92B8D0EE5002562F3 /* Profile */,
 				7FE563A62B8D0ED4002562F3 /* Favorites */,
 				7FE563A32B8D0D8E002562F3 /* Recipes */,
@@ -196,16 +189,6 @@
 				7FE563B82B8DBC95002562F3 /* RecipeAppTests.swift */,
 			);
 			path = RecipeAppTests;
-			sourceTree = "<group>";
-		};
-		7FE564292B8E5B8E002562F3 /* Authorization */ = {
-			isa = PBXGroup;
-			children = (
-				7FE564252B8E525C002562F3 /* AuthCoordinator.swift */,
-				7FE5642A2B8E5BA2002562F3 /* AuthorizationViewController.swift */,
-				7FE5642C2B8E5C1E002562F3 /* AuthPresenter.swift */,
-			);
-			path = Authorization;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,7 +335,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FE5642B2B8E5BA2002562F3 /* AuthorizationViewController.swift in Sources */,
 				7FE563AD2B8D1BCE002562F3 /* RecipesPresenter.swift in Sources */,
 				7FE564242B8E5239002562F3 /* BaseCoordinator.swift in Sources */,
 				7FE5642F2B8F011C002562F3 /* RecipeCoordinator.swift in Sources */,
@@ -368,8 +350,6 @@
 				7FE563A02B8D0998002562F3 /* TabBarViewController.swift in Sources */,
 				7FE564282B8E5285002562F3 /* AppCoordinator.swift in Sources */,
 				7FE563C32B8DE487002562F3 /* HeaderView.swift in Sources */,
-				7FE564262B8E525C002562F3 /* AuthCoordinator.swift in Sources */,
-				7FE5642D2B8E5C1E002562F3 /* AuthPresenter.swift in Sources */,
 				7FE563822B8CD095002562F3 /* AppDelegate.swift in Sources */,
 				7FE563A82B8D0EDF002562F3 /* FavoritesViewController.swift in Sources */,
 				7FE563AF2B8D23F5002562F3 /* RecipesBuilder.swift in Sources */,
