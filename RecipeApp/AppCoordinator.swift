@@ -32,11 +32,11 @@ final class AppCoordinator: BaseCoordinator {
 
     private func toMain() {
         tabBarViewController = TabBarViewController()
-        
-        //recipe
+
+        // recipe
         let recipeModuleView = RecipesBuilder.createRecipe()
         let recipeCoordinator = RecipeCoordinator(rootController: recipeModuleView)
-        recipeModuleView.presenter?.coordinator = recipeCoordinator
+//        recipeModuleView.presenter?.coordinator = recipeCoordinator
     }
 
     private func toAuth() {

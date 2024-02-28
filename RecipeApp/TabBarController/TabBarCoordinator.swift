@@ -16,7 +16,7 @@ final class TabBarCoordinator: Coordinator {
         let vc = TabBarViewController()
         vc.setViewControllers(
             [
-                RecipesBuilder.createRecipe(coordinator: self),
+                RecipesBuilder.createRecipe(),
                 createFavorites(),
                 ProfileBuilder.createProfile(coordinator: self)
             ],
