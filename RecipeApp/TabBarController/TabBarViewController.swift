@@ -4,15 +4,4 @@
 import UIKit
 
 /// Вьюконтроллер для таб бара
-final class TabBarViewController: UITabBarController {
-    // MARK: - Properties
-
-//    weak var coordinator: TabBarCoordinator?
-
-    // MARK: - Lifecycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print("")
-    }
-}
+final class TabBarViewController: UITabBarController {}

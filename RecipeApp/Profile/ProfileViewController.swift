@@ -51,6 +51,8 @@ final class ProfileViewController: UIViewController, ProfileView {
     private func setupUI() {
         view.backgroundColor = .white
         view.addSubview(tableView)
+        title = "Profile"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     private func setupConstraints() {}

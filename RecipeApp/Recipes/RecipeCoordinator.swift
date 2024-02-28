@@ -15,4 +15,9 @@ final class RecipeCoordinator: BaseCoordinator {
     func setRootController(viewController: UIViewController) {
         rootController = UINavigationController(rootViewController: viewController)
     }
+
+    func openCategory() {
+        let vc = CategoryViewController()
+        rootController?.pushViewController(vc, animated: true)
+    }
 }
