@@ -4,7 +4,7 @@
 import UIKit
 
 /// Создание презентора для реализации mvp
-class AuthorizationPresenter {
+final class AuthorizationPresenter {
     weak var viewController: AuthorizationViewController?
 
     init(viewController: AuthorizationViewController) {

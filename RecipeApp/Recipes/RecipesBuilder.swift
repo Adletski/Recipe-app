@@ -3,6 +3,7 @@
 
 import UIKit
 
+/// Билд для модуля рецептов
 final class RecipesBuilder {
     static func createRecipe() -> RecipesViewController {
         let viewController = RecipesViewController()

@@ -3,14 +3,19 @@
 
 import UIKit
 
+/// Протокол для вью
 protocol ProfileView: AnyObject {
     func updateView(model: ProfileModel)
 }
 
+/// Экран для профиля
 final class ProfileViewController: UIViewController, ProfileView {
-    var presenter: ProfilePresenter?
+    // MARK: - Properties
 
+    var presenter: ProfilePresenter?
     private var activities = ["bonuses", "terms & privacy policy", "log out"]
+
+    // MARK: - Visual Components
 
     private lazy var tableHeaderView: HeaderView = {
         let view = HeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 240))
@@ -32,6 +37,8 @@ final class ProfileViewController: UIViewController, ProfileView {
         return tableView
     }()
 
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -39,12 +46,16 @@ final class ProfileViewController: UIViewController, ProfileView {
         presenter?.viewDidLoad()
     }
 
+    // MARK: - Private methods
+
     private func setupUI() {
         view.backgroundColor = .white
         view.addSubview(tableView)
     }
 
     private func setupConstraints() {}
+
+    // MARK: - Public methods
 
     func updateView(model: ProfileModel) {
         activities = model.categories

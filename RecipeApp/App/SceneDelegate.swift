@@ -3,9 +3,14 @@
 
 import UIKit
 
+/// Сцена
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    // MARK: - Properties
+
     var window: UIWindow?
     var appCoordinator: AppCoordinator?
+
+    // MARK: - Public methods
 
     func scene(
         _ scene: UIScene,

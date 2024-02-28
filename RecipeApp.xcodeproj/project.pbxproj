@@ -12,7 +12,6 @@
 		7FE563892B8CD095002562F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FE563872B8CD095002562F3 /* Main.storyboard */; };
 		7FE5638B2B8CD097002562F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5638A2B8CD097002562F3 /* Assets.xcassets */; };
 		7FE5638E2B8CD097002562F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5638C2B8CD097002562F3 /* LaunchScreen.storyboard */; };
-		7FE563982B8CF62A002562F3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE563972B8CF62A002562F3 /* Coordinator.swift */; };
 		7FE563A02B8D0998002562F3 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE5639F2B8D0998002562F3 /* TabBarViewController.swift */; };
 		7FE563A22B8D09B6002562F3 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE563A12B8D09B6002562F3 /* TabBarCoordinator.swift */; };
 		7FE563A52B8D0DA2002562F3 /* RecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE563A42B8D0DA2002562F3 /* RecipesViewController.swift */; };
@@ -55,7 +54,6 @@
 		7FE5638A2B8CD097002562F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7FE5638D2B8CD097002562F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7FE5638F2B8CD097002562F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7FE563972B8CF62A002562F3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		7FE5639F2B8D0998002562F3 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		7FE563A12B8D09B6002562F3 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		7FE563A42B8D0DA2002562F3 /* RecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesViewController.swift; sourceTree = "<group>"; };
@@ -135,7 +133,6 @@
 		7FE5639D2B8D0964002562F3 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				7FE563972B8CF62A002562F3 /* Coordinator.swift */,
 				7FE563832B8CD095002562F3 /* SceneDelegate.swift */,
 				7FE563812B8CD095002562F3 /* AppDelegate.swift */,
 				7FE563872B8CD095002562F3 /* Main.storyboard */,
@@ -358,7 +355,6 @@
 				7FE5642F2B8F011C002562F3 /* RecipeCoordinator.swift in Sources */,
 				7FE563ED2B8E12A1002562F3 /* ProfileBuilder.swift in Sources */,
 				7FE563A52B8D0DA2002562F3 /* RecipesViewController.swift in Sources */,
-				7FE563982B8CF62A002562F3 /* Coordinator.swift in Sources */,
 				7FE563A22B8D09B6002562F3 /* TabBarCoordinator.swift in Sources */,
 				7FE563EB2B8E1018002562F3 /* ProfileModel.swift in Sources */,
 				7FE563C12B8DC5D2002562F3 /* RecipeModel.swift in Sources */,

@@ -3,8 +3,9 @@
 
 import UIKit
 
+/// Билд для профиля модуля
 final class ProfileBuilder {
-    static func createProfile(coordinator: Coordinator) -> UIViewController {
+    static func createProfile() -> UIViewController {
         let viewController = ProfileViewController()
         viewController.tabBarItem = UITabBarItem(
             title: "Profile",
@@ -12,7 +13,6 @@ final class ProfileBuilder {
             selectedImage: UIImage(named: "profileFilled")
         )
         viewController.presenter = ProfilePresenterImpl()
-        viewController.presenter?.coordinator = coordinator
         viewController.presenter?.view = viewController
         return viewController
     }

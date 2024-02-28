@@ -3,12 +3,18 @@
 
 import UIKit
 
+/// Протокол делегата для передачи данных
 protocol HeaderViewDelegate: AnyObject {
     func editButtonDidPress()
 }
 
+/// Вью хедера для таблицы
 final class HeaderView: UIView {
+    // MARK: - Properties
+
     weak var delegate: HeaderViewDelegate?
+
+    // MARK: - Visual Components
 
     let avatarImageView: UIImageView = {
         let imageView = UIImageView()
@@ -34,6 +40,8 @@ final class HeaderView: UIView {
         return button
     }()
 
+    // MARK: - Initializer
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -43,6 +51,8 @@ final class HeaderView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Private properties
 
     private func setupUI() {
         addSubview(avatarImageView)
@@ -65,7 +75,6 @@ final class HeaderView: UIView {
     }
 
     @objc func editButtonPressed() {
-        print("edit")
         delegate?.editButtonDidPress()
     }
 }

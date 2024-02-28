@@ -3,12 +3,14 @@
 
 import Foundation
 
+/// Протокол для презентера рецептов
 protocol RecipesPresenter {
     var view: RecipesView! { get set }
-    var coordinator: Coordinator! { get set }
 }
 
+/// Презентер для рецептов
 final class RecipesPresenterImpl: RecipesPresenter {
-    weak var coordinator: Coordinator!
+    // MARK: - Properties
+
     weak var view: RecipesView!
 }

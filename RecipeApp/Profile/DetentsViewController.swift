@@ -3,7 +3,10 @@
 
 import UIKit
 
+/// Экран для всплывающего экрана с бонусами
 final class DetentsViewController: UIViewController {
+    // MARK: - Visual Components
+
     private let xmarkImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "xmark")
@@ -50,6 +53,8 @@ final class DetentsViewController: UIViewController {
         stackView.spacing = 10
         return stackView
     }()
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -3,7 +3,7 @@
 
 import Foundation
 
-///
+/// Структура модели профиля
 struct ProfileModel {
     let name: String
     let surname: String

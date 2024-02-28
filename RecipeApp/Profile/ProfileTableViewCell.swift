@@ -3,8 +3,13 @@
 
 import UIKit
 
+/// Ячейка для таблицы профиля
 final class ProfileTableViewCell: UITableViewCell {
+    // MARK: - Properties
+
     static let identifier = "ProfileTableViewCell"
+
+    // MARK: - Visual Components
 
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
@@ -32,6 +37,8 @@ final class ProfileTableViewCell: UITableViewCell {
         return button
     }()
 
+    // MARK: - Initializer
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -41,6 +48,8 @@ final class ProfileTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Private methods
 
     private func setupUI() {
         contentView.addSubview(iconImageView)
@@ -61,6 +70,8 @@ final class ProfileTableViewCell: UITableViewCell {
             chevronButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
     }
+
+    // MARK: - Public methods
 
     func configure(_ text: String) {
         nameLabel.text = text

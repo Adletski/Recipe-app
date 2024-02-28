@@ -4,13 +4,20 @@
 import Foundation
 import UIKit
 
-final class TabBarCoordinator: Coordinator {
-    var childCoordinators: [Coordinator] = []
+/// Координатор для таб бара
+final class TabBarCoordinator {
+    // MARK: - Properties
+
+//    var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
+
+    // MARK: - Initializer
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
+
+    // MARK: - Public methods
 
     func start() {
         let vc = TabBarViewController()
@@ -18,13 +25,15 @@ final class TabBarCoordinator: Coordinator {
             [
                 RecipesBuilder.createRecipe(),
                 createFavorites(),
-                ProfileBuilder.createProfile(coordinator: self)
+                ProfileBuilder.createProfile()
             ],
             animated: true
         )
         navigationController.pushViewController(vc, animated: true)
     }
 }
+
+// MARK: - TabBarCoordinator extension
 
 extension TabBarCoordinator {
     func createFavorites() -> FavoritesViewController {

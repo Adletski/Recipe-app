@@ -3,10 +3,7 @@
 
 import Foundation
 
-final class RecipeModel {
+/// Модель для рецептов
+struct RecipeModel {
     let title: String
-
-    init(title: String) {
-        self.title = title
-    }
 }

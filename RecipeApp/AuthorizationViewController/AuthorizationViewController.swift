@@ -4,7 +4,7 @@
 import UIKit
 
 /// Создание экрана авторизации
-class AuthorizationViewController: UIViewController {
+final class AuthorizationViewController: UIViewController {
     // MARK: - Properties
 
     /// Презентер для авторизации
@@ -13,7 +13,7 @@ class AuthorizationViewController: UIViewController {
     // MARK: - Visual Components
 
     /// Лейбл для текста "Login"
-    let labelLogin: UILabel = {
+    private let labelLogin: UILabel = {
         let label = UILabel()
         label.text = "Login"
         label.font = UIFont(name: "Verdana-Bold", size: 28)
@@ -23,7 +23,7 @@ class AuthorizationViewController: UIViewController {
     }()
 
     /// Лейбл для текста "Email Address"
-    let emailLabel: UILabel = {
+    private let emailLabel: UILabel = {
         let label = UILabel()
         label.text = "Email Address"
         label.font = UIFont(name: "Verdana-Bold", size: 16)
@@ -33,7 +33,7 @@ class AuthorizationViewController: UIViewController {
     }()
 
     /// Текстовое поле для ввода адреса электронной почты
-    lazy var emailTextField: UITextField = {
+    private lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter Email Address"
         textField.borderStyle = .roundedRect
@@ -47,7 +47,7 @@ class AuthorizationViewController: UIViewController {
     }()
 
     /// Лейбл для текста "Password"
-    let passwordLabel: UILabel = {
+    private let passwordLabel: UILabel = {
         let label = UILabel()
         label.text = "Password"
         label.font = UIFont(name: "Verdana-Bold", size: 16)
@@ -57,7 +57,7 @@ class AuthorizationViewController: UIViewController {
     }()
 
     /// Текстовое поле для ввода пароля
-    lazy var passwordTextField: UITextField = {
+    private lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter Password"
         textField.borderStyle = .roundedRect
@@ -72,7 +72,7 @@ class AuthorizationViewController: UIViewController {
     }()
 
     /// Кнопка для входа
-    lazy var loginButton: UIButton = {
+    private lazy var loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("Login", for: .normal)
         button.backgroundColor = UIColor(named: "buttonColor")
@@ -84,7 +84,7 @@ class AuthorizationViewController: UIViewController {
     }()
 
     /// предупрежденеи для почты
-    let warningEmailLabel: UILabel = {
+    private let warningEmailLabel: UILabel = {
         let label = UILabel()
         label.text = "You entered the wrong password"
         label.textColor = .red
@@ -95,7 +95,7 @@ class AuthorizationViewController: UIViewController {
     }()
 
     /// предупреждение для пароля
-    let warningPassLabel: UILabel = {
+    private let warningPassLabel: UILabel = {
         let label = UILabel()
         label.text = "Incorrect format"
         label.textColor = .red
@@ -106,7 +106,7 @@ class AuthorizationViewController: UIViewController {
     }()
 
     /// дополнительная вью (плашка)
-    let errorView: UIView = {
+    private let errorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(named: "plashkaColor")
         view.layer.cornerRadius = 12
@@ -115,7 +115,7 @@ class AuthorizationViewController: UIViewController {
     }()
 
     /// текст для плашки
-    let errorMessageLabel: UILabel = {
+    private let errorMessageLabel: UILabel = {
         let label = UILabel()
         label.text = "Please check the accuracy of the entered credentials."
         label.textColor = .white
@@ -126,7 +126,7 @@ class AuthorizationViewController: UIViewController {
     }()
 
     /// кнопка  видимости пароля
-    lazy var passwordVisibilityButton: UIButton = {
+    private lazy var passwordVisibilityButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(systemName: "eye.slash"), for: .normal)
         button.tintColor = .gray
@@ -147,7 +147,7 @@ class AuthorizationViewController: UIViewController {
     // MARK: - Private Methods
 
     /// добавление всех UI компонентов на экран
-    func setupUI() {
+    private func setupUI() {
         view.addSubview(labelLogin)
         view.addSubview(emailLabel)
         view.addSubview(emailTextField)
@@ -161,7 +161,7 @@ class AuthorizationViewController: UIViewController {
     }
 
     /// Установка всех ограничений для UI компонентов
-    func setupConstraints() {
+    private func setupConstraints() {
         makeLabelLoginConstraints()
         makeEmailLabelConstraints()
         makeEmailTextFieldConstraints()
@@ -232,7 +232,7 @@ class AuthorizationViewController: UIViewController {
     }
 
     /// обработчик нажатия кнопки логин
-    @objc func loginButtonTapped() {
+    @objc private func loginButtonTapped() {
         /// скрытие текста кнопки
         loginButton.setTitle("", for: .normal)
 
@@ -273,7 +273,6 @@ class AuthorizationViewController: UIViewController {
 /// Расширение для управления текстовыми полями
 extension AuthorizationViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        print(textField.text)
         if textField == emailTextField {
             presenter?.validateEmail(email: textField.text ?? "")
         } else if textField == passwordTextField {
@@ -329,7 +328,7 @@ extension AuthorizationViewController {
 
 extension AuthorizationViewController {
     /// Установка ограничений для лейбла "Login"
-    func makeLabelLoginConstraints() {
+    private func makeLabelLoginConstraints() {
         labelLogin.translatesAutoresizingMaskIntoConstraints = false
         labelLogin.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         labelLogin.topAnchor.constraint(equalTo: view.topAnchor, constant: 86).isActive = true
@@ -338,7 +337,7 @@ extension AuthorizationViewController {
     }
 
     /// Установка ограничений для лейбла "Email Address"
-    func makeEmailLabelConstraints() {
+    private func makeEmailLabelConstraints() {
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
         emailLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         emailLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 137).isActive = true
@@ -347,7 +346,7 @@ extension AuthorizationViewController {
     }
 
     /// Установка ограничений для текстового поля для ввода адреса электронной почты
-    func makeEmailTextFieldConstraints() {
+    private func makeEmailTextFieldConstraints() {
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         emailTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         emailTextField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 7).isActive = true
@@ -356,7 +355,7 @@ extension AuthorizationViewController {
     }
 
     /// Установка ограничений для лейбла "Password"
-    func makePasswordLabelConstraints() {
+    private func makePasswordLabelConstraints() {
         passwordLabel.translatesAutoresizingMaskIntoConstraints = false
         passwordLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         passwordLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 248).isActive = true
@@ -365,7 +364,7 @@ extension AuthorizationViewController {
     }
 
     /// Установка ограничений для текстового поля для ввода пароля
-    func makePasswordTextFieldConstraints() {
+    private func makePasswordTextFieldConstraints() {
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         passwordTextField.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 7).isActive = true
@@ -377,7 +376,7 @@ extension AuthorizationViewController {
     }
 
     /// Установка ограничений для кнопки Login
-    func makeLoginButtonConstraints() {
+    private func makeLoginButtonConstraints() {
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         loginButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 732).isActive = true
@@ -386,21 +385,21 @@ extension AuthorizationViewController {
     }
 
     /// установка ограничений для предупреждения почты
-    func makeWarbibgLabelConstraints() {
+    private func makeWarbibgLabelConstraints() {
         warningEmailLabel.translatesAutoresizingMaskIntoConstraints = false
         warningEmailLabel.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 8).isActive = true
         warningEmailLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
     }
 
     /// установка ограничений для предупреждения пароля
-    func makeWarningLabelPassConstraints() {
+    private func makeWarningLabelPassConstraints() {
         warningPassLabel.translatesAutoresizingMaskIntoConstraints = false
         warningPassLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 8).isActive = true
         warningPassLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
     }
 
     /// ограничения для всплывающей плашки error
-    func makeErrorViewConstraint() {
+    private func makeErrorViewConstraint() {
         errorView.translatesAutoresizingMaskIntoConstraints = false
         errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         errorView.topAnchor.constraint(equalTo: view.topAnchor, constant: 674).isActive = true
@@ -409,7 +408,7 @@ extension AuthorizationViewController {
     }
 
     /// Ограничения для текта внутри плашки
-    func makeErrorMessageLabel() {
+    private func makeErrorMessageLabel() {
         errorMessageLabel.translatesAutoresizingMaskIntoConstraints = false
         errorMessageLabel.leadingAnchor.constraint(equalTo: errorView.leadingAnchor).isActive = true
         errorMessageLabel.topAnchor.constraint(equalTo: errorView.topAnchor).isActive = true
@@ -418,7 +417,7 @@ extension AuthorizationViewController {
     }
 
     /// настройка панели toolBar для (Ок)
-    func setupInputAccessoryView() {
+    private func setupInputAccessoryView() {
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
         toolBar.barStyle = .default
         toolBar.sizeToFit()
@@ -438,7 +437,7 @@ extension AuthorizationViewController {
     }
 
     /// настройка  градиента фона
-    func setupGradientBackground() {
+    private func setupGradientBackground() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = view.bounds
         gradientLayer.colors = [

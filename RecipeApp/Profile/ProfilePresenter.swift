@@ -3,17 +3,21 @@
 
 import Foundation
 
+/// Протокол для профиля презентера
 protocol ProfilePresenter: AnyObject {
     var view: ProfileView! { get set }
-    var coordinator: Coordinator! { get set }
 
     func viewDidLoad()
     func editButtonDidPress()
 }
 
+/// Презентер профиля
 final class ProfilePresenterImpl: ProfilePresenter {
+    // MARK: - Properties
+
     weak var view: ProfileView!
-    weak var coordinator: Coordinator!
+
+    // MARK: - Public methods
 
     func viewDidLoad() {
         view?.updateView(model: ProfileModel(
