@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E89C5072B909BEA0021D3E1 /* RecipesCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E89C5062B909BE90021D3E1 /* RecipesCustomCell.swift */; };
+		5E89C5092B9102100021D3E1 /* RecipesCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E89C5082B9102100021D3E1 /* RecipesCategories.swift */; };
+		5E89C50B2B9107F60021D3E1 /* DishCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E89C50A2B9107F60021D3E1 /* DishCategory.swift */; };
 		7FE563822B8CD095002562F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE563812B8CD095002562F3 /* AppDelegate.swift */; };
 		7FE563842B8CD095002562F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE563832B8CD095002562F3 /* SceneDelegate.swift */; };
 		7FE563892B8CD095002562F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FE563872B8CD095002562F3 /* Main.storyboard */; };
@@ -45,6 +48,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5E89C5062B909BE90021D3E1 /* RecipesCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesCustomCell.swift; sourceTree = "<group>"; };
+		5E89C5082B9102100021D3E1 /* RecipesCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesCategories.swift; sourceTree = "<group>"; };
+		5E89C50A2B9107F60021D3E1 /* DishCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishCategory.swift; sourceTree = "<group>"; };
 		7FE5637E2B8CD095002562F3 /* RecipeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FE563812B8CD095002562F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7FE563832B8CD095002562F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -149,9 +155,12 @@
 			isa = PBXGroup;
 			children = (
 				7FE563A42B8D0DA2002562F3 /* RecipesViewController.swift */,
+				5E89C5082B9102100021D3E1 /* RecipesCategories.swift */,
+				5E89C5062B909BE90021D3E1 /* RecipesCustomCell.swift */,
 				7FE563AC2B8D1BCE002562F3 /* RecipesPresenter.swift */,
-				7FE563AE2B8D23F5002562F3 /* RecipesBuilder.swift */,
 				7FE563C02B8DC5D2002562F3 /* RecipeModel.swift */,
+				5E89C50A2B9107F60021D3E1 /* DishCategory.swift */,
+				7FE563AE2B8D23F5002562F3 /* RecipesBuilder.swift */,
 				7FE5642E2B8F011C002562F3 /* RecipeCoordinator.swift */,
 			);
 			path = Recipes;
@@ -330,6 +339,7 @@
 				7FE564792B8F2871002562F3 /* AuthorizationViewController.swift in Sources */,
 				7FE563AD2B8D1BCE002562F3 /* RecipesPresenter.swift in Sources */,
 				7FE564242B8E5239002562F3 /* BaseCoordinator.swift in Sources */,
+				5E89C5092B9102100021D3E1 /* RecipesCategories.swift in Sources */,
 				7FE5642F2B8F011C002562F3 /* RecipeCoordinator.swift in Sources */,
 				7FE563ED2B8E12A1002562F3 /* ProfileBuilder.swift in Sources */,
 				7FE563A52B8D0DA2002562F3 /* RecipesViewController.swift in Sources */,
@@ -342,10 +352,12 @@
 				7FE563A02B8D0998002562F3 /* TabBarViewController.swift in Sources */,
 				7FE564282B8E5285002562F3 /* AppCoordinator.swift in Sources */,
 				7FE563C32B8DE487002562F3 /* HeaderView.swift in Sources */,
+				5E89C5072B909BEA0021D3E1 /* RecipesCustomCell.swift in Sources */,
 				7FE5647A2B8F2871002562F3 /* AuthorizationModel.swift in Sources */,
 				7FE564782B8F2871002562F3 /* AuthorizationPresenter.swift in Sources */,
 				7FE563822B8CD095002562F3 /* AppDelegate.swift in Sources */,
 				7FE564842B8F628B002562F3 /* AuthorizationCoordinator.swift in Sources */,
+				5E89C50B2B9107F60021D3E1 /* DishCategory.swift in Sources */,
 				7FE563AF2B8D23F5002562F3 /* RecipesBuilder.swift in Sources */,
 				7FE563EF2B8E2E8C002562F3 /* DetentsViewController.swift in Sources */,
 				7FE563842B8CD095002562F3 /* SceneDelegate.swift in Sources */,
@@ -523,6 +535,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -551,6 +564,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
