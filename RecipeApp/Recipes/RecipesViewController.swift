@@ -35,7 +35,5 @@ final class RecipesViewController: UIViewController, RecipesView {
         ])
     }
 
-    @objc func buttonPressed() {
-        presenter?.buttonPressed()
-    }
+    @objc func buttonPressed() {}
 }

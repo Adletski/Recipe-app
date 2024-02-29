@@ -7,8 +7,6 @@ import Foundation
 protocol RecipesPresenterProtocol {
     /// инъекция зависимостей
     init(view: RecipesView, coordinator: RecipeCoordinator)
-    /// нажатие кнопки
-    func buttonPressed()
 }
 
 /// Презентер для рецептов
@@ -23,9 +21,5 @@ final class RecipesPresenterImpl: RecipesPresenterProtocol {
     init(view: RecipesView, coordinator: RecipeCoordinator) {
         recipeCoordinator = coordinator
         self.view = view
-    }
-
-    func buttonPressed() {
-        recipeCoordinator?.openCategory()
     }
 }
