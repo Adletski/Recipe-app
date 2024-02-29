@@ -22,20 +22,16 @@ final class AppCoordinator: BaseCoordinator {
         let recipeCoordinator = RecipeCoordinator()
         let recipeModuleView = RecipesBuilder.createRecipe(coordinator: recipeCoordinator)
         recipeCoordinator.setRootController(viewController: recipeModuleView)
-        recipeModuleView.title = "Recipes"
-        recipeModuleView.navigationController?.navigationBar.prefersLargeTitles = true
         add(coordinator: recipeCoordinator)
 
         // profile
         let profileCoordinator = ProfileCoordinator()
         let profileModuleView = ProfileBuilder.createProfile(coordinator: profileCoordinator)
         profileCoordinator.setupRootController(viewController: profileModuleView)
-        profileModuleView.title = "Profile"
-        profileModuleView.navigationController?.navigationBar.prefersLargeTitles = true
         add(coordinator: profileCoordinator)
 
-        guard let recipeRootController = recipeCoordinator.rootController else { return }
-        guard let profileRootController = profileCoordinator.rootController else { return }
+        guard let recipeRootController = recipeCoordinator.rootController,
+              let profileRootController = profileCoordinator.rootController else { return }
 
         tabBarViewController?.setViewControllers([
             recipeRootController,

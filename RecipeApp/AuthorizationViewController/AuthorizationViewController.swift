@@ -3,132 +3,149 @@
 
 import UIKit
 
-protocol AuthorizationView: AnyObject {
+/// Перечисление для валидации пароля
+enum ValidationState {
+    case notValid
+    case `default`
+}
+
+/// Протокол для авторизации
+protocol AuthorizationViewProtocol: AnyObject {
     /// метод отработки появление плашки для презентора
     func updateLoginButton(result: Bool)
     /// Обновление визуала для адреса электронной почты на основе результата валидации
-    func updateValidationEmail(result: String)
+    func updateValidationEmail(result: ValidationState)
     /// Обновление визуала для пароля на основе результата валидации
-    func updateValidationPassword(result: String)
+    func updateValidationPassword(result: ValidationState)
     /// метод отработки скрытие пароля для презентора
-    func updatePasswordVisibilityButton(result: Bool)
+    func updatePasswordVisibilityButton()
 }
 
 /// Создание экрана авторизации
-final class AuthorizationViewController: UIViewController, AuthorizationView {
-    // MARK: - Properties
+final class AuthorizationViewController: UIViewController, AuthorizationViewProtocol {
+    enum Constant {
+        static let login = "Login"
+        static let verdana = "Verdana-Bold"
+        static let email = "Email Address"
+        static let loginColor = "loginColor"
+        static let emailPlaceholder = "Enter Email Address"
+        static let letterImage = "letterImage"
+        static let password = "Password"
+        static let passwordPlaceholder = "Enter Password"
+        static let lockImage = "lockImage"
+        static let buttonColor = "buttonColor"
+        static let verdanaGeneral = "Verdana"
+        static let warningEmail = "You entered the wrong password"
+        static let warningPassword = "Incorrect format"
+        static let errorViewColor = "plashkaColor"
+        static let errorMessage = "Please check the accuracy of the entered credentials."
+        static let eyeSlash = "eye.slash"
+        static let ok = "Ok"
+    }
+
+    // MARK: - Public properties
 
     /// Презентер для авторизации
-    var presenter: AuthorizationPresenter?
+    var presenter: AutorizationPresenterProtocol?
 
     // MARK: - Visual Components
 
-    /// Лейбл для текста "Login"
     private let labelLogin: UILabel = {
         let label = UILabel()
-        label.text = "Login"
-        label.font = UIFont(name: "Verdana-Bold", size: 28)
-        label.textColor = UIColor(named: "loginColor")
+        label.text = Constant.login
+        label.font = UIFont(name: Constant.verdana, size: 28)
+        label.textColor = UIColor(named: Constant.loginColor)
         label.textAlignment = .left
         return label
     }()
 
-    /// Лейбл для текста "Email Address"
     private let emailLabel: UILabel = {
         let label = UILabel()
-        label.text = "Email Address"
-        label.font = UIFont(name: "Verdana-Bold", size: 16)
-        label.textColor = UIColor(named: "loginColor")
+        label.text = Constant.email
+        label.font = UIFont(name: Constant.verdana, size: 16)
+        label.textColor = UIColor(named: Constant.loginColor)
         label.textAlignment = .left
         return label
     }()
 
-    /// Текстовое поле для ввода адреса электронной почты
     private lazy var emailTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Enter Email Address"
+        textField.placeholder = Constant.emailPlaceholder
         textField.borderStyle = .roundedRect
         textField.delegate = self
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "letterImage")
+        imageView.image = UIImage(named: Constant.letterImage)
         imageView.contentMode = .scaleAspectFit
         textField.leftView = imageView
         textField.leftViewMode = .always
         return textField
     }()
 
-    /// Лейбл для текста "Password"
     private let passwordLabel: UILabel = {
         let label = UILabel()
-        label.text = "Password"
-        label.font = UIFont(name: "Verdana-Bold", size: 16)
-        label.textColor = UIColor(named: "loginColor")
+        label.text = Constant.password
+        label.font = UIFont(name: Constant.verdana, size: 16)
+        label.textColor = UIColor(named: Constant.loginColor)
         label.textAlignment = .left
         return label
     }()
 
-    /// Текстовое поле для ввода пароля
     private lazy var passwordTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Enter Password"
+        textField.placeholder = Constant.passwordPlaceholder
         textField.borderStyle = .roundedRect
         textField.isSecureTextEntry = true
         textField.delegate = self
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "lockImage")
+        imageView.image = UIImage(named: Constant.lockImage)
         imageView.contentMode = .scaleAspectFit
         textField.leftView = imageView
         textField.leftViewMode = .always
         return textField
     }()
 
-    /// Кнопка для входа
     private lazy var loginButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Login", for: .normal)
-        button.backgroundColor = UIColor(named: "buttonColor")
-        button.titleLabel?.font = UIFont(name: "Verdana", size: 16)
+        button.setTitle(Constant.login, for: .normal)
+        button.backgroundColor = UIColor(named: Constant.buttonColor)
+        button.titleLabel?.font = UIFont(name: Constant.verdanaGeneral, size: 16)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 12
         button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         return button
     }()
 
-    /// предупрежденеи для почты
     private let warningEmailLabel: UILabel = {
         let label = UILabel()
-        label.text = "You entered the wrong password"
+        label.text = Constant.warningEmail
         label.textColor = .red
         label.textAlignment = .left
-        label.font = UIFont(name: "Verdana", size: 12)
+        label.font = UIFont(name: Constant.verdanaGeneral, size: 12)
         label.isHidden = true
         return label
     }()
 
-    /// предупреждение для пароля
     private let warningPassLabel: UILabel = {
         let label = UILabel()
-        label.text = "Incorrect format"
+        label.text = Constant.warningPassword
         label.textColor = .red
         label.textAlignment = .left
-        label.font = UIFont(name: "Verdana", size: 12)
+        label.font = UIFont(name: Constant.verdanaGeneral, size: 12)
         label.isHidden = true
         return label
     }()
 
-    /// дополнительная вью (плашка)
     private let errorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(named: "plashkaColor")
+        view.backgroundColor = UIColor(named: Constant.errorViewColor)
         view.layer.cornerRadius = 12
         view.isHidden = true
         return view
     }()
 
-    /// текст для плашки
     private let errorMessageLabel: UILabel = {
         let label = UILabel()
-        label.text = "Please check the accuracy of the entered credentials."
+        label.text = Constant.errorMessage
         label.textColor = .white
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -136,10 +153,9 @@ final class AuthorizationViewController: UIViewController, AuthorizationView {
         return label
     }()
 
-    /// кнопка  видимости пароля
     private lazy var passwordVisibilityButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        button.setImage(UIImage(systemName: Constant.eyeSlash), for: .normal)
         button.tintColor = .gray
         button.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
         return button
@@ -186,21 +202,19 @@ final class AuthorizationViewController: UIViewController, AuthorizationView {
         setupInputAccessoryView()
     }
 
+    // MARK: - Public Methods
+
     /// Обновление визуала для адреса электронной почты на основе результата валидации
-    func updateValidationEmail(result: String) {
-        if result == "isEmpty" {
-            emailTextField.layer.borderColor = UIColor.clear.cgColor
-            emailTextField.layer.borderWidth = 0.0
-            emailLabel.textColor = UIColor(named: "loginColor")
-            warningEmailLabel.isHidden = true
-        } else if result == "noEmail" {
+    func updateValidationEmail(result: ValidationState) {
+        switch result {
+        case .notValid:
             emailLabel.textColor = .red
             emailTextField.layer.borderColor = UIColor.red.cgColor
             emailTextField.layer.borderWidth = 1.0
             emailTextField.layer.cornerRadius = 8
             warningEmailLabel.isHidden = false
-        } else {
-            emailLabel.textColor = UIColor(named: "loginColor")
+        case .default:
+            emailLabel.textColor = UIColor(named: Constant.loginColor)
             emailTextField.layer.borderColor = UIColor.clear.cgColor
             emailTextField.layer.borderWidth = 0.0
             warningEmailLabel.isHidden = true
@@ -208,64 +222,25 @@ final class AuthorizationViewController: UIViewController, AuthorizationView {
     }
 
     /// Обновление визуала для пароля на основе результата валидации
-    func updateValidationPassword(result: String) {
-        if result == "isEmpty" {
-            passwordTextField.layer.borderColor = UIColor.clear.cgColor
-            passwordTextField.layer.borderWidth = 0.0
-            passwordLabel.textColor = UIColor(named: "loginColor")
-            warningPassLabel.isHidden = true
-        } else if result == "noPass" {
+    func updateValidationPassword(result: ValidationState) {
+        switch result {
+        case .notValid:
             passwordLabel.textColor = .red
             passwordTextField.layer.borderColor = UIColor.red.cgColor
             passwordTextField.layer.borderWidth = 1.0
             passwordTextField.layer.cornerRadius = 8
             warningPassLabel.isHidden = false
-        } else {
-            passwordLabel.textColor = UIColor(named: "loginColor")
+        case .default:
+            passwordLabel.textColor = UIColor(named: Constant.loginColor)
             passwordTextField.layer.borderColor = UIColor.clear.cgColor
             passwordTextField.layer.borderWidth = 0.0
             warningPassLabel.isHidden = true
         }
     }
 
-    /// Обработчик нажатия кнопки видимости пароля
-    @objc private func togglePasswordVisibility() {
-        presenter?.createPasswordVisibilityButton(tapped: passwordTextField.isSecureTextEntry.self)
-    }
-
     /// метод отработки скрытие пароля для презентора
-    func updatePasswordVisibilityButton(result: Bool) {
-        if result == true {
-            passwordTextField.isSecureTextEntry.toggle()
-        } else {
-            passwordTextField.isSecureTextEntry.toggle()
-        }
-    }
-
-    /// обработчик нажатия кнопки логин
-    @objc private func loginButtonTapped() {
-//        presenter?.openVC()
-        /// скрытие текста кнопки
-        loginButton.setTitle("", for: .normal)
-
-        /// создание и настройка индикатора загрузки
-        let activityIndicator = UIActivityIndicatorView(style: .medium)
-        activityIndicator.color = .white
-        activityIndicator.center = CGPoint(x: loginButton.bounds.midX, y: loginButton.bounds.midY)
-        activityIndicator.startAnimating()
-        loginButton.addSubview(activityIndicator)
-
-        /// таймер на 3 секунды
-        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { _ in
-            /// остановка анимации и скрытие ее
-            activityIndicator.stopAnimating()
-            activityIndicator.removeFromSuperview()
-
-            self.presenter?.loginButtonTapped(
-                login: self.emailTextField.text ?? "",
-                password: self.passwordTextField.text ?? ""
-            )
-        }
+    func updatePasswordVisibilityButton() {
+        passwordTextField.isSecureTextEntry.toggle()
     }
 
     /// метод отработки появление плашки для презентора
@@ -278,29 +253,47 @@ final class AuthorizationViewController: UIViewController, AuthorizationView {
             errorMessageLabel.isHidden = false
         }
     }
-}
 
-// MARK: - ViewController: UITextFieldDelegate
+    // MARK: - Private Methods
 
-/// Расширение для управления текстовыми полями
-extension AuthorizationViewController: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == emailTextField {
-            presenter?.validateEmail(email: textField.text ?? "")
-        } else if textField == passwordTextField {
-            presenter?.validatePassword(password: textField.text ?? "")
+    /// Обработчик нажатия кнопки видимости пароля
+    @objc private func togglePasswordVisibility() {
+        presenter?.createPasswordVisibilityButton()
+    }
+
+    /// обработчик нажатия кнопки логин
+    @objc private func loginButtonTapped() {
+        /// скрытие текста кнопки
+        loginButton.setTitle("", for: .normal)
+        startTimer()
+    }
+
+    private func startTimer() {
+        /// создание и настройка индикатора загрузки
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.color = .white
+        activityIndicator.center = CGPoint(x: loginButton.bounds.midX, y: loginButton.bounds.midY)
+        activityIndicator.startAnimating()
+        loginButton.addSubview(activityIndicator)
+
+        /// таймер на 3 секунды
+        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { [weak self] _ in
+            /// остановка анимации и скрытие ее
+            activityIndicator.stopAnimating()
+            activityIndicator.removeFromSuperview()
+
+            self?.presenter?.loginButtonTapped(
+                login: self?.emailTextField.text ?? "",
+                password: self?.passwordTextField.text ?? ""
+            )
         }
     }
 
     @objc private func doneButtonTapped() {
         view.endEditing(true)
     }
-}
 
-// MARK: - Keyboard methods
-
-extension AuthorizationViewController {
-    func setupKeyboard() {
+    private func setupKeyboard() {
         setupInputAccessoryView()
         NotificationCenter.default.addObserver(
             self,
@@ -317,7 +310,7 @@ extension AuthorizationViewController {
     }
 
     /// Обработчик появления клавиатуры
-    @objc func keyboardWillShow(notification: Notification) {
+    @objc private func keyboardWillShow(notification: Notification) {
         guard let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?
             .cgRectValue else { return }
 
@@ -332,9 +325,22 @@ extension AuthorizationViewController {
     }
 
     /// обработчик скрытия клавиатуры
-    @objc func keyboardWillHide(notification: Notification) {
+    @objc private func keyboardWillHide(notification: Notification) {
         UIView.animate(withDuration: 0.3) {
-            self.loginButton.frame.origin.y = self.view.frame.height - 45 - 20
+            self.loginButton.frame.origin.y = self.view.frame.height - 65
+        }
+    }
+}
+
+// MARK: - AuthorizationViewController + UITextFieldDelegate
+
+/// Расширение для управления текстовыми полями
+extension AuthorizationViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == emailTextField {
+            presenter?.validateEmail(email: textField.text ?? "")
+        } else if textField == passwordTextField {
+            presenter?.validatePassword(password: textField.text ?? "")
         }
     }
 }
@@ -440,7 +446,7 @@ extension AuthorizationViewController {
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 
         let doneButton = UIBarButtonItem(
-            title: "Ok",
+            title: Constant.ok,
             style: .done,
             target: self,
             action: #selector(doneButtonTapped)

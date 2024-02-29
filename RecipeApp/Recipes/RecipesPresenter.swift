@@ -4,12 +4,13 @@
 import Foundation
 
 /// Протокол для презентера рецептов
-protocol RecipesPresenter {
+protocol RecipesPresenterProtocol {
+    /// инъекция зависимостей
     init(view: RecipesView, coordinator: RecipeCoordinator)
 }
 
 /// Презентер для рецептов
-final class RecipesPresenterImpl: RecipesPresenter {
+final class RecipesPresenterImpl: RecipesPresenterProtocol {
     // MARK: - Properties
 
     weak var recipeCoordinator: RecipeCoordinator?

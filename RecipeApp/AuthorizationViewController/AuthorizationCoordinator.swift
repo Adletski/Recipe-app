@@ -18,9 +18,8 @@ final class AuthorizationCoordinator: BaseCoordinator {
 
     func showLogin() {
         let authViewController = AuthorizationViewController()
-        let authPresenter = AuthorizationPresenter(view: authViewController)
+        let authPresenter = AuthorizationPresenter(view: authViewController, coordinator: self)
         authViewController.presenter = authPresenter
-        authPresenter.coordinator = self
 
         let rootController = UINavigationController(rootViewController: authViewController)
         setAsRoot(rootController)
