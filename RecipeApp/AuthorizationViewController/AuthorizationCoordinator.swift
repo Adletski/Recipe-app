@@ -13,10 +13,6 @@ final class AuthorizationCoordinator: BaseCoordinator {
     // MARK: - Public methods
 
     override func start() {
-        showLogin()
-    }
-
-    func showLogin() {
         let authViewController = AuthorizationViewController()
         let authPresenter = AuthorizationPresenter(view: authViewController, coordinator: self)
         authViewController.presenter = authPresenter
