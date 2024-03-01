@@ -43,6 +43,7 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
         tableView.register(CategoriesTableViewCell.self, forCellReuseIdentifier: CategoriesTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
 
@@ -78,7 +79,6 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
 
     private func setupUI() {
         view.addSubview(tableView)
-
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
