@@ -5,11 +5,12 @@ import UIKit
 
 /// Ячейка для фильтра
 final class FilterTableViewCell: UITableViewCell {
-    
     // MARK: - Identifier
+
     static let identifier = "FilterTableViewCell"
 
     // MARK: - Visual components
+
     private let caloriesButton: UIButton = {
         let button = UIButton()
         button.setTitle("Calories", for: .normal)
@@ -56,6 +57,7 @@ final class FilterTableViewCell: UITableViewCell {
     }()
 
     // MARK: - Initializer
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -68,6 +70,7 @@ final class FilterTableViewCell: UITableViewCell {
     }
 
     // MARK: - Private methods
+
     private func setupUI() {
         selectionStyle = .none
         caloriesStackViewH.addArrangedSubview(caloriesButton)
@@ -83,7 +86,7 @@ final class FilterTableViewCell: UITableViewCell {
         caloriesImageView.widthAnchor.constraint(equalToConstant: 16).isActive = true
         timeImageView.heightAnchor.constraint(equalToConstant: 16).isActive = true
         timeImageView.widthAnchor.constraint(equalToConstant: 16).isActive = true
-        
+
         caloriesStackViewH.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
         caloriesStackViewH.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         caloriesStackViewH.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
