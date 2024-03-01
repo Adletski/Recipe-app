@@ -10,7 +10,7 @@ protocol RecipesViewPresenterProtocol: AnyObject {
     /// Координатор флоу экрана
     var coordinator: RecipeCoordinator? { get set }
     /// Инициализатор с присвоением вью
-    init(view: RecipesView)
+    init(view: RecipesView, coordinator: RecipeCoordinator)
     /// Получить информацию о категории по номеру
     func getInfo(categoryNumber: Int) -> DishCategory
     /// Получить количество категорий
@@ -27,8 +27,9 @@ final class RecipesPresenter: RecipesViewPresenterProtocol {
 
     // MARK: - Initializers
 
-    required init(view: RecipesView) {
+    required init(view: RecipesView, coordinator: RecipeCoordinator) {
         self.view = view
+        self.coordinator = coordinator
     }
 
     // MARK: - Public Properties
@@ -49,5 +50,9 @@ final class RecipesPresenter: RecipesViewPresenterProtocol {
     }
 
     /// Перейти к выбранной категории
-    func goToCategory(_ category: RecipeCategories) {}
+    func goToCategory(_ category: RecipeCategories) {
+        print("presenter")
+        print(coordinator)
+        coordinator?.showCategory()
+    }
 }
