@@ -5,11 +5,12 @@ import UIKit
 
 /// Ячейка с продуктами для таблицы
 final class CategoriesTableViewCell: UITableViewCell {
-    
     // MARK: - Identifier
+
     static let identifier = "CategoriesTableViewCell"
 
     // MARK: - Visual components
+
     private let wrapView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -88,6 +89,7 @@ final class CategoriesTableViewCell: UITableViewCell {
     }()
 
     // MARK: - Initializer
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -100,6 +102,7 @@ final class CategoriesTableViewCell: UITableViewCell {
     }
 
     // MARK: - Private methods
+
     private func setupUI() {
         selectionStyle = .none
         contentView.addSubview(wrapView)
@@ -156,6 +159,7 @@ final class CategoriesTableViewCell: UITableViewCell {
     }
 
     // MARK: - Pbulic methods
+
     func configure(model: FoodModel) {
         foodImageView.image = UIImage(named: model.image)
         foodLabel.text = model.name

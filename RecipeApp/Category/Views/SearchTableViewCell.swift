@@ -5,11 +5,12 @@ import UIKit
 
 /// Ячейка для текстфилда с поиском
 final class SearchTableViewCell: UITableViewCell {
-    
     // MARK: - Identifier
+
     static let identifier = "SearchTableViewCell"
 
     // MARK: - Visual components
+
     private let searchTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Search recipes"
@@ -22,6 +23,7 @@ final class SearchTableViewCell: UITableViewCell {
     }()
 
     // MARK: - Initializer
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -33,6 +35,7 @@ final class SearchTableViewCell: UITableViewCell {
     }
 
     // MARK: - Private methods
+
     private func setupUI() {
         selectionStyle = .none
         contentView.addSubview(searchTextField)
