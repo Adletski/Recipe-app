@@ -18,6 +18,7 @@
 		7FCDDBFD2B91BC700065E4E5 /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBF52B91BC700065E4E5 /* CategoriesTableViewCell.swift */; };
 		7FCDDBFE2B91BC700065E4E5 /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBF62B91BC700065E4E5 /* FilterTableViewCell.swift */; };
 		7FCDDBFF2B91BC700065E4E5 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBF72B91BC700065E4E5 /* SearchTableViewCell.swift */; };
+		7FCDDC012B9352B80065E4E5 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDC002B9352B80065E4E5 /* Service.swift */; };
 		7FE563822B8CD095002562F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE563812B8CD095002562F3 /* AppDelegate.swift */; };
 		7FE563842B8CD095002562F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE563832B8CD095002562F3 /* SceneDelegate.swift */; };
 		7FE563892B8CD095002562F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FE563872B8CD095002562F3 /* Main.storyboard */; };
@@ -67,6 +68,7 @@
 		7FCDDBF52B91BC700065E4E5 /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
 		7FCDDBF62B91BC700065E4E5 /* FilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
 		7FCDDBF72B91BC700065E4E5 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		7FCDDC002B9352B80065E4E5 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		7FE5637E2B8CD095002562F3 /* RecipeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FE563812B8CD095002562F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7FE563832B8CD095002562F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				7FE5639D2B8D0964002562F3 /* App */,
 				7FE564232B8E5239002562F3 /* BaseCoordinator.swift */,
 				7FE564272B8E5285002562F3 /* AppCoordinator.swift */,
+				7FCDDC002B9352B80065E4E5 /* Service.swift */,
 			);
 			path = RecipeApp;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				7FE563EB2B8E1018002562F3 /* ProfileModel.swift in Sources */,
 				7FE563C12B8DC5D2002562F3 /* RecipeModel.swift in Sources */,
 				7FCDDBFC2B91BC700065E4E5 /* CategoryViewController.swift in Sources */,
+				7FCDDC012B9352B80065E4E5 /* Service.swift in Sources */,
 				7FCDDBFD2B91BC700065E4E5 /* CategoriesTableViewCell.swift in Sources */,
 				7FCDDBFB2B91BC700065E4E5 /* FoodModel.swift in Sources */,
 				7FCDDBFA2B91BC700065E4E5 /* CategoryCoordinator.swift in Sources */,
