@@ -29,6 +29,7 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
         tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.identifier)
@@ -119,6 +120,25 @@ extension CategoryViewController: UITableViewDataSource {
                 cell.configure(model: food)
             }
             return cell
+        }
+    }
+}
+
+// MARK: - CategoryViewController + UITableViewDelegate
+
+extension CategoryViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.section)
+        print(indexPath.row)
+
+        if indexPath.section == 2 {
+            let data = categories[indexPath.row]
+            let recipeDescriptionController = RecipeDescriptionController()
+            // модель рецепта в контроллер с рецептом
+            let selectedRecipe = categories[indexPath.row]
+            recipeDescriptionController.selectedRecipe = selectedRecipe
+            //  переход на экран с рецептом
+            navigationController?.pushViewController(recipeDescriptionController, animated: true)
         }
     }
 }
