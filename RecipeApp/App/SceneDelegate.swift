@@ -9,6 +9,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var appCoordinator: AppCoordinator?
+    var navigationController: UINavigationController?
 
     // MARK: - Public methods
 
@@ -19,10 +20,20 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        if let window {
-            window.makeKeyAndVisible()
-            appCoordinator = AppCoordinator()
-            appCoordinator?.start()
-        }
+
+        let recipeDescriptionController = RecipeDescriptionController()
+        navigationController = UINavigationController(rootViewController: recipeDescriptionController)
+        navigationController?.navigationBar.tintColor = .black
+
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
     }
+
+    // guard let windowScene = (scene as? UIWindowScene) else { return }
+    // window = UIWindow(windowScene: windowScene)
+    //  if let window {
+    // window.rootViewController = RecipeDescriptionController()
+    // window.makeKeyAndVisible()
+    // appCoordinator = AppCoordinator()
+    // appCoordinator?.start()
 }
