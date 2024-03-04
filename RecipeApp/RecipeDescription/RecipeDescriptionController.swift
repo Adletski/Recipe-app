@@ -59,6 +59,8 @@ final class RecipeDescriptionController: UIViewController {
 
     private func setupNavigationBar() {
         let backButton = UIBarButtonItem(customView: backBarButton)
+        backButton.action = #selector(backButtonPressed)
+
         navigationItem.leftBarButtonItem = backButton
 
         let shareBarButton = UIBarButtonItem(customView: shareButton)
@@ -77,6 +79,10 @@ final class RecipeDescriptionController: UIViewController {
         tableView.register(RecipeTextCell.self, forCellReuseIdentifier: RecipeTextCell.identifier)
         tableView.dataSource = self
         tableView.delegate = self
+    }
+
+    @objc func backButtonPressed() {
+        print("back")
     }
 }
 

@@ -18,15 +18,12 @@ final class FavoritesViewController: UIViewController, FavoritesViewControllerPr
     let emptyView: EmptyView = {
         let view = EmptyView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.isHidden = true
+        view.isHidden = false
         return view
     }()
 
     var presenter: FavoritesPresenterProtocol?
-    var categories = [
-        FoodModel(image: "food1", name: "Simple Fish And Corn", time: "60 min", kkal: "274 kkal"),
-        FoodModel(image: "food2", name: "Fast Roast Fish & Show Peas Recipes", time: "80 min", kkal: "94 kkal")
-    ]
+    var categories: [FoodModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,8 +46,10 @@ final class FavoritesViewController: UIViewController, FavoritesViewControllerPr
         super.viewWillAppear(animated)
         if categories.isEmpty {
             tableView.isHidden = true
+            emptyView.isHidden = false
         } else {
             tableView.isHidden = false
+            emptyView.isHidden = true
         }
     }
 }
