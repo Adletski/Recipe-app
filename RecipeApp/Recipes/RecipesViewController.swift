@@ -134,19 +134,10 @@ extension RecipesViewController: UICollectionViewDelegateFlowLayout {
     ) -> CGFloat {
         9
     }
-
-//    /// Обработка нажатия на ячейку
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print("didselect")
-//        print(presenter)
-//        presenter?.goToCategory(.fish)
-//    }
 }
 
 extension RecipesViewController: RecipesCustomCellDelegate {
     func buttonTapped() {
-        print("delegate")
-        print(presenter)
         presenter?.goToCategory(.fish)
     }
 }

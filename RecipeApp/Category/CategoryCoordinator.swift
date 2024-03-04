@@ -13,7 +13,8 @@ final class CategoryCoordinator: BaseCoordinator {
 
     override func start() {
         let categoryViewController = CategoryViewController()
-        let categoryPresenter = CategoryPresenter(view: categoryViewController, coordinator: self)
+        let service = Service()
+        let categoryPresenter = CategoryPresenter(view: categoryViewController, coordinator: self, service: service)
         categoryViewController.presenter = categoryPresenter
         rootController = categoryViewController
     }

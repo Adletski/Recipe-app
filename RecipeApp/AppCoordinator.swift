@@ -24,6 +24,12 @@ final class AppCoordinator: BaseCoordinator {
         recipeCoordinator.setRootController(viewController: recipeModuleView)
         add(coordinator: recipeCoordinator)
 
+        // favorites
+        let favoritesCoordinator = FavoritesCoordinator()
+        let favoritesModuleView = FavoritesBuilder.createFavorites(coordinator: favoritesCoordinator)
+        favoritesCoordinator.setupRootController(viewController: favoritesModuleView)
+        add(coordinator: favoritesCoordinator)
+
         // profile
         let profileCoordinator = ProfileCoordinator()
         let profileModuleView = ProfileBuilder.createProfile(coordinator: profileCoordinator)
@@ -31,10 +37,12 @@ final class AppCoordinator: BaseCoordinator {
         add(coordinator: profileCoordinator)
 
         guard let recipeRootController = recipeCoordinator.rootController,
-              let profileRootController = profileCoordinator.rootController else { return }
+              let profileRootController = profileCoordinator.rootController,
+              let favoritesRootController = favoritesCoordinator.rootController else { return }
 
         tabBarViewController?.setViewControllers([
             recipeRootController,
+            favoritesRootController,
             profileRootController
         ], animated: true)
 

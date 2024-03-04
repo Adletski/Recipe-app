@@ -122,7 +122,6 @@ final class RecipesCustomCell: UICollectionViewCell {
 
     /// Обработка нажатия на кнопку ячейки
     @objc func tappedButton() {
-        print("tappedbutton")
         delegate?.buttonTapped()
         if recipeButton.isSelected {
             titleLabel.backgroundColor = .clear
