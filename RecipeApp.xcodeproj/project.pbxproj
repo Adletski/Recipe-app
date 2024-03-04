@@ -19,6 +19,11 @@
 		7FCDDBFE2B91BC700065E4E5 /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBF62B91BC700065E4E5 /* FilterTableViewCell.swift */; };
 		7FCDDBFF2B91BC700065E4E5 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBF72B91BC700065E4E5 /* SearchTableViewCell.swift */; };
 		7FCDDC012B9352B80065E4E5 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDC002B9352B80065E4E5 /* Service.swift */; };
+		7FCDDC042B93593C0065E4E5 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDC032B93593C0065E4E5 /* FavoritesViewController.swift */; };
+		7FCDDC062B93596C0065E4E5 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDC052B93596C0065E4E5 /* EmptyView.swift */; };
+		7FCDDC082B935EC40065E4E5 /* FavoritesBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDC072B935EC40065E4E5 /* FavoritesBuilder.swift */; };
+		7FCDDC0A2B935F1B0065E4E5 /* FavoritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDC092B935F1B0065E4E5 /* FavoritesPresenter.swift */; };
+		7FCDDC0C2B935F870065E4E5 /* FavoritesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDC0B2B935F870065E4E5 /* FavoritesCoordinator.swift */; };
 		7FE563822B8CD095002562F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE563812B8CD095002562F3 /* AppDelegate.swift */; };
 		7FE563842B8CD095002562F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE563832B8CD095002562F3 /* SceneDelegate.swift */; };
 		7FE563892B8CD095002562F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FE563872B8CD095002562F3 /* Main.storyboard */; };
@@ -69,6 +74,11 @@
 		7FCDDBF62B91BC700065E4E5 /* FilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
 		7FCDDBF72B91BC700065E4E5 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		7FCDDC002B9352B80065E4E5 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		7FCDDC032B93593C0065E4E5 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		7FCDDC052B93596C0065E4E5 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		7FCDDC072B935EC40065E4E5 /* FavoritesBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesBuilder.swift; sourceTree = "<group>"; };
+		7FCDDC092B935F1B0065E4E5 /* FavoritesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPresenter.swift; sourceTree = "<group>"; };
+		7FCDDC0B2B935F870065E4E5 /* FavoritesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCoordinator.swift; sourceTree = "<group>"; };
 		7FE5637E2B8CD095002562F3 /* RecipeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FE563812B8CD095002562F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7FE563832B8CD095002562F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -148,6 +158,18 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		7FCDDC022B9359230065E4E5 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				7FCDDC032B93593C0065E4E5 /* FavoritesViewController.swift */,
+				7FCDDC052B93596C0065E4E5 /* EmptyView.swift */,
+				7FCDDC072B935EC40065E4E5 /* FavoritesBuilder.swift */,
+				7FCDDC092B935F1B0065E4E5 /* FavoritesPresenter.swift */,
+				7FCDDC0B2B935F870065E4E5 /* FavoritesCoordinator.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
 		7FE563752B8CD095002562F3 = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +190,7 @@
 		7FE563802B8CD095002562F3 /* RecipeApp */ = {
 			isa = PBXGroup;
 			children = (
+				7FCDDC022B9359230065E4E5 /* Favorites */,
 				7FCDDBED2B91BC700065E4E5 /* Category */,
 				7FE564742B8F2871002562F3 /* AuthorizationViewController */,
 				7FE563A92B8D0EE5002562F3 /* Profile */,
@@ -388,6 +411,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7FE564792B8F2871002562F3 /* AuthorizationViewController.swift in Sources */,
+				7FCDDC082B935EC40065E4E5 /* FavoritesBuilder.swift in Sources */,
 				7FE563AD2B8D1BCE002562F3 /* RecipesPresenter.swift in Sources */,
 				7FE564242B8E5239002562F3 /* BaseCoordinator.swift in Sources */,
 				5E89C5092B9102100021D3E1 /* RecipesCategories.swift in Sources */,
@@ -405,15 +429,19 @@
 				7FE563AB2B8D0EF1002562F3 /* ProfileViewController.swift in Sources */,
 				7FCDDBFF2B91BC700065E4E5 /* SearchTableViewCell.swift in Sources */,
 				7FE563C52B8DF24B002562F3 /* ProfileTableViewCell.swift in Sources */,
+				7FCDDC0C2B935F870065E4E5 /* FavoritesCoordinator.swift in Sources */,
 				7FE563E92B8E0F5D002562F3 /* ProfilePresenter.swift in Sources */,
 				7FCDDBF92B91BC700065E4E5 /* CategoryPresenter.swift in Sources */,
 				7FCDDBF82B91BC700065E4E5 /* Extension+UITextField.swift in Sources */,
+				7FCDDC0A2B935F1B0065E4E5 /* FavoritesPresenter.swift in Sources */,
 				7FE563A02B8D0998002562F3 /* TabBarViewController.swift in Sources */,
 				7FE564282B8E5285002562F3 /* AppCoordinator.swift in Sources */,
+				7FCDDC042B93593C0065E4E5 /* FavoritesViewController.swift in Sources */,
 				7FE563C32B8DE487002562F3 /* HeaderView.swift in Sources */,
 				5E89C5072B909BEA0021D3E1 /* RecipesCustomCell.swift in Sources */,
 				7FE5647A2B8F2871002562F3 /* AuthorizationModel.swift in Sources */,
 				7FE564782B8F2871002562F3 /* AuthorizationPresenter.swift in Sources */,
+				7FCDDC062B93596C0065E4E5 /* EmptyView.swift in Sources */,
 				7FE563822B8CD095002562F3 /* AppDelegate.swift in Sources */,
 				7FE564842B8F628B002562F3 /* AuthorizationCoordinator.swift in Sources */,
 				5E89C50B2B9107F60021D3E1 /* DishCategory.swift in Sources */,

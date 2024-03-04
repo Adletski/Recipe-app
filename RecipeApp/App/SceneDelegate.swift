@@ -20,9 +20,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         if let window {
+            window.rootViewController = FavoritesViewController()
             window.makeKeyAndVisible()
-            appCoordinator = AppCoordinator()
-            appCoordinator?.start()
+//            appCoordinator = AppCoordinator()
+//            appCoordinator?.start()
         }
     }
 }
