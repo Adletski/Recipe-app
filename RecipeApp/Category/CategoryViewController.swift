@@ -156,8 +156,6 @@ extension CategoryViewController: UITableViewDataSource {
             return cell
         }
     }
-
-    @objc func searchTextFieldTyping() {}
 }
 
 // MARK: - CategoryViewController + UITableViewDelegate

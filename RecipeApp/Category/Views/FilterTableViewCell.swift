@@ -3,7 +3,7 @@
 
 import UIKit
 
-protocol FilterTableViewCellDelegate {
+protocol FilterTableViewCellDelegate: AnyObject {
     func caloriesButtonPressed(_ bool: Bool)
     func timeButtonPressed(_ bool: Bool)
 }
@@ -19,7 +19,7 @@ final class FilterTableViewCell: UITableViewCell {
 
     // MARK: - Visual components
 
-    private let caloriesButton: UIButton = {
+    private lazy var caloriesButton: UIButton = {
         let button = UIButton()
         button.setTitle("Calories", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +29,7 @@ final class FilterTableViewCell: UITableViewCell {
         return button
     }()
 
-    private let timeButton: UIButton = {
+    private lazy var timeButton: UIButton = {
         let button = UIButton()
         button.setTitle("Time", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
