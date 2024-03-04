@@ -19,6 +19,10 @@ final class RecipeCoordinator: BaseCoordinator {
     func showCategory() {
         let categoryCoordinator = CategoryCoordinator()
         categoryCoordinator.start()
+        categoryCoordinator.onFinishFlow = { [weak self] in
+            self?.remove(coordinator: categoryCoordinator)
+//            self?.toRecipeDescription()
+        }
         if let viewController = categoryCoordinator.rootController {
             rootController?.pushViewController(viewController, animated: true)
         }

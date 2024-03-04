@@ -21,4 +21,8 @@ final class AuthorizationCoordinator: BaseCoordinator {
         setAsRoot(rootController)
         self.rootController = rootController
     }
+
+    func finish() {
+        onFinishFlow?()
+    }
 }

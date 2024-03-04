@@ -56,6 +56,10 @@ final class RecipesViewController: UIViewController { // }, RecipesView {
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
+
+    deinit {
+        print("deinited recipeviewcontroller")
+    }
 }
 
 // MARK: - Extensions

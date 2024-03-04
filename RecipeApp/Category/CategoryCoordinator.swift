@@ -8,6 +8,7 @@ final class CategoryCoordinator: BaseCoordinator {
     // MARK: - Properties
 
     var rootController: UIViewController?
+    var onFinishFlow: (() -> ())?
 
     // MARK: - Lifecycle
 
@@ -23,5 +24,17 @@ final class CategoryCoordinator: BaseCoordinator {
 
     func moveBack() {
         rootController?.navigationController?.popViewController(animated: true)
+    }
+
+    func moveRecipeDescriptionVC(model: FoodModel) {
+        let recipeDescriptionViewController = RecipeDescriptionController()
+        let recipeDescriptionPresenter = RecipeDescriptionPresenter(
+            view: recipeDescriptionViewController,
+            coordinator: self
+        )
+        recipeDescriptionViewController.selectedRecipe = model
+        recipeDescriptionViewController.presenter = recipeDescriptionPresenter
+
+        rootController?.navigationController?.pushViewController(recipeDescriptionViewController, animated: true)
     }
 }

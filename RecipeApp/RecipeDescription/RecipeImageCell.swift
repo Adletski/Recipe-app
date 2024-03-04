@@ -23,7 +23,7 @@ final class RecipeImageCell: UITableViewCell {
     let recipeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "food1")
+//        imageView.image = UIImage(named: "food1")
         return imageView
     }()
 
@@ -115,8 +115,6 @@ final class RecipeImageCell: UITableViewCell {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-        setupCell()
-        setConstraints()
     }
 
     /* func configure(recipe: FoodModel) {
@@ -249,9 +247,10 @@ final class RecipeImageCell: UITableViewCell {
     // MARK: - Public Methods
 
     func configure(recipe: FoodModel?) {
-        nameRecipeLabel.text = recipe?.name
-        recipeImageView.image = UIImage(named: "food1")
-        gramsLabel.text = "\(recipe?.weight ?? 0) g"
-        cookingTimeLabel.text = "\(recipe?.time ?? "") min"
+        guard let recipe = recipe else { return }
+        nameRecipeLabel.text = recipe.name
+        recipeImageView.image = UIImage(named: "\(recipe.image)")
+        gramsLabel.text = "\(recipe.weight) g"
+        cookingTimeLabel.text = "\(recipe.time) min"
     }
 }

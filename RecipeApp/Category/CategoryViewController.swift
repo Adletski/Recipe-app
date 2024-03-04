@@ -4,7 +4,11 @@
 import UIKit
 
 /// Протокол для категорий еды
-protocol CategoryViewControllerProtocol: AnyObject {}
+protocol CategoryViewControllerProtocol: AnyObject {
+    func updateWithTime()
+    func updateWithCalories()
+    func updateTextFieldSearching(_ bool: Bool)
+}
 
 /// Экран для категорий еды
 final class CategoryViewController: UIViewController, CategoryViewControllerProtocol {
@@ -19,6 +23,7 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
     // MARK: - Public properties
 
     var presenter: CategoryPresenterProtocol?
+    var isSearching = false
 
     // MARK: - Private properties
 
@@ -61,6 +66,10 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
         let leftTitle = UIBarButtonItem(title: "Fish", image: nil, target: nil, action: nil)
         leftTitle.tintColor = .black
         leftTitle.style = .plain
+        leftTitle.setTitleTextAttributes(
+            [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25, weight: .bold)],
+            for: .normal
+        )
         navigationItem.leftBarButtonItems = [leftArrow, leftTitle]
     }
 
@@ -76,6 +85,19 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+
+    func updateWithCalories() {
+        tableView.reloadData()
+    }
+
+    func updateWithTime() {
+        tableView.reloadData()
+    }
+
+    func updateTextFieldSearching(_ bool: Bool) {
+        isSearching = bool
+        tableView.reloadData()
     }
 }
 
@@ -93,7 +115,11 @@ extension CategoryViewController: UITableViewDataSource {
         case .filter:
             return 1
         case .category:
-            return presenter?.categories.count ?? 0
+            if isSearching {
+                return presenter?.searchingCategories.count ?? 0
+            } else {
+                return presenter?.categories.count ?? 0
+            }
         }
     }
 
@@ -104,24 +130,34 @@ extension CategoryViewController: UITableViewDataSource {
                 withIdentifier: SearchTableViewCell.identifier,
                 for: indexPath
             ) as? SearchTableViewCell else { return UITableViewCell() }
+            cell.delegate = self
             return cell
         case .filter:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: FilterTableViewCell.identifier,
                 for: indexPath
             ) as? FilterTableViewCell else { return UITableViewCell() }
+            cell.delegate = self
             return cell
         case .category:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: CategoriesTableViewCell.identifier,
                 for: indexPath
             ) as? CategoriesTableViewCell else { return UITableViewCell() }
-            if let food = presenter?.categories[indexPath.row] {
-                cell.configure(model: food)
+            if isSearching {
+                if let food = presenter?.searchingCategories[indexPath.row] {
+                    cell.configure(model: food)
+                }
+            } else {
+                if let food = presenter?.categories[indexPath.row] {
+                    cell.configure(model: food)
+                }
             }
             return cell
         }
     }
+
+    @objc func searchTextFieldTyping() {}
 }
 
 // MARK: - CategoryViewController + UITableViewDelegate
@@ -133,10 +169,25 @@ extension CategoryViewController: UITableViewDelegate {
             let recipeDescriptionController = RecipeDescriptionController()
             // модель рецепта в контроллер с рецептом
             if let selectedRecipe {
-                recipeDescriptionController.selectedRecipe = selectedRecipe
                 //  переход на экран с рецептом
-                navigationController?.pushViewController(recipeDescriptionController, animated: true)
+                presenter?.openRecipeDescriptionVC(model: selectedRecipe)
             }
         }
+    }
+}
+
+extension CategoryViewController: FilterTableViewCellDelegate {
+    func caloriesButtonPressed(_ bool: Bool) {
+        presenter?.caloriesButtonPressed(bool)
+    }
+
+    func timeButtonPressed(_ bool: Bool) {
+        presenter?.timeButtonPressed(bool)
+    }
+}
+
+extension CategoryViewController: SearchTableViewCellDelegate {
+    func textFieldTapped(_ text: String) {
+        presenter?.textFieldTapped(text)
     }
 }

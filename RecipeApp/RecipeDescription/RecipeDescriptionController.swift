@@ -13,7 +13,11 @@ final class RecipeDescriptionController: UIViewController {
         case description
     }
 
-    var selectedRecipe: FoodModel = .fishRecipes[0]
+    var selectedRecipe: FoodModel? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
 
     let range: [Details] = [.photo, .characteristics, .description]
 
@@ -38,7 +42,7 @@ final class RecipeDescriptionController: UIViewController {
     }()
 
     private let barView = UIView()
-
+    var presenter: RecipeDescriptionPresenterProtocol?
     private let tableView = UITableView()
 
     let recipeCells: [Details] = [.photo, .characteristics, .description]
@@ -58,11 +62,14 @@ final class RecipeDescriptionController: UIViewController {
     }
 
     private func setupNavigationBar() {
-        let backButton = UIBarButtonItem(customView: backBarButton)
-        backButton.action = #selector(backButtonPressed)
-
+        let backButton = UIBarButtonItem(
+            image: UIImage(named: "arrow"),
+            style: .done,
+            target: self,
+            action: #selector(backButtonPressed)
+        )
+        backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
-
         let shareBarButton = UIBarButtonItem(customView: shareButton)
         let setFavoriteBarButton = UIBarButtonItem(customView: setFavorite)
         navigationItem.rightBarButtonItems = [setFavoriteBarButton, shareBarButton]
@@ -79,10 +86,11 @@ final class RecipeDescriptionController: UIViewController {
         tableView.register(RecipeTextCell.self, forCellReuseIdentifier: RecipeTextCell.identifier)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorStyle = .none
     }
 
     @objc func backButtonPressed() {
-        print("back")
+        presenter?.moveBack()
     }
 }
 
@@ -106,16 +114,18 @@ extension RecipeDescriptionController: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.configure(recipe: FoodModel(
-                image: selectedRecipe.image,
-                name: selectedRecipe.name,
-                title: selectedRecipe.title,
-                time: selectedRecipe.time,
-                kkal: selectedRecipe.kkal,
-                weight: selectedRecipe.weight,
-                carbohydrates: selectedRecipe.carbohydrates,
-                fats: selectedRecipe.fats,
-                proteins: selectedRecipe.proteins,
-                descriptions: selectedRecipe.descriptions
+                image: selectedRecipe?.image ?? "",
+                name: selectedRecipe?.name ?? "",
+                title: selectedRecipe?.title ?? "",
+                time: selectedRecipe?.time ?? "",
+                timeCount: selectedRecipe?.timeCount ?? 0,
+                kkal: selectedRecipe?.kkal ?? "",
+                kkalCount: selectedRecipe?.kkalCount ?? 0,
+                weight: selectedRecipe?.weight,
+                carbohydrates: selectedRecipe?.carbohydrates,
+                fats: selectedRecipe?.fats,
+                proteins: selectedRecipe?.proteins,
+                descriptions: selectedRecipe?.descriptions
             ))
             return cell
         case .characteristics:
@@ -126,10 +136,11 @@ extension RecipeDescriptionController: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.configure(recipe: FoodModel(
-                kkal: selectedRecipe.kkal,
-                carbohydrates: selectedRecipe.carbohydrates,
-                fats: selectedRecipe.fats,
-                proteins: selectedRecipe.proteins
+                timeCount: selectedRecipe?.timeCount ?? 0, kkal: selectedRecipe?.kkal ?? "",
+                kkalCount: selectedRecipe?.kkalCount ?? 0,
+                carbohydrates: selectedRecipe?.carbohydrates,
+                fats: selectedRecipe?.fats,
+                proteins: selectedRecipe?.proteins
             ))
             return cell
         case .description:
@@ -140,7 +151,7 @@ extension RecipeDescriptionController: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.configure(recipe: FoodModel(
-                descriptions: selectedRecipe.descriptions
+                descriptions: selectedRecipe?.descriptions
             ))
             return cell
         }

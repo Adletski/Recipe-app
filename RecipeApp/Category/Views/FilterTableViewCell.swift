@@ -3,11 +3,19 @@
 
 import UIKit
 
+protocol FilterTableViewCellDelegate {
+    func caloriesButtonPressed(_ bool: Bool)
+    func timeButtonPressed(_ bool: Bool)
+}
+
 /// Ячейка для фильтра
 final class FilterTableViewCell: UITableViewCell {
     // MARK: - Identifier
 
     static let identifier = "FilterTableViewCell"
+    var delegate: FilterTableViewCellDelegate?
+    var isCaloriesFiltered = false
+    var isTimeFiltered = false
 
     // MARK: - Visual components
 
@@ -17,6 +25,7 @@ final class FilterTableViewCell: UITableViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 15)
+        button.addTarget(self, action: #selector(caloriesButtonPressed), for: .touchUpInside)
         return button
     }()
 
@@ -26,6 +35,7 @@ final class FilterTableViewCell: UITableViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 15)
+        button.addTarget(self, action: #selector(timeButtonPressed), for: .touchUpInside)
         return button
     }()
 
@@ -102,5 +112,35 @@ final class FilterTableViewCell: UITableViewCell {
         imageView.image = UIImage(named: "up")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
+    }
+
+    @objc private func timeButtonPressed() {
+        if isTimeFiltered {
+            timeStackViewH.backgroundColor = #colorLiteral(red: 0.9535714984, green: 0.9660330415, blue: 0.9660820365, alpha: 1)
+            timeButton.setTitleColor(.black, for: .normal)
+            timeImageView.image = UIImage(named: "up")
+            isTimeFiltered = false
+        } else {
+            timeStackViewH.backgroundColor = #colorLiteral(red: 0.5132525563, green: 0.7558944225, blue: 0.7756446004, alpha: 1)
+            timeButton.setTitleColor(.white, for: .normal)
+            timeImageView.image = UIImage(named: "down")
+            isTimeFiltered = true
+        }
+        delegate?.timeButtonPressed(isTimeFiltered)
+    }
+
+    @objc private func caloriesButtonPressed() {
+        if isCaloriesFiltered {
+            caloriesStackViewH.backgroundColor = #colorLiteral(red: 0.9535714984, green: 0.9660330415, blue: 0.9660820365, alpha: 1)
+            caloriesButton.setTitleColor(.black, for: .normal)
+            caloriesImageView.image = UIImage(named: "up")
+            isCaloriesFiltered = false
+        } else {
+            caloriesStackViewH.backgroundColor = #colorLiteral(red: 0.5132525563, green: 0.7558944225, blue: 0.7756446004, alpha: 1)
+            caloriesButton.setTitleColor(.white, for: .normal)
+            caloriesImageView.image = UIImage(named: "down")
+            isCaloriesFiltered = true
+        }
+        delegate?.caloriesButtonPressed(isCaloriesFiltered)
     }
 }

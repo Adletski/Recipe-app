@@ -46,7 +46,9 @@ struct FoodModel {
     let name: String
     let title: String
     let time: String
+    let timeCount: Int
     let kkal: String
+    let kkalCount: Int
     /// Вес
     let weight: Int
     /// Углеводы
@@ -64,8 +66,8 @@ struct FoodModel {
             image: "recipe",
             name: "Simple Fish And Corn",
             time: "60",
-            kkal: "1322",
-            weight: 793,
+            timeCount: 60, kkal: "1322",
+            kkalCount: 1322, weight: 793,
             carbohydrates: 10.78,
             fats: 10.00,
             proteins: 97.30,
@@ -75,8 +77,8 @@ struct FoodModel {
             image: "recipe",
             name: "Some fish",
             time: "60",
-            kkal: "1322",
-            weight: 793,
+            timeCount: 60, kkal: "1322",
+            kkalCount: 1322, weight: 793,
             carbohydrates: 10.78,
             fats: 10.00,
             proteins: 97.30,
@@ -86,8 +88,8 @@ struct FoodModel {
             image: "recipe",
             name: "x3 Fish",
             time: "60",
-            kkal: "1322",
-            weight: 793,
+            timeCount: 60, kkal: "1322",
+            kkalCount: 1322, weight: 793,
             carbohydrates: 10.78,
             fats: 10.00,
             proteins: 97.30,
@@ -97,8 +99,8 @@ struct FoodModel {
             image: "recipe",
             name: "Double fish",
             time: "60",
-            kkal: "1322",
-            weight: 793,
+            timeCount: 60, kkal: "1322",
+            kkalCount: 1322, weight: 793,
             carbohydrates: 10.78,
             fats: 10.00,
             proteins: 97.30,
@@ -108,7 +110,8 @@ struct FoodModel {
             image: "recipe",
             name: "No fish",
             time: "60",
-            kkal: "1322",
+            timeCount: 60, kkal: "1322",
+            kkalCount: 1322,
             weight: 793,
             carbohydrates: 10.78,
             fats: 10.00,
@@ -122,8 +125,8 @@ struct FoodModel {
             image: "recipe",
             name: "Some meal",
             time: "60",
-            kkal: "1322",
-            weight: 793,
+            timeCount: 60, kkal: "1322",
+            kkalCount: 1322, weight: 793,
             carbohydrates: 10.78,
             fats: 10.00,
             proteins: 97.30,
@@ -145,7 +148,9 @@ struct FoodModel {
         name: String = "",
         title: String = "",
         time: String = "",
+        timeCount: Int = 0,
         kkal: String = "",
+        kkalCount: Int = 0,
         weight: Int? = nil,
         carbohydrates: Float? = nil,
         fats: Float? = nil,
@@ -156,7 +161,9 @@ struct FoodModel {
         self.name = name
         self.title = title
         self.time = time
+        self.timeCount = timeCount
         self.kkal = kkal
+        self.kkalCount = kkalCount
         self.weight = weight ?? 0
         self.carbohydrates = carbohydrates ?? 0.0
         self.fats = fats ?? 0.0
