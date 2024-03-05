@@ -2,7 +2,7 @@
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
-
+//MARK: - Types
 /// Перечисление для валидации пароля
 enum ValidationState {
     case notValid
@@ -169,6 +169,8 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
         setupUI()
         setupConstraints()
         setupKeyboard()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
 
     // MARK: - Private Methods
@@ -342,6 +344,11 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
             self.loginButton.frame.origin.y = self.view.frame.height - 65
         }
     }
+
+    /// Скрытие клавиатуры при тапе на экран
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
 
 // MARK: - AuthorizationViewController + UITextFieldDelegate
@@ -454,9 +461,7 @@ extension AuthorizationViewController {
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
         toolBar.barStyle = .default
         toolBar.sizeToFit()
-
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-
         let doneButton = UIBarButtonItem(
             title: Constant.ok,
             style: .done,

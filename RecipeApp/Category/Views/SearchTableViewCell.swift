@@ -2,7 +2,7 @@
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
-
+//MARK: - Types
 /// Делегат ячейки с поиском
 protocol SearchTableViewCellDelegate {
     /// функия нажатия на текстовое поле

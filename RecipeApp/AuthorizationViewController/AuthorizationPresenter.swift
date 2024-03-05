@@ -2,7 +2,7 @@
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
-
+//MARK: - Types
 /// Протокол презентера экрана авторизации
 protocol AutorizationPresenterProtocol: AnyObject {
     /// Координатор флоу экрана
@@ -46,7 +46,7 @@ final class AuthorizationPresenter: AutorizationPresenterProtocol {
 
     /// отработка для валидации пароля
     func validatePassword(password: String) {
-        if password.isEmpty || !password.contains("qwerty12345") {
+        if password.isEmpty || !password.contains("qwerty") {
             view?.updateValidationPassword(result: .notValid)
         } else {
             view?.updateValidationPassword(result: .default)
