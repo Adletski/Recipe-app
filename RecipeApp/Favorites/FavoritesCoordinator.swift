@@ -3,7 +3,7 @@
 
 import UIKit
 
-// Координатор для профиля
+/// Координатор для профиля
 final class FavoritesCoordinator: BaseCoordinator {
     // MARK: - Properties
 

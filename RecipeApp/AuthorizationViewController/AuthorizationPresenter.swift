@@ -56,7 +56,7 @@ final class AuthorizationPresenter: AutorizationPresenterProtocol {
     /// отработка для кнопки с плашкой
     func loginButtonTapped(login: String, password: String) {
         if login == "123@mail.ru", password == "qwerty" {
-            view?.updateLoginButton(result: true)
+            coordinator?.finish()
         } else {
             view?.updateLoginButton(result: false)
         }

@@ -29,7 +29,7 @@ final class CategoriesTableViewCell: UITableViewCell {
     private let foodLabel: UILabel = {
         let label = UILabel()
         label.text = "Simple Fish and Corn"
-        label.font = .systemFont(ofSize: 20)
+        label.font = .systemFont(ofSize: 15)
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -103,6 +103,7 @@ final class CategoriesTableViewCell: UITableViewCell {
 
     // MARK: - Private methods
 
+    /// добавление UI  элементов
     private func setupUI() {
         selectionStyle = .none
         contentView.addSubview(wrapView)
@@ -117,6 +118,7 @@ final class CategoriesTableViewCell: UITableViewCell {
         contentView.addSubview(caloriesStackViewH)
     }
 
+    /// настройка констрейтов
     private func setupConstraints() {
         clockImageView.heightAnchor.constraint(equalToConstant: 12).isActive = true
         clockImageView.widthAnchor.constraint(equalToConstant: 12).isActive = true
@@ -146,12 +148,12 @@ final class CategoriesTableViewCell: UITableViewCell {
         foodLabel.leadingAnchor.constraint(equalTo: foodImageView.trailingAnchor, constant: 20).isActive = true
         foodLabel.trailingAnchor.constraint(equalTo: chevronImageView.leadingAnchor, constant: -5).isActive = true
 
-        cookingTimeStackViewH.topAnchor.constraint(equalTo: foodLabel.bottomAnchor, constant: 20).isActive = true
+        cookingTimeStackViewH.topAnchor.constraint(equalTo: foodLabel.bottomAnchor, constant: 15).isActive = true
         cookingTimeStackViewH.leadingAnchor.constraint(equalTo: foodImageView.trailingAnchor, constant: 20)
             .isActive = true
         cookingTimeStackViewH.widthAnchor.constraint(equalToConstant: 100).isActive = true
 
-        caloriesStackViewH.topAnchor.constraint(equalTo: foodLabel.bottomAnchor, constant: 20).isActive = true
+        caloriesStackViewH.topAnchor.constraint(equalTo: foodLabel.bottomAnchor, constant: 15).isActive = true
         caloriesStackViewH.leadingAnchor.constraint(equalTo: cookingTimeStackViewH.trailingAnchor, constant: 10)
             .isActive = true
         caloriesStackViewH.trailingAnchor.constraint(equalTo: chevronImageView.leadingAnchor, constant: 10)
@@ -160,6 +162,7 @@ final class CategoriesTableViewCell: UITableViewCell {
 
     // MARK: - Pbulic methods
 
+    /// Конфигурирует ячейку с данными модели
     func configure(model: FoodModel) {
         foodImageView.image = UIImage(named: model.image)
         foodLabel.text = model.name

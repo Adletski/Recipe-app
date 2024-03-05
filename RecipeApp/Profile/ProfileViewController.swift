@@ -5,6 +5,7 @@ import UIKit
 
 /// Протокол для вью
 protocol ProfileView: AnyObject {
+    /// Обновляет вид профиля с данными модели
     func updateView(model: ProfileModel)
 }
 
@@ -48,6 +49,7 @@ final class ProfileViewController: UIViewController, ProfileView {
 
     // MARK: - Private methods
 
+    /// Настройка пользовательского интерфейса
     private func setupUI() {
         view.backgroundColor = .white
         view.addSubview(tableView)
@@ -59,6 +61,7 @@ final class ProfileViewController: UIViewController, ProfileView {
 
     // MARK: - Public methods
 
+    /// Обновляет вид профиля с данными модели
     func updateView(model: ProfileModel) {
         activities = model.categories
         tableHeaderView.avatarImageView.image = UIImage(named: "\(model.profileImageView)")
@@ -69,10 +72,12 @@ final class ProfileViewController: UIViewController, ProfileView {
 // MARK: - UITableViewDataSource
 
 extension ProfileViewController: UITableViewDataSource {
+    /// Возвращает количество строк в указанной секции таблицы
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         activities.count
     }
 
+    /// Возвращает ячейку для указанного индекса
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: ProfileTableViewCell.identifier,
@@ -86,6 +91,7 @@ extension ProfileViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension ProfileViewController: UITableViewDelegate {
+    /// Вызывается при выборе ячейки таблицы
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             let detentsVC = DetentsViewController()
@@ -95,12 +101,19 @@ extension ProfileViewController: UITableViewDelegate {
             present(detentsVC, animated: true)
         }
         tableView.deselectRow(at: indexPath, animated: true)
+
+        if indexPath.row == 1 {
+            presenter?.showTermsPrivacyPolicy()
+        }
+
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
 // MARK: - HeaderViewDelegate
 
 extension ProfileViewController: HeaderViewDelegate {
+    /// Обрабатывает нажатие кнопки редактирования
     func editButtonDidPress() {
         let alert = UIAlertController(title: "Change your name and surname", message: nil, preferredStyle: .alert)
         alert.addTextField()

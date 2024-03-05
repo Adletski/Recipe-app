@@ -33,7 +33,7 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
         static let password = "Password"
         static let passwordPlaceholder = "Enter Password"
         static let lockImage = "lockImage"
-        static let buttonColor = "buttonColor"
+        static let buttonColor = "buttonCustomColor"
         static let verdanaGeneral = "Verdana"
         static let warningEmail = "You entered the wrong password"
         static let warningPassword = "Incorrect format"
@@ -248,26 +248,24 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
         if result == false {
             errorView.isHidden = false
             errorMessageLabel.isHidden = false
+            UIView.animate(withDuration: 0.3, delay: 3.0, options: .curveEaseInOut, animations: {
+                self.errorView.alpha = 0.0
+                self.errorMessageLabel.alpha = 0.0
+            }) { _ in
+                self.errorView.isHidden = true
+                self.errorMessageLabel.isHidden = true
+                self.errorView.alpha = 1.0
+                self.errorMessageLabel.alpha = 1.0
+            }
         } else {
-            errorView.isHidden = false
-            errorMessageLabel.isHidden = false
+            errorView.isHidden = true
+            errorMessageLabel.isHidden = true
         }
     }
 
     // MARK: - Private Methods
 
-    /// Обработчик нажатия кнопки видимости пароля
-    @objc private func togglePasswordVisibility() {
-        presenter?.createPasswordVisibilityButton()
-    }
-
-    /// обработчик нажатия кнопки логин
-    @objc private func loginButtonTapped() {
-        /// скрытие текста кнопки
-        loginButton.setTitle("", for: .normal)
-        startTimer()
-    }
-
+    /// настройка спинера
     private func startTimer() {
         /// создание и настройка индикатора загрузки
         let activityIndicator = UIActivityIndicatorView(style: .medium)
@@ -281,7 +279,6 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
             /// остановка анимации и скрытие ее
             activityIndicator.stopAnimating()
             activityIndicator.removeFromSuperview()
-
             self?.presenter?.loginButtonTapped(
                 login: self?.emailTextField.text ?? "",
                 password: self?.passwordTextField.text ?? ""
@@ -289,10 +286,7 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
         }
     }
 
-    @objc private func doneButtonTapped() {
-        view.endEditing(true)
-    }
-
+    /// настройка для клавиатры
     private func setupKeyboard() {
         setupInputAccessoryView()
         NotificationCenter.default.addObserver(
@@ -307,6 +301,24 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
+    }
+
+    // MARK: - Action methods
+
+    /// Обработчик нажатия кнопки видимости пароля
+    @objc private func togglePasswordVisibility() {
+        presenter?.createPasswordVisibilityButton()
+    }
+
+    /// обработчик нажатия кнопки логин
+    @objc private func loginButtonTapped() {
+        loginButton.setTitle(Constant.login, for: .normal)
+        startTimer()
+    }
+
+    /// обработчик нажатия ок
+    @objc private func doneButtonTapped() {
+        view.endEditing(true)
     }
 
     /// Обработчик появления клавиатуры
@@ -463,7 +475,7 @@ extension AuthorizationViewController {
         gradientLayer.frame = view.bounds
         gradientLayer.colors = [
             UIColor.white.cgColor,
-            UIColor(red: 141 / 255, green: 218 / 255, blue: 247 / 255, alpha: 1.0).cgColor
+            UIColor(named: "gradientColor")?.cgColor ?? ""
         ]
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)

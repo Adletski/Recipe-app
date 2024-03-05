@@ -5,12 +5,16 @@ import UIKit
 
 /// Создание ячейки с картинкой
 final class RecipeImageCell: UITableViewCell {
+    // MARK: - Constants
+
     static let identifier = "RecipeImageCell"
 
     private enum Constants {
         static let minutesText = "min"
         static let caloriesText = "kcal"
     }
+
+    // MARK: - Visual Components
 
     let backgroundCellView: UIView = {
         let view = UIView()
@@ -23,7 +27,6 @@ final class RecipeImageCell: UITableViewCell {
     let recipeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "food1")
         return imageView
     }()
 
@@ -96,7 +99,7 @@ final class RecipeImageCell: UITableViewCell {
         return label
     }()
 
-    // MARK: - Public Properties
+    // MARK: - Initializers
 
     override var isSelected: Bool {
         didSet {
@@ -115,19 +118,22 @@ final class RecipeImageCell: UITableViewCell {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-        setupCell()
-        setConstraints()
     }
 
-    /* func configure(recipe: FoodModel) {
-         recipeImageView.image = UIImage(named: "food1")
-         titleLabel.text = recipe.name
-         timeLabel.text = "\(recipe.time) \(Constants.minutesText)"
-         caloriesLabel.text = "\(recipe.kkal) \(Constants.caloriesText)"
-     } */
+    // MARK: - Public Methods
+
+    /// Конфигурация ячейки с рецептом
+    func configure(recipe: FoodModel?) {
+        guard let recipe = recipe else { return }
+        nameRecipeLabel.text = recipe.name
+        recipeImageView.image = UIImage(named: "\(recipe.image)")
+        gramsLabel.text = "\(recipe.weight) g"
+        cookingTimeLabel.text = "\(recipe.time) min"
+    }
 
     // MARK: - Private Methods
 
+    /// Установка элементов ячейки
     private func setupCell() {
         contentView.clipsToBounds = true
         contentView.addSubview(backgroundCellView)
@@ -143,6 +149,7 @@ final class RecipeImageCell: UITableViewCell {
         contentView.addSubview(simpleLabel)
     }
 
+    /// Установка ограничений для элементов ячейки
     private func setConstraints() {
         setBackgroundCellViewConstraints()
         setRecipeImageConstraints()
@@ -244,14 +251,5 @@ final class RecipeImageCell: UITableViewCell {
         simpleLabel.topAnchor.constraint(equalTo: recipeImageView.bottomAnchor, constant: 20).isActive = true
         simpleLabel.widthAnchor.constraint(equalToConstant: 350).isActive = true
         simpleLabel.heightAnchor.constraint(equalToConstant: 16).isActive = true
-    }
-
-    // MARK: - Public Methods
-
-    func configure(recipe: FoodModel?) {
-        nameRecipeLabel.text = recipe?.name
-        recipeImageView.image = UIImage(named: "food1")
-        gramsLabel.text = "\(recipe?.weight ?? 0) g"
-        cookingTimeLabel.text = "\(recipe?.time ?? "") min"
     }
 }
