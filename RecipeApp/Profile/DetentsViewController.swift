@@ -80,6 +80,8 @@ final class DetentsViewController: UIViewController {
         view.addSubview(stackView)
     }
 
+    // MARK: - Private Methods
+
     private func setupConstraints() {
         makeXmarkImageViewConstraints()
         makeBonusTitleLabelConstraints()

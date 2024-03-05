@@ -3,15 +3,24 @@
 
 import UIKit
 
+/// Делегат ячейки с поиском
+protocol SearchTableViewCellDelegate {
+    /// функия нажатия на текстовое поле
+    func textFieldTapped(_ text: String)
+}
+
 /// Ячейка для текстфилда с поиском
 final class SearchTableViewCell: UITableViewCell {
     // MARK: - Identifier
 
+    /// идентификатор ячейки
     static let identifier = "SearchTableViewCell"
+    /// Делегат ячейки с поиском
+    var delegate: SearchTableViewCellDelegate?
 
     // MARK: - Visual components
 
-    private let searchTextField: UITextField = {
+    private lazy var searchTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Search recipes"
         textField.borderStyle = .none
@@ -19,6 +28,7 @@ final class SearchTableViewCell: UITableViewCell {
         textField.layer.cornerRadius = 12
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.addPaddingAndIcon(UIImage(named: "search"), padding: 10, isLeftView: true)
+        textField.addTarget(self, action: #selector(searchTextFieldTyping(_:)), for: .editingChanged)
         return textField
     }()
 
@@ -36,6 +46,7 @@ final class SearchTableViewCell: UITableViewCell {
 
     // MARK: - Private methods
 
+    /// Настройка пользовательского интерфейса/
     private func setupUI() {
         selectionStyle = .none
         contentView.addSubview(searchTextField)
@@ -44,5 +55,14 @@ final class SearchTableViewCell: UITableViewCell {
         searchTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
         searchTextField.heightAnchor.constraint(equalToConstant: 36).isActive = true
         searchTextField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
+    }
+
+    // MARK: - Action methods
+
+    /// Обработчик изменения текста в текстовом поле
+    @objc func searchTextFieldTyping(_ textField: UITextField) {
+        if let text = textField.text {
+            delegate?.textFieldTapped(text)
+        }
     }
 }

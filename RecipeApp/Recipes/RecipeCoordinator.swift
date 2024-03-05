@@ -10,7 +10,7 @@ final class RecipeCoordinator: BaseCoordinator {
     var rootController: UINavigationController?
     var onFinishFlow: (() -> ())?
 
-    // MARK: - Initializer
+    // MARK: - Public Methods
 
     func setRootController(viewController: UIViewController) {
         rootController = UINavigationController(rootViewController: viewController)
@@ -19,6 +19,9 @@ final class RecipeCoordinator: BaseCoordinator {
     func showCategory() {
         let categoryCoordinator = CategoryCoordinator()
         categoryCoordinator.start()
+        categoryCoordinator.onFinishFlow = { [weak self] in
+            self?.remove(coordinator: categoryCoordinator)
+        }
         if let viewController = categoryCoordinator.rootController {
             rootController?.pushViewController(viewController, animated: true)
         }

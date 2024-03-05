@@ -3,9 +3,20 @@
 
 import UIKit
 
+/// Протокол делегата для контроллера экрана избранных.
 protocol FavoritesViewControllerProtocol: AnyObject {}
-
+/// Контроллер экрана избранных
 final class FavoritesViewController: UIViewController, FavoritesViewControllerProtocol {
+    // MARK: - Constants
+
+    /// Презентер для управления логикой отображения экрана избранных.
+    var presenter: FavoritesPresenterProtocol?
+    /// Список категорий блюд
+    var categories: [FoodModel] = []
+
+    // MARK: - Visual Components
+
+    /// Таблица для отображения категорий блюд
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -15,6 +26,7 @@ final class FavoritesViewController: UIViewController, FavoritesViewControllerPr
         return tableView
     }()
 
+    /// Представление для отображения пустого состояния.
     let emptyView: EmptyView = {
         let view = EmptyView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -22,18 +34,15 @@ final class FavoritesViewController: UIViewController, FavoritesViewControllerPr
         return view
     }()
 
-    var presenter: FavoritesPresenterProtocol?
-    var categories: [FoodModel] = []
+    // MARK: - Initializers
 
+    /// Настройка и добавление UI-элементов
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-
         view.addSubview(tableView)
         view.addSubview(emptyView)
-
         tableView.frame = view.bounds
-
         NSLayoutConstraint.activate([
             emptyView.topAnchor.constraint(equalTo: view.topAnchor),
             emptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -54,11 +63,16 @@ final class FavoritesViewController: UIViewController, FavoritesViewControllerPr
     }
 }
 
+// MARK: - extension - UITableViewDataSource
+
+/// Расширение для поддержки протокола UITableViewDataSource
 extension FavoritesViewController: UITableViewDataSource {
+    /// Возвращает количество ячеек в таблице.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         categories.count
     }
 
+    /// Предоставляет ячейку для отображения в заданной позиции таблицы
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: CategoriesTableViewCell.identifier,

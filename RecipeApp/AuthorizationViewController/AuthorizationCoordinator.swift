@@ -16,9 +16,14 @@ final class AuthorizationCoordinator: BaseCoordinator {
         let authViewController = AuthorizationViewController()
         let authPresenter = AuthorizationPresenter(view: authViewController, coordinator: self)
         authViewController.presenter = authPresenter
-
         let rootController = UINavigationController(rootViewController: authViewController)
         setAsRoot(rootController)
         self.rootController = rootController
+    }
+
+    // MARK: - Public Methods
+
+    func finish() {
+        onFinishFlow?()
     }
 }

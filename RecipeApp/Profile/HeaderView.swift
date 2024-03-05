@@ -92,6 +92,8 @@ final class HeaderView: UIView {
         editButton.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor).isActive = true
     }
 
+    // MARK: - IBAction
+
     @objc private func editButtonPressed() {
         delegate?.editButtonDidPress()
     }

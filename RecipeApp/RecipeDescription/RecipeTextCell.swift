@@ -37,7 +37,7 @@ class RecipeTextCell: UITableViewCell {
         return gradientLayer
     }()
 
-    // MARK: - Life Cycle
+    // MARK: - Initializers
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -54,6 +54,12 @@ class RecipeTextCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer.frame = backgroundColorView.bounds
+    }
+
+    // MARK: - Public Methods
+
+    func configure(recipe: FoodModel?) {
+        textRecipeLabel.text = recipe?.descriptions
     }
 
     // MARK: - Private Methods
@@ -84,11 +90,5 @@ class RecipeTextCell: UITableViewCell {
             .isActive = true
         textRecipeLabel.trailingAnchor.constraint(equalTo: backgroundColorView.trailingAnchor, constant: -27)
             .isActive = true
-    }
-
-    // MARK: - Public Methods
-
-    func configure(recipe: FoodModel?) {
-        textRecipeLabel.text = recipe?.descriptions
     }
 }

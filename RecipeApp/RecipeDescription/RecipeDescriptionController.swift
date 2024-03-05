@@ -7,15 +7,26 @@ import UIKit
 final class RecipeDescriptionController: UIViewController {
     // MARK: - Constants
 
+    /// Перечисление для  деталей рецепта
     enum Details {
         case photo
         case characteristics
         case description
     }
 
-    var selectedRecipe: FoodModel = .fishRecipes[0]
+    /// Выбранный рецепт
+    var selectedRecipe: FoodModel? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
 
+    /// Диапазон деталей рецепта
     let range: [Details] = [.photo, .characteristics, .description]
+    let recipeCells: [Details] = [.photo, .characteristics, .description]
+
+    var presenter: RecipeDescriptionPresenterProtocol?
+    private let tableView = UITableView()
 
     // MARK: - Visual Components
 
@@ -39,17 +50,15 @@ final class RecipeDescriptionController: UIViewController {
 
     private let barView = UIView()
 
-    private let tableView = UITableView()
-
-    let recipeCells: [Details] = [.photo, .characteristics, .description]
-
-    // MARK: - Life Cycle
+    // MARK: - Initializers
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         setupNavigationBar()
     }
+
+    // MARK: - Private Methods
 
     private func setupView() {
         view.backgroundColor = .red
@@ -58,11 +67,14 @@ final class RecipeDescriptionController: UIViewController {
     }
 
     private func setupNavigationBar() {
-        let backButton = UIBarButtonItem(customView: backBarButton)
-        backButton.action = #selector(backButtonPressed)
-
+        let backButton = UIBarButtonItem(
+            image: UIImage(named: "arrow"),
+            style: .done,
+            target: self,
+            action: #selector(backButtonPressed)
+        )
+        backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
-
         let shareBarButton = UIBarButtonItem(customView: shareButton)
         let setFavoriteBarButton = UIBarButtonItem(customView: setFavorite)
         navigationItem.rightBarButtonItems = [setFavoriteBarButton, shareBarButton]
@@ -79,22 +91,30 @@ final class RecipeDescriptionController: UIViewController {
         tableView.register(RecipeTextCell.self, forCellReuseIdentifier: RecipeTextCell.identifier)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorStyle = .none
     }
 
+    // MARK: - IBAction
+
     @objc func backButtonPressed() {
-        print("back")
+        presenter?.moveBack()
     }
 }
 
+// MARK: - Extension
+
 extension RecipeDescriptionController: UITableViewDataSource {
+    /// Определяет количество секций в таблице
     func numberOfSections(in tableView: UITableView) -> Int {
         3
     }
 
+    /// Определяет количество строк в указанной секции
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
     }
 
+    /// Создает и возвращает ячейку для определенной позиции
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cells = range[indexPath.section]
         switch cells {
@@ -106,16 +126,18 @@ extension RecipeDescriptionController: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.configure(recipe: FoodModel(
-                image: selectedRecipe.image,
-                name: selectedRecipe.name,
-                title: selectedRecipe.title,
-                time: selectedRecipe.time,
-                kkal: selectedRecipe.kkal,
-                weight: selectedRecipe.weight,
-                carbohydrates: selectedRecipe.carbohydrates,
-                fats: selectedRecipe.fats,
-                proteins: selectedRecipe.proteins,
-                descriptions: selectedRecipe.descriptions
+                image: selectedRecipe?.image ?? "",
+                name: selectedRecipe?.name ?? "",
+                title: selectedRecipe?.title ?? "",
+                time: selectedRecipe?.time ?? "",
+                timeCount: selectedRecipe?.timeCount ?? 0,
+                kkal: selectedRecipe?.kkal ?? "",
+                kkalCount: selectedRecipe?.kkalCount ?? 0,
+                weight: selectedRecipe?.weight,
+                carbohydrates: selectedRecipe?.carbohydrates,
+                fats: selectedRecipe?.fats,
+                proteins: selectedRecipe?.proteins,
+                descriptions: selectedRecipe?.descriptions
             ))
             return cell
         case .characteristics:
@@ -126,10 +148,11 @@ extension RecipeDescriptionController: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.configure(recipe: FoodModel(
-                kkal: selectedRecipe.kkal,
-                carbohydrates: selectedRecipe.carbohydrates,
-                fats: selectedRecipe.fats,
-                proteins: selectedRecipe.proteins
+                timeCount: selectedRecipe?.timeCount ?? 0, kkal: selectedRecipe?.kkal ?? "",
+                kkalCount: selectedRecipe?.kkalCount ?? 0,
+                carbohydrates: selectedRecipe?.carbohydrates,
+                fats: selectedRecipe?.fats,
+                proteins: selectedRecipe?.proteins
             ))
             return cell
         case .description:
@@ -140,7 +163,7 @@ extension RecipeDescriptionController: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.configure(recipe: FoodModel(
-                descriptions: selectedRecipe.descriptions
+                descriptions: selectedRecipe?.descriptions
             ))
             return cell
         }
@@ -148,6 +171,7 @@ extension RecipeDescriptionController: UITableViewDataSource {
 }
 
 extension RecipeDescriptionController: UITableViewDelegate {
+    // Возвращает высоту строки для ячейки по указанному индекy
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cellType = range[indexPath.section]
         switch cellType {

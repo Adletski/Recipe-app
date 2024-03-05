@@ -4,24 +4,39 @@
 import UIKit
 
 /// Протокол для категорий еды
-protocol CategoryViewControllerProtocol: AnyObject {}
+protocol CategoryViewControllerProtocol: AnyObject {
+    /// Обновляет таблицу с учетом времени приготовления блюд
+    func updateWithTime()
+    /// Обновляет таблицу с учетом количества калорий в блюдах
+    func updateWithCalories()
+    /// Обновляет состояние текстового поля поиска
+    func updateTextFieldSearching(_ bool: Bool)
+}
 
 /// Экран для категорий еды
 final class CategoryViewController: UIViewController, CategoryViewControllerProtocol {
     // MARK: - Перечисление для таблицы
 
+    /// типы контента в таблице
     enum ContentType {
+        /// поиск
         case search
+        /// фильтр
         case filter
+        /// категории
         case category
     }
 
     // MARK: - Public properties
 
+    /// презентер экрана категорий еды
     var presenter: CategoryPresenterProtocol?
+    /// производится ли поиск в данный момент
+    var isSearching = false
 
     // MARK: - Private properties
 
+    /// Типы содержимого таблицы
     private let contents: [ContentType] = [.search, .filter, .category]
 
     // MARK: - Visual components
@@ -61,15 +76,21 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
         let leftTitle = UIBarButtonItem(title: "Fish", image: nil, target: nil, action: nil)
         leftTitle.tintColor = .black
         leftTitle.style = .plain
+        leftTitle.setTitleTextAttributes(
+            [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25, weight: .bold)],
+            for: .normal
+        )
         navigationItem.leftBarButtonItems = [leftArrow, leftTitle]
     }
 
     // MARK: - Private methods
 
+    /// Обработчик нажатия на кнопку "назад"
     @objc private func arrowPressed() {
         presenter?.moveBack()
     }
 
+    /// Настройка пользовательского интерфейса
     private func setupUI() {
         view.addSubview(tableView)
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -77,15 +98,33 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
+
+    /// Обновляет таблицу с учетом количества калорий в блюдах
+    func updateWithCalories() {
+        tableView.reloadData()
+    }
+
+    /// Обновляет таблицу с учетом времени приготовления блюд
+    func updateWithTime() {
+        tableView.reloadData()
+    }
+
+    /// Обновляет состояние текстового поля поиска
+    func updateTextFieldSearching(_ bool: Bool) {
+        isSearching = bool
+        tableView.reloadData()
+    }
 }
 
 // MARK: - CategoryViewController + UITableViewDataSource
 
 extension CategoryViewController: UITableViewDataSource {
+    /// Возвращает количество секций в таблице
     func numberOfSections(in tableView: UITableView) -> Int {
         contents.count
     }
 
+    /// Возвращает количество строк в указанной секции таблицы
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch contents[section] {
         case .search:
@@ -93,10 +132,15 @@ extension CategoryViewController: UITableViewDataSource {
         case .filter:
             return 1
         case .category:
-            return presenter?.categories.count ?? 0
+            if isSearching {
+                return presenter?.searchingCategories.count ?? 0
+            } else {
+                return presenter?.categories.count ?? 0
+            }
         }
     }
 
+    /// Возвращает ячейку для указанного индекса
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch contents[indexPath.section] {
         case .search:
@@ -104,20 +148,28 @@ extension CategoryViewController: UITableViewDataSource {
                 withIdentifier: SearchTableViewCell.identifier,
                 for: indexPath
             ) as? SearchTableViewCell else { return UITableViewCell() }
+            cell.delegate = self
             return cell
         case .filter:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: FilterTableViewCell.identifier,
                 for: indexPath
             ) as? FilterTableViewCell else { return UITableViewCell() }
+            cell.delegate = self
             return cell
         case .category:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: CategoriesTableViewCell.identifier,
                 for: indexPath
             ) as? CategoriesTableViewCell else { return UITableViewCell() }
-            if let food = presenter?.categories[indexPath.row] {
-                cell.configure(model: food)
+            if isSearching {
+                if let food = presenter?.searchingCategories[indexPath.row] {
+                    cell.configure(model: food)
+                }
+            } else {
+                if let food = presenter?.categories[indexPath.row] {
+                    cell.configure(model: food)
+                }
             }
             return cell
         }
@@ -126,17 +178,39 @@ extension CategoryViewController: UITableViewDataSource {
 
 // MARK: - CategoryViewController + UITableViewDelegate
 
+/// расширение для UITableViewDelegate
 extension CategoryViewController: UITableViewDelegate {
+    /// Вызывается при выборе ячейки таблицы
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 2 {
             let selectedRecipe = presenter?.categories[indexPath.row]
             let recipeDescriptionController = RecipeDescriptionController()
             // модель рецепта в контроллер с рецептом
             if let selectedRecipe {
-                recipeDescriptionController.selectedRecipe = selectedRecipe
                 //  переход на экран с рецептом
-                navigationController?.pushViewController(recipeDescriptionController, animated: true)
+                presenter?.openRecipeDescriptionVC(model: selectedRecipe)
             }
         }
+    }
+}
+
+/// расширение для FilterTableViewCellDelegate
+extension CategoryViewController: FilterTableViewCellDelegate {
+    /// Обрабатывает нажатие кнопки калорий
+    func caloriesButtonPressed(_ bool: Bool) {
+        presenter?.caloriesButtonPressed(bool)
+    }
+
+    /// Обрабатывает нажатие кнопки времени приготовления
+    func timeButtonPressed(_ bool: Bool) {
+        presenter?.timeButtonPressed(bool)
+    }
+}
+
+/// Расширение для SearchTableViewCellDelegate
+extension CategoryViewController: SearchTableViewCellDelegate {
+    /// Обрабатывает нажатие текстового поля поиска
+    func textFieldTapped(_ text: String) {
+        presenter?.textFieldTapped(text)
     }
 }

@@ -141,7 +141,7 @@ final class RecipeECFPCell: UITableViewCell {
         return label
     }()
 
-    // MARK: - Life Cycle
+    // MARK: - Initializers
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -153,6 +153,15 @@ final class RecipeECFPCell: UITableViewCell {
         super.init(coder: coder)
         setupView()
         setupConstraints()
+    }
+
+    // MARK: - Public Methods
+
+    func configure(recipe: FoodModel?) {
+        enercSubViewLabel.text = "\(recipe?.kkal ?? "") kkal"
+        carbohydratesSubViewLabel.text = "\(recipe?.carbohydrates ?? 0) g"
+        fatsSubViewLabel.text = "\(recipe?.fats ?? 0) g"
+        proteinsSubViewLabel.text = "\(recipe?.proteins ?? 0) g"
     }
 
     // MARK: - Private Methods
@@ -328,14 +337,5 @@ final class RecipeECFPCell: UITableViewCell {
         proteinsSubViewLabel.bottomAnchor.constraint(equalTo: proteinsView.bottomAnchor, constant: -4)
             .isActive = true
         proteinsSubViewLabel.heightAnchor.constraint(equalToConstant: 15).isActive = true
-    }
-
-    // MARK: - Public Methods
-
-    func configure(recipe: FoodModel?) {
-        enercSubViewLabel.text = "\(recipe?.kkal ?? "") kkal"
-        carbohydratesSubViewLabel.text = "\(recipe?.carbohydrates ?? 0) g"
-        fatsSubViewLabel.text = "\(recipe?.fats ?? 0) g"
-        proteinsSubViewLabel.text = "\(recipe?.proteins ?? 0) g"
     }
 }

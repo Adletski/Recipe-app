@@ -3,7 +3,10 @@
 
 import UIKit
 
+/// Класс  представляющий пустое представление для отображения, когда нет данных
 final class EmptyView: UIView {
+    // MARK: - Visual Components
+
     private let emptyImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,6 +42,8 @@ final class EmptyView: UIView {
         return stackView
     }()
 
+    // MARK: - Initializers
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -49,16 +54,17 @@ final class EmptyView: UIView {
         fatalError()
     }
 
+    // MARK: - Private Methods
+
+    /// Настраивает пользовательский интерфейс
     private func setupUI() {
         stackViewV.addArrangedSubview(emptyImageView)
         stackViewV.addArrangedSubview(emptyLabel)
         stackViewV.addArrangedSubview(descriptionLabel)
         addSubview(stackViewV)
-
         NSLayoutConstraint.activate([
             emptyImageView.widthAnchor.constraint(equalToConstant: 50),
             emptyImageView.heightAnchor.constraint(equalToConstant: 50),
-
             stackViewV.centerYAnchor.constraint(equalTo: centerYAnchor),
             stackViewV.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             stackViewV.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)

@@ -1,24 +1,22 @@
-// ProfileCoordinator.swift
+// RecipeDescriptionCoordinator.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
 // Координатор для профиля
-final class ProfileCoordinator: BaseCoordinator {
+final class RecipeDescriptionCoordinator: BaseCoordinator {
     // MARK: - Properties
 
     var rootController: UINavigationController?
     var onFinishFlow: (() -> ())?
 
-    // MARK: - Public Methods
+    // MARK: - Initializer
 
     func setupRootController(viewController: UIViewController) {
         rootController = UINavigationController(rootViewController: viewController)
     }
 
-    func setupNavigationController() -> UINavigationController {
-        let navigationController = UINavigationController()
-        navigationController.navigationBar.isHidden = true
-        return navigationController
+    func moveBack() {
+        rootController?.navigationController?.popViewController(animated: true)
     }
 }

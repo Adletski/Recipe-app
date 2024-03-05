@@ -7,8 +7,11 @@ import UIKit
 protocol ProfilePresenter: AnyObject {
     init(view: ProfileView, coordinator: ProfileCoordinator)
 
+    /// Метод вызывается при загрузке представления
     func viewDidLoad()
+    /// Метод вызывается при нажатии кнопки редактирования
     func editButtonDidPress()
+    /// Метод для отображения экрана условий и политики конфиденциальности
     func showTermsPrivacyPolicy()
 }
 
@@ -42,7 +45,7 @@ final class ProfilePresenterImpl: ProfilePresenter {
     }
 
     func editButtonDidPress() {}
-
+    /// Метод для отображения экрана условий и политики конфиденциальности
     func showTermsPrivacyPolicy() {
         guard let rootController = profileCoordinator?.rootController else {
             return
@@ -61,32 +64,3 @@ final class ProfilePresenterImpl: ProfilePresenter {
         rootController.present(termsPrivacyPolicyViewController, animated: true, completion: nil)
     }
 }
-
-/*
- /// Презентер профиля
- final class ProfilePresenterImpl: ProfilePresenter {
-     // MARK: - Properties
-
-     weak var profileCoordinator: ProfileCoordinator?
-     weak var view: ProfileView?
-
-     init(view: ProfileView, coordinator: ProfileCoordinator) {
-         self.view = view
-         profileCoordinator = coordinator
-     }
-
-     // MARK: - Public methods
-
-     func viewDidLoad() {
-         view?.updateView(model: ProfileModel(
-             name: "Adlet",
-             surname: "Zhantassov",
-             profileImageView: "avatar",
-             categories: ["Bonuses", "Terms & Privacy policy", "Log out"]
-         ))
-     }
-
-     func editButtonDidPress() {}
-
- }
- */
