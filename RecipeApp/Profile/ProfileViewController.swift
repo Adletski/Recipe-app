@@ -99,13 +99,9 @@ extension ProfileViewController: UITableViewDelegate {
                 sheet.detents = [.medium()]
             }
             present(detentsVC, animated: true)
-        }
-        tableView.deselectRow(at: indexPath, animated: true)
-
-        if indexPath.row == 1 {
+        } else if indexPath.row == 1 {
             presenter?.showTermsPrivacyPolicy()
         }
-
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

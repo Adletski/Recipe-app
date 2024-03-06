@@ -11,6 +11,8 @@ protocol CategoryViewControllerProtocol: AnyObject {
     func updateWithCalories()
     /// Обновляет состояние текстового поля поиска
     func updateTextFieldSearching(_ bool: Bool)
+    func showSkeleton()
+    func offSkeleton()
 }
 
 /// Экран для категорий еды
@@ -32,7 +34,8 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
     /// презентер экрана категорий еды
     var presenter: CategoryPresenterProtocol?
     /// производится ли поиск в данный момент
-    var isSearching = false
+    private var isSearching = false
+    private var isShowSkeleton = false
 
     // MARK: - Private properties
 
@@ -49,6 +52,7 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
         tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
         tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.identifier)
         tableView.register(CategoriesTableViewCell.self, forCellReuseIdentifier: CategoriesTableViewCell.identifier)
+        tableView.register(SkeletonTableViewCell.self, forCellReuseIdentifier: "skeleton")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
@@ -60,6 +64,7 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        presenter?.viewDidLoaded()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -114,6 +119,18 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
         isSearching = bool
         tableView.reloadData()
     }
+
+    /// Показывает шиммер
+    func showSkeleton() {
+        isShowSkeleton = true
+        tableView.reloadData()
+    }
+
+    /// Прячет шиммер
+    func offSkeleton() {
+        isShowSkeleton = false
+        tableView.reloadData()
+    }
 }
 
 // MARK: - CategoryViewController + UITableViewDataSource
@@ -121,57 +138,74 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
 extension CategoryViewController: UITableViewDataSource {
     /// Возвращает количество секций в таблице
     func numberOfSections(in tableView: UITableView) -> Int {
-        contents.count
+        if isShowSkeleton {
+            return 1
+        } else {
+            return contents.count
+        }
     }
 
     /// Возвращает количество строк в указанной секции таблицы
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch contents[section] {
-        case .search:
+        if isShowSkeleton {
             return 1
-        case .filter:
-            return 1
-        case .category:
-            if isSearching {
-                return presenter?.searchingCategories.count ?? 0
-            } else {
-                return presenter?.categories.count ?? 0
+        } else {
+            switch contents[section] {
+            case .search:
+                return 1
+            case .filter:
+                return 1
+            case .category:
+                if isSearching {
+                    return presenter?.searchingCategories.count ?? 0
+                } else {
+                    return presenter?.categories.count ?? 0
+                }
             }
         }
     }
 
     /// Возвращает ячейку для указанного индекса
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch contents[indexPath.section] {
-        case .search:
+        if isShowSkeleton {
             guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: SearchTableViewCell.identifier,
+                withIdentifier: "skeleton",
                 for: indexPath
-            ) as? SearchTableViewCell else { return UITableViewCell() }
-            cell.delegate = self
+            ) as? SkeletonTableViewCell else { return UITableViewCell() }
+//            cell.backgroundColor = .red
             return cell
-        case .filter:
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: FilterTableViewCell.identifier,
-                for: indexPath
-            ) as? FilterTableViewCell else { return UITableViewCell() }
-            cell.delegate = self
-            return cell
-        case .category:
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: CategoriesTableViewCell.identifier,
-                for: indexPath
-            ) as? CategoriesTableViewCell else { return UITableViewCell() }
-            if isSearching {
-                if let food = presenter?.searchingCategories[indexPath.row] {
-                    cell.configure(model: food)
+        } else {
+            switch contents[indexPath.section] {
+            case .search:
+                guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: SearchTableViewCell.identifier,
+                    for: indexPath
+                ) as? SearchTableViewCell else { return UITableViewCell() }
+                cell.delegate = self
+                return cell
+            case .filter:
+                guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: FilterTableViewCell.identifier,
+                    for: indexPath
+                ) as? FilterTableViewCell else { return UITableViewCell() }
+                cell.delegate = self
+                return cell
+            case .category:
+                guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: CategoriesTableViewCell.identifier,
+                    for: indexPath
+                ) as? CategoriesTableViewCell else { return UITableViewCell() }
+                if isSearching {
+                    if let food = presenter?.searchingCategories[indexPath.row] {
+                        cell.configure(model: food)
+                    }
+                } else {
+                    if let food = presenter?.categories[indexPath.row] {
+                        cell.configure(model: food)
+                    }
                 }
-            } else {
-                if let food = presenter?.categories[indexPath.row] {
-                    cell.configure(model: food)
-                }
+                return cell
             }
-            return cell
         }
     }
 }
@@ -184,7 +218,6 @@ extension CategoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 2 {
             let selectedRecipe = presenter?.categories[indexPath.row]
-            let recipeDescriptionController = RecipeDescriptionController()
             // модель рецепта в контроллер с рецептом
             if let selectedRecipe {
                 //  переход на экран с рецептом

@@ -23,6 +23,7 @@ protocol CategoryPresenterProtocol: AnyObject {
     func caloriesButtonPressed(_ bool: Bool)
     /// Обработка нажатия на текстовое поле/
     func textFieldTapped(_ text: String)
+    func viewDidLoaded()
 }
 
 final class CategoryPresenter: CategoryPresenterProtocol {
@@ -83,5 +84,12 @@ final class CategoryPresenter: CategoryPresenterProtocol {
         searchingCategories = categories.filter { $0.name.prefix(text.count) == text }
         isSearching = true
         view?.updateTextFieldSearching(isSearching)
+    }
+
+    func viewDidLoaded() {
+        view?.showSkeleton()
+        Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { _ in
+            self.view?.offSkeleton()
+        }
     }
 }
