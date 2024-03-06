@@ -4,32 +4,33 @@
 import UIKit
 
 extension UIView {
-    /// Add shimmer effect to view
+    /// Добавление  эффекта мерцания
     func startShimmeringAnimation() {
-        // Base parameters
+        // MARK: - Constants
+
+        /// Базовые параметры
         let lightColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5).cgColor
         let blackColor = UIColor.black.cgColor
         let animationSpeed = 1.0
-
         let gradientLayer = makeGradientLayer()
         gradientLayer.colors = [blackColor, lightColor, blackColor]
         layer.mask = gradientLayer
-
         addGrayShimmerLayer()
-
         CATransaction.begin()
         let animation = makeAnimation(animationSpeed: animationSpeed)
         gradientLayer.add(animation, forKey: "shimmerAnimation")
         CATransaction.commit()
     }
 
-    /// Remove shimmer effect from view
-    func stopShimmeringAnimation() {
+    // MARK: - Private Methods
+
+    /// Удаление эффекта мерцания из представления
+    private func stopShimmeringAnimation() {
         layer.mask = nil
         layer.sublayers?.first?.removeFromSuperlayer()
     }
 
-    /// Making gradien layer for shimmer effect
+    /// Создание градиентного слоя для эффекта мерцания
     private func makeGradientLayer() -> CAGradientLayer {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = CGRect(
@@ -44,7 +45,7 @@ extension UIView {
         return gradientLayer
     }
 
-    /// Adds gray color layer to top of view
+    /// Добавление серого слоя для мерцающего эффекта
     private func addGrayShimmerLayer() {
         let grayShimmerLayer = CALayer()
         grayShimmerLayer.backgroundColor = UIColor.systemGray4.cgColor
@@ -54,8 +55,8 @@ extension UIView {
         layer.addSublayer(grayShimmerLayer)
     }
 
-    /// Makes animation with desired parameters
-    ///  - Parameter animationSpeed: time interval for animation repeating
+    /// Создание анимации с заданными параметрами
+    /// - Parameter animationSpeed: временной интервал для повторения анимации
     private func makeAnimation(animationSpeed: CGFloat) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: "locations")
         animation.fromValue = [0.0, 0.1, 0.2]

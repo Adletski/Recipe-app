@@ -63,6 +63,8 @@ final class FilterTableViewCell: UITableViewCell {
     }
 }
 
+// MARK: -  Extension
+
 extension FilterTableViewCell: SortingPickerDataSource {
     func sortPickerCount(_ dayPicker: SortingViewControl) -> Int {
         names.count

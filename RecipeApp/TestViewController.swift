@@ -3,6 +3,9 @@
 
 import UIKit
 
+// MARK: - Visual Components
+
+/// Класс тестового контроллера для демонстрации SortingViewControl
 final class TestViewController: UIViewController {
     let customView = SortingViewControl()
     var names = ["Calories", "Time"]
@@ -23,11 +26,15 @@ final class TestViewController: UIViewController {
     }
 }
 
+// MARK: - extension SortingPickerDataSource
+
 extension TestViewController: SortingPickerDataSource {
+    /// Возвращает количество элементов в контроле выбора сортировки
     func sortPickerCount(_ dayPicker: SortingViewControl) -> Int {
         names.count
     }
 
+    /// Возвращает заголовок элемента сортировки для указанного индекса
     func sortPickerTitle(_ dayPicker: SortingViewControl, indexPath: IndexPath) -> String {
         names[indexPath.row]
     }
