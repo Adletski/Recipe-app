@@ -2,9 +2,11 @@
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
-//MARK: - Types
+
+// MARK: - Types
+
 /// Делегат ячейки с поиском
-protocol SearchTableViewCellDelegate {
+protocol SearchTableViewCellDelegate: AnyObject {
     /// функия нажатия на текстовое поле
     func textFieldTapped(_ text: String)
 }

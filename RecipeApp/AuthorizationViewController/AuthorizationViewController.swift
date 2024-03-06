@@ -2,7 +2,9 @@
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
-//MARK: - Types
+
+// MARK: - Types
+
 /// Перечисление для валидации пароля
 enum ValidationState {
     case notValid

@@ -2,7 +2,9 @@
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
-//MARK: - Types
+
+// MARK: - Types
+
 /// Протокол презентера экрана авторизации
 protocol AutorizationPresenterProtocol: AnyObject {
     /// Координатор флоу экрана

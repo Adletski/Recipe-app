@@ -18,9 +18,7 @@ protocol CategoryPresenterProtocol: AnyObject {
     /// Открытие экрана описания рецепта
     func openRecipeDescriptionVC(model: FoodModel)
     /// Обработка нажатия на кнопку времени
-    func timeButtonPressed(_ bool: Bool)
-    /// Обработка нажатия на кнопку калорий
-    func caloriesButtonPressed(_ bool: Bool)
+    func sortingButtonPressed(_ state: ButtonState)
     /// Обработка нажатия на текстовое поле/
     func textFieldTapped(_ text: String)
     func viewDidLoaded()
@@ -58,24 +56,17 @@ final class CategoryPresenter: CategoryPresenterProtocol {
     }
 
     /// Обработка нажатия на кнопку калорий
-    func caloriesButtonPressed(_ bool: Bool) {
-        if bool {
+    func sortingButtonPressed(_ state: ButtonState) {
+        switch state {
+        case .normal:
+            categories.shuffle()
+            view?.updateView()
+        case .highToLow:
             categories = categories.sorted(by: { $0.kkalCount < $1.kkalCount })
-            view?.updateWithCalories()
-        } else {
-            categories = categories.shuffled()
-            view?.updateWithCalories()
-        }
-    }
-
-    /// Обработка нажатия на кнопку времени
-    func timeButtonPressed(_ bool: Bool) {
-        if bool {
-            categories = categories.sorted(by: { $0.timeCount < $1.timeCount })
-            view?.updateWithTime()
-        } else {
-            categories = categories.shuffled()
-            view?.updateWithTime()
+            view?.updateView()
+        case .lowToHigh:
+            categories = categories.sorted(by: { $0.kkalCount > $1.kkalCount })
+            view?.updateView()
         }
     }
 
@@ -88,7 +79,7 @@ final class CategoryPresenter: CategoryPresenterProtocol {
 
     func viewDidLoaded() {
         view?.showSkeleton()
-        Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { _ in
+        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { _ in
             self.view?.offSkeleton()
         }
     }

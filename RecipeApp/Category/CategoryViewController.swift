@@ -5,10 +5,8 @@ import UIKit
 
 /// Протокол для категорий еды
 protocol CategoryViewControllerProtocol: AnyObject {
-    /// Обновляет таблицу с учетом времени приготовления блюд
-    func updateWithTime()
     /// Обновляет таблицу с учетом количества калорий в блюдах
-    func updateWithCalories()
+    func updateView()
     /// Обновляет состояние текстового поля поиска
     func updateTextFieldSearching(_ bool: Bool)
     func showSkeleton()
@@ -105,12 +103,7 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
     }
 
     /// Обновляет таблицу с учетом количества калорий в блюдах
-    func updateWithCalories() {
-        tableView.reloadData()
-    }
-
-    /// Обновляет таблицу с учетом времени приготовления блюд
-    func updateWithTime() {
+    func updateView() {
         tableView.reloadData()
     }
 
@@ -172,7 +165,6 @@ extension CategoryViewController: UITableViewDataSource {
                 withIdentifier: "skeleton",
                 for: indexPath
             ) as? SkeletonTableViewCell else { return UITableViewCell() }
-//            cell.backgroundColor = .red
             return cell
         } else {
             switch contents[indexPath.section] {
@@ -230,13 +222,8 @@ extension CategoryViewController: UITableViewDelegate {
 /// расширение для FilterTableViewCellDelegate
 extension CategoryViewController: FilterTableViewCellDelegate {
     /// Обрабатывает нажатие кнопки калорий
-    func caloriesButtonPressed(_ bool: Bool) {
-        presenter?.caloriesButtonPressed(bool)
-    }
-
-    /// Обрабатывает нажатие кнопки времени приготовления
-    func timeButtonPressed(_ bool: Bool) {
-        presenter?.timeButtonPressed(bool)
+    func onButtonPressed(state: ButtonState) {
+        presenter?.sortingButtonPressed(state)
     }
 }
 

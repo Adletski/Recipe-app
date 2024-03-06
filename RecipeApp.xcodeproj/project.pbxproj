@@ -29,6 +29,10 @@
 		7FAB18062B95F6B8001701BE /* RecipeDescriptionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18052B95F6B8001701BE /* RecipeDescriptionCoordinator.swift */; };
 		7FAB18082B95FA1D001701BE /* RecipeDescriptionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18072B95FA1D001701BE /* RecipeDescriptionPresenter.swift */; };
 		7FAB182C2B97C259001701BE /* SkeletonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB182B2B97C259001701BE /* SkeletonTableViewCell.swift */; };
+		7FAB18302B9879ED001701BE /* Extension + UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB182F2B9879ED001701BE /* Extension + UIView.swift */; };
+		7FAB18322B9880BA001701BE /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18312B9880BA001701BE /* TestViewController.swift */; };
+		7FAB18342B988952001701BE /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18332B988952001701BE /* SkeletonView.swift */; };
+		7FAB18362B98AF3A001701BE /* CustomControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18352B98AF39001701BE /* CustomControl.swift */; };
 		7FCDDBF82B91BC700065E4E5 /* Extension+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBEE2B91BC700065E4E5 /* Extension+UITextField.swift */; };
 		7FCDDBF92B91BC700065E4E5 /* CategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBEF2B91BC700065E4E5 /* CategoryPresenter.swift */; };
 		7FCDDBFA2B91BC700065E4E5 /* CategoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBF02B91BC700065E4E5 /* CategoryCoordinator.swift */; };
@@ -97,6 +101,10 @@
 		7FAB18052B95F6B8001701BE /* RecipeDescriptionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDescriptionCoordinator.swift; sourceTree = "<group>"; };
 		7FAB18072B95FA1D001701BE /* RecipeDescriptionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDescriptionPresenter.swift; sourceTree = "<group>"; };
 		7FAB182B2B97C259001701BE /* SkeletonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonTableViewCell.swift; sourceTree = "<group>"; };
+		7FAB182F2B9879ED001701BE /* Extension + UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIView.swift"; sourceTree = "<group>"; };
+		7FAB18312B9880BA001701BE /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		7FAB18332B988952001701BE /* SkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonView.swift; sourceTree = "<group>"; };
+		7FAB18352B98AF39001701BE /* CustomControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomControl.swift; sourceTree = "<group>"; };
 		7FCDDBEE2B91BC700065E4E5 /* Extension+UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UITextField.swift"; sourceTree = "<group>"; };
 		7FCDDBEF2B91BC700065E4E5 /* CategoryPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPresenter.swift; sourceTree = "<group>"; };
 		7FCDDBF02B91BC700065E4E5 /* CategoryCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCoordinator.swift; sourceTree = "<group>"; };
@@ -226,6 +234,7 @@
 				7FCDDBF62B91BC700065E4E5 /* FilterTableViewCell.swift */,
 				7FCDDBF72B91BC700065E4E5 /* SearchTableViewCell.swift */,
 				7FAB182B2B97C259001701BE /* SkeletonTableViewCell.swift */,
+				7FAB182F2B9879ED001701BE /* Extension + UIView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -262,6 +271,9 @@
 				7FE564232B8E5239002562F3 /* BaseCoordinator.swift */,
 				7FE564272B8E5285002562F3 /* AppCoordinator.swift */,
 				5E89C56C2B93AF190021D3E1 /* RecipeDescription */,
+				7FAB18312B9880BA001701BE /* TestViewController.swift */,
+				7FAB18332B988952001701BE /* SkeletonView.swift */,
+				7FAB18352B98AF39001701BE /* CustomControl.swift */,
 			);
 			path = RecipeApp;
 			sourceTree = "<group>";
@@ -476,6 +488,7 @@
 			files = (
 				5E89C5722B93AFD20021D3E1 /* RecipeTextCell.swift in Sources */,
 				7FAB18062B95F6B8001701BE /* RecipeDescriptionCoordinator.swift in Sources */,
+				7FAB18302B9879ED001701BE /* Extension + UIView.swift in Sources */,
 				7F64F6462B959AD600CA9D49 /* RecipeImageCell.swift in Sources */,
 				7FE564792B8F2871002562F3 /* AuthorizationViewController.swift in Sources */,
 				7FE563AD2B8D1BCE002562F3 /* RecipesPresenter.swift in Sources */,
@@ -489,6 +502,9 @@
 				7FE563EB2B8E1018002562F3 /* ProfileModel.swift in Sources */,
 				7FE563C12B8DC5D2002562F3 /* RecipeModel.swift in Sources */,
 				7F64F63E2B95989D00CA9D49 /* Service.swift in Sources */,
+				7FAB18342B988952001701BE /* SkeletonView.swift in Sources */,
+				7FAB18322B9880BA001701BE /* TestViewController.swift in Sources */,
+				7FAB18362B98AF3A001701BE /* CustomControl.swift in Sources */,
 				7FCDDBFC2B91BC700065E4E5 /* CategoryViewController.swift in Sources */,
 				7FCDDBFD2B91BC700065E4E5 /* CategoriesTableViewCell.swift in Sources */,
 				7FCDDBFB2B91BC700065E4E5 /* FoodModel.swift in Sources */,
