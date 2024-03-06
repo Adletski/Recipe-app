@@ -53,13 +53,13 @@ final class ProfilePresenterImpl: ProfilePresenter {
 
         let termsPrivacyPolicyViewController = UIViewController()
         let termsPrivacyPolicyView = TermsPrivacyPolicyView(frame: rootController.view.bounds)
-
         termsPrivacyPolicyViewController.view.addSubview(termsPrivacyPolicyView)
-
         termsPrivacyPolicyView.alpha = 0.0
-        UIView.animate(withDuration: 0.5, animations: {
+
+        let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
             termsPrivacyPolicyView.alpha = 1.0
-        })
+        }
+        animator.startAnimation()
 
         rootController.present(termsPrivacyPolicyViewController, animated: true, completion: nil)
     }

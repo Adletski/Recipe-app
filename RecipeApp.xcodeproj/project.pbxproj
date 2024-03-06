@@ -28,6 +28,7 @@
 		7F64F6472B959AD600CA9D49 /* RecipeECFTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F64F6432B959AD600CA9D49 /* RecipeECFTCell.swift */; };
 		7FAB18062B95F6B8001701BE /* RecipeDescriptionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18052B95F6B8001701BE /* RecipeDescriptionCoordinator.swift */; };
 		7FAB18082B95FA1D001701BE /* RecipeDescriptionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18072B95FA1D001701BE /* RecipeDescriptionPresenter.swift */; };
+		7FAB182C2B97C259001701BE /* SkeletonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB182B2B97C259001701BE /* SkeletonTableViewCell.swift */; };
 		7FCDDBF82B91BC700065E4E5 /* Extension+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBEE2B91BC700065E4E5 /* Extension+UITextField.swift */; };
 		7FCDDBF92B91BC700065E4E5 /* CategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBEF2B91BC700065E4E5 /* CategoryPresenter.swift */; };
 		7FCDDBFA2B91BC700065E4E5 /* CategoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBF02B91BC700065E4E5 /* CategoryCoordinator.swift */; };
@@ -95,6 +96,7 @@
 		7F64F6432B959AD600CA9D49 /* RecipeECFTCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeECFTCell.swift; sourceTree = "<group>"; };
 		7FAB18052B95F6B8001701BE /* RecipeDescriptionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDescriptionCoordinator.swift; sourceTree = "<group>"; };
 		7FAB18072B95FA1D001701BE /* RecipeDescriptionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDescriptionPresenter.swift; sourceTree = "<group>"; };
+		7FAB182B2B97C259001701BE /* SkeletonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonTableViewCell.swift; sourceTree = "<group>"; };
 		7FCDDBEE2B91BC700065E4E5 /* Extension+UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UITextField.swift"; sourceTree = "<group>"; };
 		7FCDDBEF2B91BC700065E4E5 /* CategoryPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPresenter.swift; sourceTree = "<group>"; };
 		7FCDDBF02B91BC700065E4E5 /* CategoryCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCoordinator.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				7FCDDBF52B91BC700065E4E5 /* CategoriesTableViewCell.swift */,
 				7FCDDBF62B91BC700065E4E5 /* FilterTableViewCell.swift */,
 				7FCDDBF72B91BC700065E4E5 /* SearchTableViewCell.swift */,
+				7FAB182B2B97C259001701BE /* SkeletonTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 				7FAB18082B95FA1D001701BE /* RecipeDescriptionPresenter.swift in Sources */,
 				7FE563C52B8DF24B002562F3 /* ProfileTableViewCell.swift in Sources */,
 				7FE563E92B8E0F5D002562F3 /* ProfilePresenter.swift in Sources */,
+				7FAB182C2B97C259001701BE /* SkeletonTableViewCell.swift in Sources */,
 				7FCDDBF92B91BC700065E4E5 /* CategoryPresenter.swift in Sources */,
 				7FCDDBF82B91BC700065E4E5 /* Extension+UITextField.swift in Sources */,
 				7FE563A02B8D0998002562F3 /* TabBarViewController.swift in Sources */,
