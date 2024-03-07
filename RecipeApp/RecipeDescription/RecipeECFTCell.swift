@@ -5,6 +5,8 @@ import UIKit
 
 /// Ячейка с кбжу
 final class RecipeECFPCell: UITableViewCell {
+     //MARK: - Constants
+    
     private enum Constant {
         static let castomBlue = "castomBlue"
         static let identifier = "RecipeECFPCell"

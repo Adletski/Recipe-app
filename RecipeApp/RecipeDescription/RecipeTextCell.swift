@@ -5,6 +5,8 @@ import UIKit
 
 /// ячейка с текстом рецепта
 final class RecipeTextCell: UITableViewCell {
+     //MARK: - Constants
+
     enum Constant {
         static let customBlue = "castomBlue"
         static let identifier = "RecipeTextCell"

@@ -3,8 +3,6 @@
 
 import UIKit
 
-// MARK: - Types
-
 /// Билд для модуля рецептов
 final class FavoritesBuilder {
     // MARK: - Public Methods
