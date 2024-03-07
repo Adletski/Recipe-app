@@ -21,13 +21,16 @@ final class RecipeDescriptionPresenter: RecipeDescriptionPresenterProtocol {
     weak var view: RecipeDescriptionController?
     var category: FoodModel?
 
+    // MARK: - Initializer
+
     init(view: RecipeDescriptionController, coordinator: CategoryCoordinator) {
         self.view = view
         self.coordinator = coordinator
     }
 
+    // MARK: - Public methods
+
     func moveBack() {
-        print("presenter back")
         coordinator?.moveBack()
     }
 }

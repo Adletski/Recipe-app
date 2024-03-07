@@ -1,4 +1,4 @@
-// CustomControl.swift
+// SortingViewControl.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
@@ -7,8 +7,11 @@ import UIKit
 
 /// кастомные стейты
 enum ButtonState {
+    /// обычное состояние
     case normal
+    /// от большего к меньшему состояние
     case highToLow
+    /// от меньшего к большему  состояние
     case lowToHigh
 }
 
@@ -21,31 +24,29 @@ protocol SortingPickerDataSource {
 }
 
 /// Протокол делегата управления сортировкой
-protocol SortingViewControlDelegate {
+protocol SortingViewControlDelegate: AnyObject {
     /// Вызывается при нажатии на кнопку сортировки
     func onButtonPressed(state: ButtonState)
 }
 
-// MARK: - Visual Components
-
 /// Класс кастомного контрола для выбора сортировки
 final class SortingViewControl: UIControl {
-    /// Источник данных для контрола
+    // MARK: - Public properties
+
     public var dataSource: SortingPickerDataSource? {
         didSet {
             setupView()
         }
     }
 
-    /// Делегат управления контролом
     var delegate: SortingViewControlDelegate?
+
+    // MARK: - Private properties
+
     private var buttons: [RecipeButton] = []
     private var stackView: UIStackView?
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        stackView?.frame = bounds
-    }
+    // MARK: - Initializer
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,12 +57,18 @@ final class SortingViewControl: UIControl {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Lifecycle
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        stackView?.frame = bounds
+    }
+
     // MARK: - Public Methods
 
     /// Настройка внешнего вида контрола
     func setupView() {
         let count = dataSource?.sortPickerCount(self)
-
         for item in 0 ..< (count ?? 0) {
             let indexPath = IndexPath(row: item, section: 0)
             let title = dataSource?.sortPickerTitle(self, indexPath: indexPath)
@@ -121,7 +128,8 @@ final class SortingViewControl: UIControl {
         }
     }
 
-    /// Создание изображения стрелки вверх
+    // MARK: - Private methods
+
     private func makeUpImageView() -> UIImageView {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "up")
@@ -129,12 +137,11 @@ final class SortingViewControl: UIControl {
         return imageView
     }
 
-    // MARK: - IBAction
+    // MARK: - Private objc methods
 
     /// Обработка нажатия на кнопку
-    @objc func selectedButton(sender: RecipeButton) {
+    @objc private func selectedButton(sender: RecipeButton) {
         changeState(button: sender)
-        print(sender.customState)
         if let state = sender.customState {
             delegate?.onButtonPressed(state: state)
         }

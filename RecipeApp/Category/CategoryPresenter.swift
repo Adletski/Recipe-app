@@ -5,6 +5,8 @@ import Foundation
 
 /// Протокол презентера экрана категорий
 protocol CategoryPresenterProtocol: AnyObject {
+    var isSearching: Bool { get set }
+    var isShowSkeleton: Bool { get set }
     /// Координатор флоу экрана
     var coordinator: CategoryCoordinator? { get set }
     /// Массив данных с продуктами
@@ -19,9 +21,14 @@ protocol CategoryPresenterProtocol: AnyObject {
     func openRecipeDescriptionVC(model: FoodModel)
     /// Обработка нажатия на кнопку времени
     func sortingButtonPressed(_ state: ButtonState)
-    /// Обработка нажатия на текстовое поле/
-    func textFieldTapped(_ text: String)
+    /// Оповещение презентера о прогрузке вью
     func viewDidLoaded()
+    /// Делегат для серчбара с передачей текста
+    func searchBarDelegate(_ text: String)
+    /// Обработка  нажатися отмены серчбара
+    func cancelButtonPressed()
+    /// Обработка нажатия на кнопку фильтра
+    func filterButtonPressed(state: ButtonState)
 }
 
 final class CategoryPresenter: CategoryPresenterProtocol {
@@ -33,6 +40,7 @@ final class CategoryPresenter: CategoryPresenterProtocol {
     var categories: [FoodModel] = []
     var searchingCategories: [FoodModel] = []
     var isSearching = false
+    var isShowSkeleton = false
 
     // MARK: - Initializers
 
@@ -70,17 +78,37 @@ final class CategoryPresenter: CategoryPresenterProtocol {
         }
     }
 
-    /// Обработка нажатия на текстовое поле
-    func textFieldTapped(_ text: String) {
-        searchingCategories = categories.filter { $0.name.prefix(text.count) == text }
-        isSearching = true
-        view?.updateTextFieldSearching(isSearching)
+    func viewDidLoaded() {
+        isShowSkeleton = true
+        view?.updateView()
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] _ in
+            self?.isShowSkeleton = false
+            self?.view?.updateView()
+        }
     }
 
-    func viewDidLoaded() {
-        view?.showSkeleton()
-        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { _ in
-            self.view?.offSkeleton()
+    func searchBarDelegate(_ text: String) {
+        searchingCategories = categories.filter { $0.name.prefix(text.count) == text }
+        isSearching = true
+        view?.updateView()
+    }
+
+    func cancelButtonPressed() {
+        isSearching = false
+        view?.updateSearchBar()
+    }
+
+    func filterButtonPressed(state: ButtonState) {
+        switch state {
+        case .normal:
+            categories = categories.shuffled()
+            view?.updateView()
+        case .highToLow:
+            categories = categories.sorted(by: { $0.kkalCount > $1.kkalCount })
+            view?.updateView()
+        case .lowToHigh:
+            categories = categories.sorted(by: { $0.kkalCount < $1.kkalCount })
+            view?.updateView()
         }
     }
 }

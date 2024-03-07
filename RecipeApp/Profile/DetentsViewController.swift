@@ -41,7 +41,7 @@ final class DetentsViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Constant.bonuses
         label.textColor = .black
-        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.font = .systemFont(ofSize: 25, weight: .semibold)
         return label
     }()
 
@@ -50,7 +50,7 @@ final class DetentsViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Constant.bonusTotal
         label.textColor = .black
-        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.font = .systemFont(ofSize: 25, weight: .semibold)
         return label
     }()
 
@@ -106,30 +106,30 @@ final class DetentsViewController: UIViewController {
     }
 
     private func makeBonusTitleLabelConstraints() {
-        bonusTitleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true
+        bonusTitleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 75).isActive = true
         bonusTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 
     private func makeBoxImageViewConstraints() {
-        boxImageView.topAnchor.constraint(equalTo: bonusTitleLabel.bottomAnchor, constant: 10).isActive = true
+        boxImageView.topAnchor.constraint(equalTo: bonusTitleLabel.bottomAnchor, constant: 20).isActive = true
         boxImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         boxImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
         boxImageView.heightAnchor.constraint(equalToConstant: 140).isActive = true
     }
 
     private func makeStackViewConstraints() {
-        stackView.topAnchor.constraint(equalTo: boxImageView.bottomAnchor, constant: 20).isActive = true
+        stackView.topAnchor.constraint(equalTo: boxImageView.bottomAnchor, constant: 35).isActive = true
         stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 
     private func makeStarImageViewConstraints() {
-        starImageView.heightAnchor.constraint(equalToConstant: 27).isActive = true
-        starImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        starImageView.heightAnchor.constraint(equalToConstant: 47).isActive = true
+        starImageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
     }
 
     private func setupSeparatorViewConstraints() {
         separatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        separatorView.topAnchor.constraint(equalTo: view.topAnchor, constant: 25).isActive = true
+        separatorView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
         separatorView.widthAnchor.constraint(equalToConstant: 50).isActive = true
         separatorView.heightAnchor.constraint(equalToConstant: 5).isActive = true
     }

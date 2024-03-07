@@ -43,6 +43,7 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
         static let errorMessage = "Please check the accuracy of the entered credentials."
         static let eyeSlash = "eye.slash"
         static let ok = "Ok"
+        static let gradientColor = "gradientColor"
     }
 
     // MARK: - Public properties
@@ -488,7 +489,7 @@ extension AuthorizationViewController {
         gradientLayer.frame = view.bounds
         gradientLayer.colors = [
             UIColor.white.cgColor,
-            UIColor(named: "gradientColor")?.cgColor ?? ""
+            UIColor(named: Constant.gradientColor)?.cgColor ?? ""
         ]
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)

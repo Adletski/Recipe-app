@@ -5,9 +5,20 @@ import UIKit
 
 /// Ячейка с продуктами для таблицы
 final class CategoriesTableViewCell: UITableViewCell {
+    enum Constant {
+        static let identifier = "CategoriesTableViewCell"
+        static let foodOne = "food1"
+        static let simpleFish = "Simple Fish and Corn"
+        static let clock = "clock"
+        static let sixtyMin = "60 min"
+        static let pizza = "pizza"
+        static let kkal = "274 kkal"
+        static let cellChevron = "cellChevron"
+    }
+
     // MARK: - Identifier
 
-    static let identifier = "CategoriesTableViewCell"
+    static let identifier = Constant.identifier
 
     // MARK: - Visual components
 
@@ -22,13 +33,13 @@ final class CategoriesTableViewCell: UITableViewCell {
     private let foodImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "food1")
+        imageView.image = UIImage(named: Constant.foodOne)
         return imageView
     }()
 
     private let foodLabel: UILabel = {
         let label = UILabel()
-        label.text = "Simple Fish and Corn"
+        label.text = Constant.simpleFish
         label.font = .systemFont(ofSize: 15)
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -38,13 +49,13 @@ final class CategoriesTableViewCell: UITableViewCell {
     private let clockImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "clock")
+        imageView.image = UIImage(named: Constant.clock)
         return imageView
     }()
 
     private let timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "60 min"
+        label.text = Constant.sixtyMin
         label.font = .systemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -61,13 +72,13 @@ final class CategoriesTableViewCell: UITableViewCell {
     private let pizzaImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "pizza")
+        imageView.image = UIImage(named: Constant.pizza)
         return imageView
     }()
 
     private let caloriesLabel: UILabel = {
         let label = UILabel()
-        label.text = "274 kkal"
+        label.text = Constant.kkal
         label.font = .systemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -84,7 +95,7 @@ final class CategoriesTableViewCell: UITableViewCell {
     private let chevronImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "cellChevron")
+        imageView.image = UIImage(named: Constant.cellChevron)
         return imageView
     }()
 
@@ -98,7 +109,7 @@ final class CategoriesTableViewCell: UITableViewCell {
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError()
     }
 
     // MARK: - Private methods

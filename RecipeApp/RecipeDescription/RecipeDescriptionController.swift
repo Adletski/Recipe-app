@@ -7,10 +7,19 @@ import UIKit
 final class RecipeDescriptionController: UIViewController {
     // MARK: - Constants
 
+    enum Constant {
+        static let arrowImage = "arrow"
+        static let sendButtonImage = "sendButtonImage"
+        static let savedButtonImage = "savedButtonImage"
+    }
+
     /// Перечисление для  деталей рецепта
     enum Details {
+        /// фото
         case photo
+        /// характеристики
         case characteristics
+        /// описание
         case description
     }
 
@@ -21,30 +30,33 @@ final class RecipeDescriptionController: UIViewController {
         }
     }
 
-    /// Диапазон деталей рецепта
-    let range: [Details] = [.photo, .characteristics, .description]
-    let recipeCells: [Details] = [.photo, .characteristics, .description]
+    // MARK: - Private properties
+
+    private let range: [Details] = [.photo, .characteristics, .description]
+    private let recipeCells: [Details] = [.photo, .characteristics, .description]
+    private let tableView = UITableView()
+
+    // MARK: - Public properties
 
     var presenter: RecipeDescriptionPresenterProtocol?
-    private let tableView = UITableView()
 
     // MARK: - Visual Components
 
     private let backBarButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "arrow"), for: .normal)
+        button.setImage(UIImage(named: Constant.arrowImage), for: .normal)
         return button
     }()
 
     private let shareButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "sendButtonImage"), for: .normal)
+        button.setImage(UIImage(named: Constant.sendButtonImage), for: .normal)
         return button
     }()
 
     private let setFavorite: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "savedButtonImage"), for: .normal)
+        button.setImage(UIImage(named: Constant.savedButtonImage), for: .normal)
         return button
     }()
 
@@ -68,7 +80,7 @@ final class RecipeDescriptionController: UIViewController {
 
     private func setupNavigationBar() {
         let backButton = UIBarButtonItem(
-            image: UIImage(named: "arrow"),
+            image: UIImage(named: Constant.arrowImage),
             style: .done,
             target: self,
             action: #selector(backButtonPressed)
@@ -96,7 +108,7 @@ final class RecipeDescriptionController: UIViewController {
 
     // MARK: - IBAction
 
-    @objc func backButtonPressed() {
+    @objc private func backButtonPressed() {
         presenter?.moveBack()
     }
 }

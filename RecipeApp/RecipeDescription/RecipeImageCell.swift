@@ -7,11 +7,20 @@ import UIKit
 final class RecipeImageCell: UITableViewCell {
     // MARK: - Constants
 
-    static let identifier = "RecipeImageCell"
+    static let identifier = Constant.identifier
 
-    private enum Constants {
+    private enum Constant {
         static let minutesText = "min"
         static let caloriesText = "kcal"
+        static let identifier = "RecipeImageCell"
+        static let pot = "pot"
+        static let backgroundImageColor = "backgroundImageColor"
+        static let verdana = "Verdana"
+        static let timerImage = "timerImage"
+        static let cookingTime = "Cooking time"
+        static let verdanaBold = "Verdana-Bold"
+        static let simpleFish = "Simple Fish and Corn"
+        static let min = "min"
     }
 
     // MARK: - Visual Components
@@ -32,35 +41,35 @@ final class RecipeImageCell: UITableViewCell {
 
     private let gramsImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "pot")
+        imageView.image = UIImage(named: Constant.pot)
         return imageView
     }()
 
     private let gramsView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 25
-        view.backgroundColor = UIColor(named: "backgroundImageColor")
+        view.backgroundColor = UIColor(named: Constant.backgroundImageColor)
         return view
     }()
 
     private let gramsLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Verdana", size: 10)
+        label.font = UIFont(name: Constant.verdana, size: 10)
         label.textColor = .white
         return label
     }()
 
     private let cookingTimeImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "timerImage")
+        imageView.image = UIImage(named: Constant.timerImage)
         return imageView
     }()
 
     private let cookingTimeView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 24
-        view.backgroundColor = UIColor(named: "backgroundImageColor")
+        view.backgroundColor = UIColor(named: Constant.backgroundImageColor)
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         return view
     }()
@@ -68,16 +77,16 @@ final class RecipeImageCell: UITableViewCell {
     private let cookingTimeTitleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Verdana", size: 10)
+        label.font = UIFont(name: Constant.verdana, size: 10)
         label.textColor = .white
-        label.text = "Cooking time"
+        label.text = Constant.cookingTime
         return label
     }()
 
     private let cookingTimeLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Verdana", size: 10)
+        label.font = UIFont(name: Constant.verdana, size: 10)
         label.textColor = .white
         return label
     }()
@@ -86,15 +95,15 @@ final class RecipeImageCell: UITableViewCell {
         let label = UILabel()
         label.textColor = .black
         label.textAlignment = .center
-        label.font = UIFont(name: "Verdana-Bold", size: 16)
+        label.font = UIFont(name: Constant.verdanaBold, size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     private let simpleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Simple Fish and Corn"
-        label.font = UIFont(name: "Verdana-Bold", size: 16)
+        label.text = Constant.simpleFish
+        label.font = UIFont(name: Constant.verdanaBold, size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -117,7 +126,7 @@ final class RecipeImageCell: UITableViewCell {
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError()
     }
 
     // MARK: - Public Methods
@@ -128,7 +137,7 @@ final class RecipeImageCell: UITableViewCell {
         nameRecipeLabel.text = recipe.name
         recipeImageView.image = UIImage(named: "\(recipe.image)")
         gramsLabel.text = "\(recipe.weight) g"
-        cookingTimeLabel.text = "\(recipe.time) min"
+        cookingTimeLabel.text = "\(recipe.time) \(Constant.min)"
     }
 
     // MARK: - Private Methods

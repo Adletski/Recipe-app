@@ -7,13 +7,13 @@ import UIKit
 final class SkeletonTableViewCell: UITableViewCell {
     // MARK: - Public properties
 
-    lazy var customeview = SkeletonView()
-    lazy var customeview2 = SkeletonView()
-    lazy var customeview3 = SkeletonView()
-    lazy var customeview4 = SkeletonView()
-    lazy var customeview5 = SkeletonView()
-    lazy var customeview6 = SkeletonView()
-    lazy var customeview7 = SkeletonView()
+    private lazy var customeview = SkeletonView()
+    private lazy var customeview2 = SkeletonView()
+    private lazy var customeview3 = SkeletonView()
+    private lazy var customeview4 = SkeletonView()
+    private lazy var customeview5 = SkeletonView()
+    private lazy var customeview6 = SkeletonView()
+    private lazy var customeview7 = SkeletonView()
 
     // MARK: - Initializer
 
@@ -25,14 +25,13 @@ final class SkeletonTableViewCell: UITableViewCell {
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError()
     }
 
     // MARK: - Lifecycle
 
     override func layoutSubviews() {
         super.layoutSubviews()
-
         customeview.updateFrame()
         customeview2.updateFrame()
         customeview3.updateFrame()
@@ -40,7 +39,6 @@ final class SkeletonTableViewCell: UITableViewCell {
         customeview5.updateFrame()
         customeview6.updateFrame()
         customeview7.updateFrame()
-
         customeview.startAnimating()
         customeview2.startAnimating()
         customeview3.startAnimating()

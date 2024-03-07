@@ -7,6 +7,10 @@ import UIKit
 protocol FavoritesViewControllerProtocol: AnyObject {}
 /// Контроллер экрана избранных
 final class FavoritesViewController: UIViewController, FavoritesViewControllerProtocol {
+    enum Constant {
+        static let cell = "cell"
+    }
+
     // MARK: - Constants
 
     /// Презентер для управления логикой отображения экрана избранных.
@@ -19,7 +23,7 @@ final class FavoritesViewController: UIViewController, FavoritesViewControllerPr
     /// Таблица для отображения категорий блюд
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constant.cell)
         tableView.register(CategoriesTableViewCell.self, forCellReuseIdentifier: CategoriesTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
