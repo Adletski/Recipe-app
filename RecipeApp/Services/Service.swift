@@ -3,10 +3,8 @@
 
 import Foundation
 
-/// создание модели с данными
-
 // MARK: - Types
-
+/// создание модели с данными
 final class Service {
     var description = """
     1/2 to 2 fish heads, depending on size, about 5 pounds total

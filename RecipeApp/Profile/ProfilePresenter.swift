@@ -17,7 +17,19 @@ protocol ProfilePresenter: AnyObject {
 
 /// Презентер профиля
 final class ProfilePresenterImpl: ProfilePresenter {
+    // MARK: - Constants
+
+    enum Constants {
+        static let name = "Adlet"
+        static let surname = "Zhantassov"
+        static let avatar = "avatar"
+        static let bonuses = "Bonuses"
+        static let privacy = "Terms & Privacy policy"
+        static let log = "Log out"
+    }
+
     var profileCoordinator: ProfileCoordinator?
+
     init(view: ProfileView, coordinator: ProfileCoordinator) {
         self.view = view as? ProfileViewController
         profileCoordinator = coordinator
@@ -37,10 +49,10 @@ final class ProfilePresenterImpl: ProfilePresenter {
 
     func viewDidLoad() {
         view?.updateView(model: ProfileModel(
-            name: "Adlet",
-            surname: "Zhantassov",
-            profileImageView: "avatar",
-            categories: ["Bonuses", "Terms & Privacy policy", "Log out"]
+            name: Constants.name,
+            surname: Constants.surname,
+            profileImageView: Constants.avatar,
+            categories: [Constants.bonuses, Constants.privacy, Constants.log]
         ))
     }
 

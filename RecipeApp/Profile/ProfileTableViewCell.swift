@@ -5,9 +5,13 @@ import UIKit
 
 /// Ячейка для таблицы профиля
 final class ProfileTableViewCell: UITableViewCell {
-    // MARK: - Properties
+    // MARK: - Constants
 
     static let identifier = "ProfileTableViewCell"
+
+    enum Constants {
+        static let bonuses = "Bonuses"
+    }
 
     // MARK: - Visual Components
 
@@ -25,7 +29,7 @@ final class ProfileTableViewCell: UITableViewCell {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Bonuses"
+        label.text = Constants.bonuses
         label.textColor = .black
         label.font = .systemFont(ofSize: 15, weight: .semibold)
         return label

@@ -12,16 +12,22 @@ protocol ProfileView: AnyObject {
 
 /// Экран для профиля
 final class ProfileViewController: UIViewController, ProfileView {
+    // MARK: - Constants
+
+    enum Constants {
+        static let timer: CGFloat = 2
+        static let change = "Change your name and surname"
+        static let ok = "OK"
+        static let cancel = "Cancel"
+        static let profile = "Profile"
+    }
+
     // MARK: - Properties
 
     var presenter: ProfilePresenter?
     private var activities = ["bonuses", "terms & privacy policy", "log out"]
     private var termsPrivacyPolicyView: TermsPrivacyPolicyView?
     private var visualEffect: UIVisualEffectView?
-
-    enum Constants {
-        static let timer: CGFloat = 2
-    }
 
     // MARK: - Visual Components
 
@@ -60,7 +66,7 @@ final class ProfileViewController: UIViewController, ProfileView {
     private func setupUI() {
         view.backgroundColor = .white
         view.addSubview(tableView)
-        title = "Profile"
+        title = Constants.profile
         navigationController?.navigationBar.prefersLargeTitles = true
     }
 
@@ -153,13 +159,13 @@ extension ProfileViewController: UITableViewDelegate {
 extension ProfileViewController: HeaderViewDelegate {
     /// Обрабатывает нажатие кнопки редактирования
     func editButtonDidPress() {
-        let alert = UIAlertController(title: "Change your name and surname", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: Constants.change, message: nil, preferredStyle: .alert)
         alert.addTextField()
-        let submitAction = UIAlertAction(title: "OK", style: .default) { [unowned alert] _ in
+        let submitAction = UIAlertAction(title: Constants.ok, style: .default) { [unowned alert] _ in
             let answer = alert.textFields?[0]
             self.tableHeaderView.nameLabel.text = answer?.text
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelAction = UIAlertAction(title: Constants.cancel, style: .cancel)
         alert.addAction(submitAction)
         alert.addAction(cancelAction)
         present(alert, animated: true)

@@ -2,7 +2,6 @@
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
-
 /// Координатор для профиля
 final class FavoritesCoordinator: BaseCoordinator {
     // MARK: - Properties

@@ -183,7 +183,7 @@ extension RecipeDescriptionController: UITableViewDataSource {
 }
 
 extension RecipeDescriptionController: UITableViewDelegate {
-    // Возвращает высоту строки для ячейки по указанному индекy
+    /// Возвращает высоту строки для ячейки по указанному индекy
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cellType = range[indexPath.section]
         switch cellType {
