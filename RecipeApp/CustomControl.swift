@@ -3,14 +3,7 @@
 
 import UIKit
 
-protocol SortingPickerDataSource {
-    func sortPickerCount(_ dayPicker: SortingViewControl) -> Int
-    func sortPickerTitle(_ dayPicker: SortingViewControl, indexPath: IndexPath) -> String
-}
-
-protocol SortingViewControlDelegate {
-    func onButtonPressed(state: ButtonState)
-}
+// MARK: - Public Properties
 
 /// кастомные стейты
 enum ButtonState {
@@ -19,13 +12,32 @@ enum ButtonState {
     case lowToHigh
 }
 
+/// Протокол источника данных для выбора сортировки
+protocol SortingPickerDataSource {
+    /// Возвращает количество элементов в контроле выбора сортировки
+    func sortPickerCount(_ dayPicker: SortingViewControl) -> Int
+    /// Возвращает заголовок элемента сортировки для указанного индекса
+    func sortPickerTitle(_ dayPicker: SortingViewControl, indexPath: IndexPath) -> String
+}
+
+/// Протокол делегата управления сортировкой
+protocol SortingViewControlDelegate {
+    /// Вызывается при нажатии на кнопку сортировки
+    func onButtonPressed(state: ButtonState)
+}
+
+// MARK: - Visual Components
+
+/// Класс кастомного контрола для выбора сортировки
 final class SortingViewControl: UIControl {
+    /// Источник данных для контрола
     public var dataSource: SortingPickerDataSource? {
         didSet {
             setupView()
         }
     }
 
+    /// Делегат управления контролом
     var delegate: SortingViewControlDelegate?
     private var buttons: [RecipeButton] = []
     private var stackView: UIStackView?
@@ -44,6 +56,9 @@ final class SortingViewControl: UIControl {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Public Methods
+
+    /// Настройка внешнего вида контрола
     func setupView() {
         let count = dataSource?.sortPickerCount(self)
 
@@ -81,6 +96,7 @@ final class SortingViewControl: UIControl {
         stackView?.distribution = .fillEqually
     }
 
+    /// Изменить состояние кнопки
     func changeState(button: RecipeButton) {
         switch button.customState {
         case .normal:
@@ -105,6 +121,7 @@ final class SortingViewControl: UIControl {
         }
     }
 
+    /// Создание изображения стрелки вверх
     private func makeUpImageView() -> UIImageView {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "up")
@@ -112,6 +129,9 @@ final class SortingViewControl: UIControl {
         return imageView
     }
 
+    // MARK: - IBAction
+
+    /// Обработка нажатия на кнопку
     @objc func selectedButton(sender: RecipeButton) {
         changeState(button: sender)
         print(sender.customState)
@@ -121,6 +141,9 @@ final class SortingViewControl: UIControl {
     }
 }
 
+// MARK: - Visual Components
+
+/// Класс кастомной кнопки
 final class RecipeButton: UIButton {
     var customState: ButtonState?
 }

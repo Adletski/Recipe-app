@@ -66,7 +66,7 @@ final class RecipesCustomCell: UICollectionViewCell {
 
     /// метод для создания ячейки
     private func makeCell() {
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = .clear
         contentView.layer.cornerRadius = 18
         contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.shadowOffset = CGSize(width: 2, height: 5)
@@ -93,8 +93,8 @@ final class RecipesCustomCell: UICollectionViewCell {
         recipeButton.translatesAutoresizingMaskIntoConstraints = false
         recipeButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         recipeButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        recipeButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         recipeButton.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        recipeButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
 
     /// Установка ограничений для фона текстовой области

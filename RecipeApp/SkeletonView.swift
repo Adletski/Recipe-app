@@ -3,12 +3,17 @@
 
 import UIKit
 
+// MARK: - Visual Components
+
+/// Класс кастомного вида для скелета
 final class SkeletonView: UIView {
     private let gradientLayer = CAGradientLayer()
     let firstColor = UIColor(red: 244.0 / 255.0, green: 246.0 / 255.0, blue: 248.0 / 255.0, alpha: 0.05).cgColor
     let secondColor = UIColor(red: 222.0 / 255.0, green: 230.0 / 255.0, blue: 240.0 / 255.0, alpha: 1.0).cgColor
     var startLocations: [NSNumber] = [-1.0, -0.5, 0.0]
     var endLocations: [NSNumber] = [1.5, 2.0, 3.0]
+
+    // MARK: - Initializers
 
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,6 +25,9 @@ final class SkeletonView: UIView {
         setupGradientLayer()
     }
 
+    // MARK: - Private Methods
+
+    /// Настройка градиентного слоя для вида
     private func setupGradientLayer() {
         layer.cornerRadius = 12
         translatesAutoresizingMaskIntoConstraints = false
@@ -31,11 +39,15 @@ final class SkeletonView: UIView {
         layer.addSublayer(gradientLayer)
     }
 
+    // MARK: - Public Methods
+
+    /// Обновление размеров вида
     public func updateFrame() {
         layoutIfNeeded()
         gradientLayer.frame = bounds
     }
 
+    /// старт анимации эффекта скелета
     public func startAnimating() {
         let animation = CABasicAnimation(keyPath: "locations")
         animation.fromValue = startLocations
@@ -50,6 +62,7 @@ final class SkeletonView: UIView {
         gradientLayer.add(animationGroup, forKey: animation.keyPath)
     }
 
+    /// Остановка анимацию эффекта скелета
     public func stopAnimating() {
         gradientLayer.removeAllAnimations()
     }

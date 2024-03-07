@@ -62,6 +62,14 @@ final class DetentsViewController: UIViewController {
         return stackView
     }()
 
+    private let separatorView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .gray
+        view.layer.cornerRadius = 3
+        return view
+    }()
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -78,6 +86,7 @@ final class DetentsViewController: UIViewController {
         stackView.addArrangedSubview(starImageView)
         stackView.addArrangedSubview(bonusLabel)
         view.addSubview(stackView)
+        view.addSubview(separatorView)
     }
 
     // MARK: - Private Methods
@@ -88,6 +97,7 @@ final class DetentsViewController: UIViewController {
         makeBoxImageViewConstraints()
         makeStackViewConstraints()
         makeStarImageViewConstraints()
+        setupSeparatorViewConstraints()
     }
 
     private func makeXmarkImageViewConstraints() {
@@ -115,5 +125,12 @@ final class DetentsViewController: UIViewController {
     private func makeStarImageViewConstraints() {
         starImageView.heightAnchor.constraint(equalToConstant: 27).isActive = true
         starImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
+    }
+
+    private func setupSeparatorViewConstraints() {
+        separatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        separatorView.topAnchor.constraint(equalTo: view.topAnchor, constant: 25).isActive = true
+        separatorView.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        separatorView.heightAnchor.constraint(equalToConstant: 5).isActive = true
     }
 }

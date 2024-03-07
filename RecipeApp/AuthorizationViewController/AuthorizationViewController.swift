@@ -323,10 +323,12 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
     /// обработчик нажатия ок
     @objc private func doneButtonTapped() {
         view.endEditing(true)
+        loginButtonTapped()
     }
 
     /// Обработчик появления клавиатуры
     @objc private func keyboardWillShow(notification: Notification) {
+        loginButton.translatesAutoresizingMaskIntoConstraints = true
         guard let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?
             .cgRectValue else { return }
 
@@ -340,10 +342,10 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
         }
     }
 
-    /// обработчик скрытия клавиатуры
     @objc private func keyboardWillHide(notification: Notification) {
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
         UIView.animate(withDuration: 0.3) {
-            self.loginButton.frame.origin.y = self.view.frame.height - 65
+            self.loginButton.frame.origin.y = self.view.frame.height - 65 // Возврат на исходную позицию
         }
     }
 
@@ -420,8 +422,12 @@ extension AuthorizationViewController {
     /// Установка ограничений для кнопки Login
     private func makeLoginButtonConstraints() {
         loginButton.translatesAutoresizingMaskIntoConstraints = false
+        let bottomConstraint = loginButton.bottomAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+            constant: -20
+        )
+        bottomConstraint.isActive = true
         loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        loginButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 732).isActive = true
         loginButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
         loginButton.widthAnchor.constraint(equalToConstant: 350).isActive = true
     }

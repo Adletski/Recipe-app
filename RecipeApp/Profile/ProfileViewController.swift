@@ -7,6 +7,7 @@ import UIKit
 protocol ProfileView: AnyObject {
     /// Обновляет вид профиля с данными модели
     func updateView(model: ProfileModel)
+    func showTermsPrivacyPolicy()
 }
 
 /// Экран для профиля
@@ -15,6 +16,12 @@ final class ProfileViewController: UIViewController, ProfileView {
 
     var presenter: ProfilePresenter?
     private var activities = ["bonuses", "terms & privacy policy", "log out"]
+    private var termsPrivacyPolicyView: TermsPrivacyPolicyView?
+    private var visualEffect: UIVisualEffectView?
+
+    enum Constants {
+        static let timer: CGFloat = 2
+    }
 
     // MARK: - Visual Components
 
@@ -66,6 +73,41 @@ final class ProfileViewController: UIViewController, ProfileView {
         activities = model.categories
         tableHeaderView.avatarImageView.image = UIImage(named: "\(model.profileImageView)")
         tableHeaderView.nameLabel.text = "\(model.name) \(model.surname)"
+    }
+
+    /// Отображение  условий и политики конфиденциальности
+    func showTermsPrivacyPolicy() {
+        termsPrivacyPolicyView = TermsPrivacyPolicyView(frame: CGRect(
+            x: 0,
+            y: view.frame.height - 500,
+            width: view.bounds.width,
+            height: view.bounds.height
+        ))
+        visualEffect = UIVisualEffectView(frame: view.frame)
+        guard let visualEffect = visualEffect else { return }
+        view.addSubview(visualEffect)
+        let blurAnimation = UIViewPropertyAnimator(duration: 1, dampingRatio: 1) {
+            self.visualEffect?.effect = UIBlurEffect(style: .light)
+        }
+        blurAnimation.startAnimation()
+        let scene = UIApplication.shared.connectedScenes
+        let windowsScene = scene.first as? UIWindowScene
+        UIView.animate(withDuration: 2) {
+            windowsScene?.windows.last?.addSubview(self.termsPrivacyPolicyView ?? TermsPrivacyPolicyView())
+        }
+
+        termsPrivacyPolicyView?.handler = { [weak self] in
+            self?.visualEffect?.isUserInteractionEnabled = false
+            let blurAnimation = UIViewPropertyAnimator(duration: 1, dampingRatio: 1) {
+                self?.visualEffect?.effect = nil
+            }
+            blurAnimation.startAnimation()
+            self?.visualEffect?.isUserInteractionEnabled = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + Constants.timer) {
+                self?.termsPrivacyPolicyView?.removeFromSuperview()
+                blurAnimation.stopAnimation(true)
+            }
+        }
     }
 }
 
