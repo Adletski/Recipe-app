@@ -11,8 +11,7 @@ protocol RecipesView: AnyObject {
 // MARK: - Visual Components
 
 /// Экран для рецептов
-final class RecipesViewController: UIViewController { // }, RecipesView {
-    // var presenter: RecipesPresenterProtocol?
+final class RecipesViewController: UIViewController {
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical

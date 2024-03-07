@@ -328,6 +328,7 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
 
     /// Обработчик появления клавиатуры
     @objc private func keyboardWillShow(notification: Notification) {
+        loginButton.translatesAutoresizingMaskIntoConstraints = true
         guard let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?
             .cgRectValue else { return }
 
@@ -342,6 +343,7 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
     }
 
     @objc private func keyboardWillHide(notification: Notification) {
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
         UIView.animate(withDuration: 0.3) {
             self.loginButton.frame.origin.y = self.view.frame.height - 65 // Возврат на исходную позицию
         }

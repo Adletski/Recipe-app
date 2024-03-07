@@ -47,20 +47,6 @@ final class ProfilePresenterImpl: ProfilePresenter {
     func editButtonDidPress() {}
     /// Метод для отображения экрана условий и политики конфиденциальности
     func showTermsPrivacyPolicy() {
-        guard let rootController = profileCoordinator?.rootController else {
-            return
-        }
-
-        let termsPrivacyPolicyViewController = UIViewController()
-        let termsPrivacyPolicyView = TermsPrivacyPolicyView(frame: rootController.view.bounds)
-        termsPrivacyPolicyViewController.view.addSubview(termsPrivacyPolicyView)
-        termsPrivacyPolicyView.alpha = 0.0
-
-        let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
-            termsPrivacyPolicyView.alpha = 1.0
-        }
-        animator.startAnimation()
-
-        rootController.present(termsPrivacyPolicyViewController, animated: true, completion: nil)
+        view?.showTermsPrivacyPolicy()
     }
 }
