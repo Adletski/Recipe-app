@@ -81,7 +81,7 @@ final class CategoryPresenter: CategoryPresenterProtocol {
     func viewDidLoaded() {
         isShowSkeleton = true
         view?.updateView()
-        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] _ in
+        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { [weak self] _ in
             self?.isShowSkeleton = false
             self?.view?.updateView()
         }

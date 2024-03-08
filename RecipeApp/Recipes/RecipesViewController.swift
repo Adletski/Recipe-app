@@ -12,6 +12,11 @@ protocol RecipesView: AnyObject {
 
 /// Экран для рецептов
 final class RecipesViewController: UIViewController {
+    enum Constant {
+        static let identifier = "RecipesCustomCell"
+        static let title = "Recipes"
+    }
+
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -24,14 +29,14 @@ final class RecipesViewController: UIViewController {
 
     // MARK: - Private Properties
 
-    private let reuseIdentifier = "RecipesCustomCell"
+    private let reuseIdentifier = Constant.identifier
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = "Recipes"
+        title = Constant.title
         navigationController?.navigationBar.prefersLargeTitles = true
         view.addSubview(collectionView)
         setupCollectionView()
@@ -54,10 +59,6 @@ final class RecipesViewController: UIViewController {
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-    }
-
-    deinit {
-        print("deinited recipeviewcontroller")
     }
 }
 

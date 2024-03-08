@@ -7,8 +7,10 @@ import UIKit
 final class ProfileBuilder {
     // MARK: - Constants
 
-    enum Constants {
+    enum Constant {
         static let title = "Profile"
+        static let profile = "profile"
+        static let profileFilled = "profileFilled"
     }
 
     // MARK: - Public Methods
@@ -20,9 +22,9 @@ final class ProfileBuilder {
         viewController.presenter = profilePresenter
         navigationController.viewControllers = [viewController]
         viewController.tabBarItem = UITabBarItem(
-            title: Constants.title,
-            image: UIImage(named: "profile"),
-            selectedImage: UIImage(named: "profileFilled")
+            title: Constant.title,
+            image: UIImage(named: Constant.profile),
+            selectedImage: UIImage(named: Constant.profileFilled)
         )
         return viewController
     }

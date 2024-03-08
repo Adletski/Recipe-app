@@ -24,8 +24,6 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
 
     /// презентер экрана категорий еды
     var presenter: CategoryPresenterProtocol?
-    /// производится ли поиск в данный момент
-    private var isShowSkeleton = false
 
     // MARK: - Visual components
 
@@ -93,6 +91,7 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
 
 extension CategoryViewController: SortingViewControlDelegate, SortingPickerDataSource {
     func onButtonPressed(state: ButtonState) {
+        presenter?.isSearching = false
         presenter?.filterButtonPressed(state: state)
     }
 
@@ -122,7 +121,7 @@ extension CategoryViewController: UISearchBarDelegate {
 extension CategoryViewController: UITableViewDataSource {
     /// Возвращает количество секций в таблице
     func numberOfSections(in tableView: UITableView) -> Int {
-        if isShowSkeleton {
+        if presenter?.isShowSkeleton ?? false {
             return 1
         } else {
             return 1
@@ -131,7 +130,7 @@ extension CategoryViewController: UITableViewDataSource {
 
     /// Возвращает количество строк в указанной секции таблицы
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isShowSkeleton {
+        if presenter?.isShowSkeleton ?? false {
             return 1
         } else {
             if presenter?.isSearching ?? false {
@@ -144,7 +143,7 @@ extension CategoryViewController: UITableViewDataSource {
 
     /// Возвращает ячейку для указанного индекса
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if isShowSkeleton {
+        if presenter?.isShowSkeleton ?? false {
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: Constant.skeleton,
                 for: indexPath

@@ -44,6 +44,7 @@ class TermsPrivacyPolicyView: UIView {
             "Stay informed about updates; we'll notify you of any changes.\n" +
             "By using our recipe app, you agree to adhere to these rules." +
             "Thank you for being a part of our culinary community! Enjoy exploring and cooking up a storm!"
+        static let xmark = "xmark"
     }
 
     // MARK: - Visual Components
@@ -81,7 +82,7 @@ class TermsPrivacyPolicyView: UIView {
 
     private lazy var closeButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "xmark"), for: .normal)
+        button.setImage(UIImage(named: Constants.xmark), for: .normal)
         button.tintColor = .black
         button.addTarget(self, action: #selector(closeViewController), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false

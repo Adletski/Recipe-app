@@ -5,8 +5,8 @@ import UIKit
 
 /// Ячейка с кбжу
 final class RecipeECFPCell: UITableViewCell {
-     //MARK: - Constants
-    
+    // MARK: - Constants
+
     private enum Constant {
         static let castomBlue = "castomBlue"
         static let identifier = "RecipeECFPCell"
@@ -16,7 +16,7 @@ final class RecipeECFPCell: UITableViewCell {
         static let fats = "Fats"
         static let proteins = "Proteins"
         static let kkal = "kkal"
-        static let g = "g"
+        static let gcal = "g"
     }
 
     static let identifier = Constant.identifier
@@ -173,9 +173,9 @@ final class RecipeECFPCell: UITableViewCell {
 
     func configure(recipe: FoodModel?) {
         enercSubViewLabel.text = "\(recipe?.kkal ?? "") \(Constant.kkal)"
-        carbohydratesSubViewLabel.text = "\(recipe?.carbohydrates ?? 0) \(Constant.g)"
-        fatsSubViewLabel.text = "\(recipe?.fats ?? 0) \(Constant.g)"
-        proteinsSubViewLabel.text = "\(recipe?.proteins ?? 0) \(Constant.g)"
+        carbohydratesSubViewLabel.text = "\(recipe?.carbohydrates ?? 0) \(Constant.gcal)"
+        fatsSubViewLabel.text = "\(recipe?.fats ?? 0) \(Constant.gcal)"
+        proteinsSubViewLabel.text = "\(recipe?.proteins ?? 0) \(Constant.gcal)"
     }
 
     // MARK: - Private Methods

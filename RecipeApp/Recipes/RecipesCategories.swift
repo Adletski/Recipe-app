@@ -3,7 +3,8 @@
 
 import Foundation
 
- //MARK: - Constants
+// MARK: - Constants
+
 /// Перечисление всех категорий рецептов
 enum RecipeCategories: String {
     /// Салаты

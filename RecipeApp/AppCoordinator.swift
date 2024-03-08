@@ -8,7 +8,7 @@ final class AppCoordinator: BaseCoordinator {
     private var tabBarViewController: TabBarViewController?
 
     override func start() {
-        if "admin" == "adminn" {
+        if "admin" != "admin" {
             toMain()
         } else {
             toAuth()

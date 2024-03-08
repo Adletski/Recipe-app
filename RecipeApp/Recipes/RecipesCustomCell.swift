@@ -4,21 +4,27 @@
 import UIKit
 
 /// Протокол для нажатия кнопки
-protocol RecipesCustomCellDelegate {
+protocol RecipesCustomCellDelegate: AnyObject {
     /// кнопка нажатия
     func buttonTapped()
 }
 
 /// Создание кастомной ячейки для каталога рецептов
 final class RecipesCustomCell: UICollectionViewCell {
+    enum Constant {
+        static let identifier = "RecipesCustomCell"
+        static let backgroundTextColor = "backgroungTextColor"
+        static let tappcolor = "tappcolor"
+    }
+
     // MARK: - Public properties
 
-    let identifier = "RecipesCustomCell"
+    let identifier = Constant.identifier
     var delegate: RecipesCustomCellDelegate?
 
     // MARK: - Visual Components
 
-    private let recipeButton: UIButton = {
+    private lazy var recipeButton: UIButton = {
         let button = UIButton()
         button.clipsToBounds = true
         button.layer.cornerRadius = 18
@@ -29,7 +35,7 @@ final class RecipesCustomCell: UICollectionViewCell {
 
     private let backgroundTextView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(named: "backgroungTextColor")
+        view.backgroundColor = UIColor(named: Constant.backgroundTextColor)
         return view
     }()
 
@@ -52,7 +58,7 @@ final class RecipesCustomCell: UICollectionViewCell {
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError()
     }
 
     // MARK: - Public Method
@@ -127,7 +133,7 @@ final class RecipesCustomCell: UICollectionViewCell {
             titleLabel.backgroundColor = .clear
             recipeButton.layer.borderWidth = 0
         } else {
-            titleLabel.backgroundColor = UIColor(named: "tappColor")
+            titleLabel.backgroundColor = UIColor(named: Constant.tappcolor)
             recipeButton.layer.borderColor = UIColor(red: 114 / 255, green: 186 / 255, blue: 191 / 255, alpha: 1)
                 .cgColor
             recipeButton.layer.borderWidth = 2
