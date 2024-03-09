@@ -3,6 +3,8 @@
 
 import UIKit
 
+// MARK: - Types
+
 /// Перечисление для валидации пароля
 enum ValidationState {
     case notValid
@@ -33,7 +35,7 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
         static let password = "Password"
         static let passwordPlaceholder = "Enter Password"
         static let lockImage = "lockImage"
-        static let buttonColor = "buttonColor"
+        static let buttonColor = "buttonCustomColor"
         static let verdanaGeneral = "Verdana"
         static let warningEmail = "You entered the wrong password"
         static let warningPassword = "Incorrect format"
@@ -41,6 +43,7 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
         static let errorMessage = "Please check the accuracy of the entered credentials."
         static let eyeSlash = "eye.slash"
         static let ok = "Ok"
+        static let gradientColor = "gradientColor"
     }
 
     // MARK: - Public properties
@@ -169,6 +172,8 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
         setupUI()
         setupConstraints()
         setupKeyboard()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
 
     // MARK: - Private Methods
@@ -248,26 +253,24 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
         if result == false {
             errorView.isHidden = false
             errorMessageLabel.isHidden = false
+            UIView.animate(withDuration: 0.3, delay: 3.0, options: .curveEaseInOut, animations: {
+                self.errorView.alpha = 0.0
+                self.errorMessageLabel.alpha = 0.0
+            }) { _ in
+                self.errorView.isHidden = true
+                self.errorMessageLabel.isHidden = true
+                self.errorView.alpha = 1.0
+                self.errorMessageLabel.alpha = 1.0
+            }
         } else {
-            errorView.isHidden = false
-            errorMessageLabel.isHidden = false
+            errorView.isHidden = true
+            errorMessageLabel.isHidden = true
         }
     }
 
     // MARK: - Private Methods
 
-    /// Обработчик нажатия кнопки видимости пароля
-    @objc private func togglePasswordVisibility() {
-        presenter?.createPasswordVisibilityButton()
-    }
-
-    /// обработчик нажатия кнопки логин
-    @objc private func loginButtonTapped() {
-        /// скрытие текста кнопки
-        loginButton.setTitle("", for: .normal)
-        startTimer()
-    }
-
+    /// настройка спинера
     private func startTimer() {
         /// создание и настройка индикатора загрузки
         let activityIndicator = UIActivityIndicatorView(style: .medium)
@@ -281,7 +284,6 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
             /// остановка анимации и скрытие ее
             activityIndicator.stopAnimating()
             activityIndicator.removeFromSuperview()
-
             self?.presenter?.loginButtonTapped(
                 login: self?.emailTextField.text ?? "",
                 password: self?.passwordTextField.text ?? ""
@@ -289,10 +291,7 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
         }
     }
 
-    @objc private func doneButtonTapped() {
-        view.endEditing(true)
-    }
-
+    /// настройка для клавиатры
     private func setupKeyboard() {
         setupInputAccessoryView()
         NotificationCenter.default.addObserver(
@@ -309,8 +308,28 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
         )
     }
 
+    // MARK: - Action methods
+
+    /// Обработчик нажатия кнопки видимости пароля
+    @objc private func togglePasswordVisibility() {
+        presenter?.createPasswordVisibilityButton()
+    }
+
+    /// обработчик нажатия кнопки логин
+    @objc private func loginButtonTapped() {
+        loginButton.setTitle(Constant.login, for: .normal)
+        startTimer()
+    }
+
+    /// обработчик нажатия ок
+    @objc private func doneButtonTapped() {
+        view.endEditing(true)
+        loginButtonTapped()
+    }
+
     /// Обработчик появления клавиатуры
     @objc private func keyboardWillShow(notification: Notification) {
+        loginButton.translatesAutoresizingMaskIntoConstraints = true
         guard let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?
             .cgRectValue else { return }
 
@@ -324,11 +343,16 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
         }
     }
 
-    /// обработчик скрытия клавиатуры
     @objc private func keyboardWillHide(notification: Notification) {
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
         UIView.animate(withDuration: 0.3) {
-            self.loginButton.frame.origin.y = self.view.frame.height - 65
+            self.loginButton.frame.origin.y = self.view.frame.height - 65 // Возврат на исходную позицию
         }
+    }
+
+    /// Скрытие клавиатуры при тапе на экран
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
@@ -399,8 +423,12 @@ extension AuthorizationViewController {
     /// Установка ограничений для кнопки Login
     private func makeLoginButtonConstraints() {
         loginButton.translatesAutoresizingMaskIntoConstraints = false
+        let bottomConstraint = loginButton.bottomAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+            constant: -20
+        )
+        bottomConstraint.isActive = true
         loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        loginButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 732).isActive = true
         loginButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
         loginButton.widthAnchor.constraint(equalToConstant: 350).isActive = true
     }
@@ -442,9 +470,7 @@ extension AuthorizationViewController {
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
         toolBar.barStyle = .default
         toolBar.sizeToFit()
-
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-
         let doneButton = UIBarButtonItem(
             title: Constant.ok,
             style: .done,
@@ -463,7 +489,7 @@ extension AuthorizationViewController {
         gradientLayer.frame = view.bounds
         gradientLayer.colors = [
             UIColor.white.cgColor,
-            UIColor(red: 141 / 255, green: 218 / 255, blue: 247 / 255, alpha: 1.0).cgColor
+            UIColor(named: Constant.gradientColor)?.cgColor ?? ""
         ]
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)

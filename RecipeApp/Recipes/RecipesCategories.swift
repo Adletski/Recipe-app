@@ -3,7 +3,7 @@
 
 import Foundation
 
-// MARK: - Types
+// MARK: - Constants
 
 /// Перечисление всех категорий рецептов
 enum RecipeCategories: String {

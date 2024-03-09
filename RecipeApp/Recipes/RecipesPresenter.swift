@@ -51,8 +51,6 @@ final class RecipesPresenter: RecipesViewPresenterProtocol {
 
     /// Перейти к выбранной категории
     func goToCategory(_ category: RecipeCategories) {
-        print("presenter")
-        print(coordinator)
         coordinator?.showCategory()
     }
 }

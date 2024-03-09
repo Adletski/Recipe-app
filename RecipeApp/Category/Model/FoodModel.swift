@@ -42,11 +42,20 @@ private enum Constants {
 
 /// Модель для ячеек с едой
 struct FoodModel {
+    /// Название изображения блюда
     let image: String
+    /// Название блюда
     let name: String
+    /// Заголовок блюда
     let title: String
+    /// Время приготовления блюда
     let time: String
+    /// Время приготовления блюда в минутах
+    let timeCount: Int
+    /// Количество калорий блюда (текст)
     let kkal: String
+    /// Количество калорий блюда (число)
+    let kkalCount: Int
     /// Вес
     let weight: Int
     /// Углеводы
@@ -58,14 +67,16 @@ struct FoodModel {
     /// Описание рецепта
     let descriptions: String
 
+    // MARK: - Static Properties
+
     /// свойство типа с мок-данными
     static let fishRecipes: [FoodModel] = [
         FoodModel(
             image: "recipe",
             name: "Simple Fish And Corn",
             time: "60",
-            kkal: "1322",
-            weight: 793,
+            timeCount: 60, kkal: "1322",
+            kkalCount: 1322, weight: 793,
             carbohydrates: 10.78,
             fats: 10.00,
             proteins: 97.30,
@@ -75,8 +86,8 @@ struct FoodModel {
             image: "recipe",
             name: "Some fish",
             time: "60",
-            kkal: "1322",
-            weight: 793,
+            timeCount: 60, kkal: "1322",
+            kkalCount: 1322, weight: 793,
             carbohydrates: 10.78,
             fats: 10.00,
             proteins: 97.30,
@@ -86,8 +97,8 @@ struct FoodModel {
             image: "recipe",
             name: "x3 Fish",
             time: "60",
-            kkal: "1322",
-            weight: 793,
+            timeCount: 60, kkal: "1322",
+            kkalCount: 1322, weight: 793,
             carbohydrates: 10.78,
             fats: 10.00,
             proteins: 97.30,
@@ -97,8 +108,8 @@ struct FoodModel {
             image: "recipe",
             name: "Double fish",
             time: "60",
-            kkal: "1322",
-            weight: 793,
+            timeCount: 60, kkal: "1322",
+            kkalCount: 1322, weight: 793,
             carbohydrates: 10.78,
             fats: 10.00,
             proteins: 97.30,
@@ -108,7 +119,8 @@ struct FoodModel {
             image: "recipe",
             name: "No fish",
             time: "60",
-            kkal: "1322",
+            timeCount: 60, kkal: "1322",
+            kkalCount: 1322,
             weight: 793,
             carbohydrates: 10.78,
             fats: 10.00,
@@ -122,14 +134,17 @@ struct FoodModel {
             image: "recipe",
             name: "Some meal",
             time: "60",
-            kkal: "1322",
-            weight: 793,
+            timeCount: 60, kkal: "1322",
+            kkalCount: 1322, weight: 793,
             carbohydrates: 10.78,
             fats: 10.00,
             proteins: 97.30,
             descriptions: Constants.descriptions
         ),
     ]
+
+    // MARK: - Static Methods
+
     /// метод типа для получения данных
     static func getRecipes(category: DishCategory) -> [FoodModel] {
         switch category.type {
@@ -140,12 +155,16 @@ struct FoodModel {
         }
     }
 
+    // MARK: - Initializers
+
     init(
         image: String = "",
         name: String = "",
         title: String = "",
         time: String = "",
+        timeCount: Int = 0,
         kkal: String = "",
+        kkalCount: Int = 0,
         weight: Int? = nil,
         carbohydrates: Float? = nil,
         fats: Float? = nil,
@@ -156,7 +175,9 @@ struct FoodModel {
         self.name = name
         self.title = title
         self.time = time
+        self.timeCount = timeCount
         self.kkal = kkal
+        self.kkalCount = kkalCount
         self.weight = weight ?? 0
         self.carbohydrates = carbohydrates ?? 0.0
         self.fats = fats ?? 0.0

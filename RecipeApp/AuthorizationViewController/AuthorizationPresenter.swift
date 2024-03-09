@@ -3,6 +3,8 @@
 
 import UIKit
 
+// MARK: - Types
+
 /// Протокол презентера экрана авторизации
 protocol AutorizationPresenterProtocol: AnyObject {
     /// Координатор флоу экрана
@@ -21,6 +23,12 @@ protocol AutorizationPresenterProtocol: AnyObject {
 
 /// Создание презентора для реализации mvp
 final class AuthorizationPresenter: AutorizationPresenterProtocol {
+    enum Constant {
+        static let mailru = "@mail.ru"
+        static let qwerty = "qwerty"
+        static let simpleMail = "123@mail.ru"
+    }
+
     // MARK: - Public Properties
 
     weak var view: AuthorizationViewProtocol?
@@ -37,7 +45,7 @@ final class AuthorizationPresenter: AutorizationPresenterProtocol {
 
     /// отработка для валидации почты
     func validateEmail(email: String) {
-        if email.isEmpty || !email.contains("@mail.ru") {
+        if email.isEmpty || !email.contains(Constant.mailru) {
             view?.updateValidationEmail(result: .notValid)
         } else {
             view?.updateValidationEmail(result: .default)
@@ -46,7 +54,7 @@ final class AuthorizationPresenter: AutorizationPresenterProtocol {
 
     /// отработка для валидации пароля
     func validatePassword(password: String) {
-        if password.isEmpty || !password.contains("qwerty12345") {
+        if password.isEmpty || !password.contains(Constant.qwerty) {
             view?.updateValidationPassword(result: .notValid)
         } else {
             view?.updateValidationPassword(result: .default)
@@ -55,8 +63,8 @@ final class AuthorizationPresenter: AutorizationPresenterProtocol {
 
     /// отработка для кнопки с плашкой
     func loginButtonTapped(login: String, password: String) {
-        if login == "123@mail.ru", password == "qwerty" {
-            view?.updateLoginButton(result: true)
+        if login == Constant.simpleMail, password == Constant.qwerty {
+            coordinator?.finish()
         } else {
             view?.updateLoginButton(result: false)
         }

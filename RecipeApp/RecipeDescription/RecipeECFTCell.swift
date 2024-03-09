@@ -5,7 +5,21 @@ import UIKit
 
 /// Ячейка с кбжу
 final class RecipeECFPCell: UITableViewCell {
-    static let identifier = "RecipeECFPCell"
+    // MARK: - Constants
+
+    private enum Constant {
+        static let castomBlue = "castomBlue"
+        static let identifier = "RecipeECFPCell"
+        static let verdana = "Verdana"
+        static let enerc = "Enerc kcal"
+        static let carbohydrates = "Carbohydrates"
+        static let fats = "Fats"
+        static let proteins = "Proteins"
+        static let kkal = "kkal"
+        static let gcal = "g"
+    }
+
+    static let identifier = Constant.identifier
 
     // MARK: - Visual Components
 
@@ -14,8 +28,8 @@ final class RecipeECFPCell: UITableViewCell {
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
         view.layer.borderWidth = 2
-        view.layer.borderColor = UIColor(named: "castomBlue")?.cgColor
-        view.backgroundColor = UIColor(named: "castomBlue")
+        view.layer.borderColor = UIColor(named: Constant.castomBlue)?.cgColor
+        view.backgroundColor = UIColor(named: Constant.castomBlue)
         return view
     }()
 
@@ -24,8 +38,8 @@ final class RecipeECFPCell: UITableViewCell {
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
         view.layer.borderWidth = 2
-        view.layer.borderColor = UIColor(named: "castomBlue")?.cgColor
-        view.backgroundColor = UIColor(named: "castomBlue")
+        view.layer.borderColor = UIColor(named: Constant.castomBlue)?.cgColor
+        view.backgroundColor = UIColor(named: Constant.castomBlue)
         return view
     }()
 
@@ -34,8 +48,8 @@ final class RecipeECFPCell: UITableViewCell {
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
         view.layer.borderWidth = 2
-        view.layer.borderColor = UIColor(named: "castomBlue")?.cgColor
-        view.backgroundColor = UIColor(named: "castomBlue")
+        view.layer.borderColor = UIColor(named: Constant.castomBlue)?.cgColor
+        view.backgroundColor = UIColor(named: Constant.castomBlue)
         return view
     }()
 
@@ -44,8 +58,8 @@ final class RecipeECFPCell: UITableViewCell {
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
         view.layer.borderWidth = 2
-        view.layer.borderColor = UIColor(named: "castomBlue")?.cgColor
-        view.backgroundColor = UIColor(named: "castomBlue")
+        view.layer.borderColor = UIColor(named: Constant.castomBlue)?.cgColor
+        view.backgroundColor = UIColor(named: Constant.castomBlue)
         return view
     }()
 
@@ -76,72 +90,72 @@ final class RecipeECFPCell: UITableViewCell {
     private let enercViewLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Verdana", size: 10)
+        label.font = UIFont(name: Constant.verdana, size: 10)
         label.textColor = .white
-        label.text = "Enerc kcal"
+        label.text = Constant.enerc
         return label
     }()
 
     private let enercSubViewLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Verdana", size: 10)
-        label.textColor = UIColor(named: "castomBlue")
+        label.font = UIFont(name: Constant.verdana, size: 10)
+        label.textColor = UIColor(named: Constant.castomBlue)
         return label
     }()
 
     private let carbohydratesViewLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Verdana", size: 10)
+        label.font = UIFont(name: Constant.verdana, size: 10)
         label.textColor = .white
-        label.text = "Carbohydrates"
+        label.text = Constant.carbohydrates
         return label
     }()
 
     private let carbohydratesSubViewLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Verdana", size: 10)
-        label.textColor = UIColor(named: "castomBlue")
+        label.font = UIFont(name: Constant.verdana, size: 10)
+        label.textColor = UIColor(named: Constant.castomBlue)
         return label
     }()
 
     private let fatsViewLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Verdana", size: 10)
+        label.font = UIFont(name: Constant.verdana, size: 10)
         label.textColor = .white
-        label.text = "Fats"
+        label.text = Constant.fats
         return label
     }()
 
     private let fatsSubViewLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Verdana", size: 10)
-        label.textColor = UIColor(named: "castomBlue")
+        label.font = UIFont(name: Constant.verdana, size: 10)
+        label.textColor = UIColor(named: Constant.castomBlue)
         return label
     }()
 
     private let proteinsViewLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Verdana", size: 10)
+        label.font = UIFont(name: Constant.verdana, size: 10)
         label.textColor = .white
-        label.text = "Proteins"
+        label.text = Constant.proteins
         return label
     }()
 
     private let proteinsSubViewLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Verdana", size: 10)
-        label.textColor = UIColor(named: "castomBlue")
+        label.font = UIFont(name: Constant.verdana, size: 10)
+        label.textColor = UIColor(named: Constant.castomBlue)
         return label
     }()
 
-    // MARK: - Life Cycle
+    // MARK: - Initializers
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -153,6 +167,15 @@ final class RecipeECFPCell: UITableViewCell {
         super.init(coder: coder)
         setupView()
         setupConstraints()
+    }
+
+    // MARK: - Public Methods
+
+    func configure(recipe: FoodModel?) {
+        enercSubViewLabel.text = "\(recipe?.kkal ?? "") \(Constant.kkal)"
+        carbohydratesSubViewLabel.text = "\(recipe?.carbohydrates ?? 0) \(Constant.gcal)"
+        fatsSubViewLabel.text = "\(recipe?.fats ?? 0) \(Constant.gcal)"
+        proteinsSubViewLabel.text = "\(recipe?.proteins ?? 0) \(Constant.gcal)"
     }
 
     // MARK: - Private Methods
@@ -328,14 +351,5 @@ final class RecipeECFPCell: UITableViewCell {
         proteinsSubViewLabel.bottomAnchor.constraint(equalTo: proteinsView.bottomAnchor, constant: -4)
             .isActive = true
         proteinsSubViewLabel.heightAnchor.constraint(equalToConstant: 15).isActive = true
-    }
-
-    // MARK: - Public Methods
-
-    func configure(recipe: FoodModel?) {
-        enercSubViewLabel.text = "\(recipe?.kkal ?? "") kkal"
-        carbohydratesSubViewLabel.text = "\(recipe?.carbohydrates ?? 0) g"
-        fatsSubViewLabel.text = "\(recipe?.fats ?? 0) g"
-        proteinsSubViewLabel.text = "\(recipe?.proteins ?? 0) g"
     }
 }

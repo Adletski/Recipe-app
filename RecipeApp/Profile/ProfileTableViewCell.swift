@@ -5,15 +5,21 @@ import UIKit
 
 /// Ячейка для таблицы профиля
 final class ProfileTableViewCell: UITableViewCell {
-    // MARK: - Properties
+    // MARK: - Constants
 
     static let identifier = "ProfileTableViewCell"
+
+    enum Constant {
+        static let bonuses = "Bonuses"
+        static let chevron = "chevron"
+        static let bonus = "bonus"
+    }
 
     // MARK: - Visual Components
 
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "bonus")
+        imageView.image = UIImage(named: Constant.bonus)
         imageView.clipsToBounds = true
         imageView.contentMode = .center
         imageView.backgroundColor = #colorLiteral(red: 0.9535714984, green: 0.9660330415, blue: 0.9660820365, alpha: 1)
@@ -25,7 +31,7 @@ final class ProfileTableViewCell: UITableViewCell {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Bonuses"
+        label.text = Constant.bonuses
         label.textColor = .black
         label.font = .systemFont(ofSize: 15, weight: .semibold)
         return label
@@ -34,7 +40,7 @@ final class ProfileTableViewCell: UITableViewCell {
     private let chevronButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "chevron"), for: .normal)
+        button.setImage(UIImage(named: Constant.chevron), for: .normal)
         return button
     }()
 
@@ -47,7 +53,7 @@ final class ProfileTableViewCell: UITableViewCell {
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError()
     }
 
     // MARK: - Private methods

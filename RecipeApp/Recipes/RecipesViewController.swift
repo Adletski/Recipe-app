@@ -11,8 +11,12 @@ protocol RecipesView: AnyObject {
 // MARK: - Visual Components
 
 /// Экран для рецептов
-final class RecipesViewController: UIViewController { // }, RecipesView {
-    // var presenter: RecipesPresenterProtocol?
+final class RecipesViewController: UIViewController {
+    enum Constant {
+        static let identifier = "RecipesCustomCell"
+        static let title = "Recipes"
+    }
+
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -25,14 +29,14 @@ final class RecipesViewController: UIViewController { // }, RecipesView {
 
     // MARK: - Private Properties
 
-    private let reuseIdentifier = "RecipesCustomCell"
+    private let reuseIdentifier = Constant.identifier
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = "Recipes"
+        title = Constant.title
         navigationController?.navigationBar.prefersLargeTitles = true
         view.addSubview(collectionView)
         setupCollectionView()

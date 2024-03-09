@@ -10,9 +10,15 @@ final class ProfileCoordinator: BaseCoordinator {
     var rootController: UINavigationController?
     var onFinishFlow: (() -> ())?
 
-    // MARK: - Initializer
+    // MARK: - Public Methods
 
     func setupRootController(viewController: UIViewController) {
         rootController = UINavigationController(rootViewController: viewController)
+    }
+
+    func setupNavigationController() -> UINavigationController {
+        let navigationController = UINavigationController()
+        navigationController.navigationBar.isHidden = true
+        return navigationController
     }
 }

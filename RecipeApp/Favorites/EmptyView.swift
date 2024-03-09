@@ -3,17 +3,26 @@
 
 import UIKit
 
+/// Класс  представляющий пустое представление для отображения, когда нет данных
 final class EmptyView: UIView {
+    enum Constant {
+        static let emptyView = "emptyView"
+        static let nothing = "There's nothing here yet"
+        static let addInteresting = "Add interesting recipes to make ordering products convenient"
+    }
+
+    // MARK: - Visual Components
+
     private let emptyImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "emptyView")
+        imageView.image = UIImage(named: Constant.emptyView)
         return imageView
     }()
 
     private let emptyLabel: UILabel = {
         let label = UILabel()
-        label.text = "There's nothing here yet"
+        label.text = Constant.nothing
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +31,7 @@ final class EmptyView: UIView {
 
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "Add interesting recipes to make ordering products convenient"
+        label.text = Constant.addInteresting
         label.font = .systemFont(ofSize: 15)
         label.numberOfLines = 2
         label.textColor = .systemGray3
@@ -39,6 +48,8 @@ final class EmptyView: UIView {
         return stackView
     }()
 
+    // MARK: - Initializers
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -49,16 +60,17 @@ final class EmptyView: UIView {
         fatalError()
     }
 
+    // MARK: - Private Methods
+
+    /// Настраивает пользовательский интерфейс
     private func setupUI() {
         stackViewV.addArrangedSubview(emptyImageView)
         stackViewV.addArrangedSubview(emptyLabel)
         stackViewV.addArrangedSubview(descriptionLabel)
         addSubview(stackViewV)
-
         NSLayoutConstraint.activate([
             emptyImageView.widthAnchor.constraint(equalToConstant: 50),
             emptyImageView.heightAnchor.constraint(equalToConstant: 50),
-
             stackViewV.centerYAnchor.constraint(equalTo: centerYAnchor),
             stackViewV.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             stackViewV.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)

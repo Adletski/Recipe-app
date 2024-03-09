@@ -4,14 +4,23 @@
 import UIKit
 
 /// ячейка с текстом рецепта
-class RecipeTextCell: UITableViewCell {
-    static let identifier = "RecipeTextCell"
+final class RecipeTextCell: UITableViewCell {
+    // MARK: - Constants
+
+    enum Constant {
+        static let customBlue = "castomBlue"
+        static let identifier = "RecipeTextCell"
+        static let verdana = "Verdana"
+        static let backColor = "backColor"
+    }
+
+    static let identifier = Constant.identifier
 
     // MARK: - Visual Components
 
     private let backgroundColorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(named: "castomBlue")
+        view.backgroundColor = UIColor(named: Constant.customBlue)
         view.layer.cornerRadius = 25
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -21,7 +30,7 @@ class RecipeTextCell: UITableViewCell {
     private let textRecipeLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont(name: "Verdana", size: 14)
+        label.font = UIFont(name: Constant.verdana, size: 14)
         label.numberOfLines = 0
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -31,13 +40,13 @@ class RecipeTextCell: UITableViewCell {
     private let gradientLayer: CAGradientLayer = {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [
-            UIColor(named: "backColor")?.cgColor ?? "",
+            UIColor(named: Constant.backColor)?.cgColor ?? "",
             UIColor.white.cgColor,
         ]
         return gradientLayer
     }()
 
-    // MARK: - Life Cycle
+    // MARK: - Initializers
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -54,6 +63,12 @@ class RecipeTextCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer.frame = backgroundColorView.bounds
+    }
+
+    // MARK: - Public Methods
+
+    func configure(recipe: FoodModel?) {
+        textRecipeLabel.text = recipe?.descriptions
     }
 
     // MARK: - Private Methods
@@ -84,11 +99,5 @@ class RecipeTextCell: UITableViewCell {
             .isActive = true
         textRecipeLabel.trailingAnchor.constraint(equalTo: backgroundColorView.trailingAnchor, constant: -27)
             .isActive = true
-    }
-
-    // MARK: - Public Methods
-
-    func configure(recipe: FoodModel?) {
-        textRecipeLabel.text = recipe?.descriptions
     }
 }
