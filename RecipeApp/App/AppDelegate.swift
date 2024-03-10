@@ -9,7 +9,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        true
+        UserDefaults.standard.set("Adlet@mail.ru", forKey: "login")
+        UserDefaults.standard.set("qwerty", forKey: "password")
+        return true
     }
 
     // MARK: UISceneSession Lifecycle

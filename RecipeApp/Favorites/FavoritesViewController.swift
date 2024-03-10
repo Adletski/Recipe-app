@@ -57,6 +57,16 @@ final class FavoritesViewController: UIViewController, FavoritesViewControllerPr
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        if let savedData = UserDefaults.standard.object(forKey: "favorites") as? Data {
+            do {
+                let savedContacts = try JSONDecoder().decode([FoodModel].self, from: savedData)
+                categories = savedContacts
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+
         if categories.isEmpty {
             tableView.isHidden = true
             emptyView.isHidden = false
@@ -64,6 +74,8 @@ final class FavoritesViewController: UIViewController, FavoritesViewControllerPr
             tableView.isHidden = false
             emptyView.isHidden = true
         }
+
+        tableView.reloadData()
     }
 }
 

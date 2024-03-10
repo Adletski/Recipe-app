@@ -19,6 +19,7 @@ protocol AutorizationPresenterProtocol: AnyObject {
     func loginButtonTapped(login: String, password: String)
     /// отработка нажатия скрытие пароля
     func createPasswordVisibilityButton()
+    func saveUserInfo(login: String, password: String)
 }
 
 /// Создание презентора для реализации mvp
@@ -63,7 +64,9 @@ final class AuthorizationPresenter: AutorizationPresenterProtocol {
 
     /// отработка для кнопки с плашкой
     func loginButtonTapped(login: String, password: String) {
-        if login == Constant.simpleMail, password == Constant.qwerty {
+        let usLogin = UserDefaults.standard.object(forKey: "login") as? String
+        let usPassword = UserDefaults.standard.object(forKey: "password") as? String
+        if login == usLogin, password == usPassword {
             coordinator?.finish()
         } else {
             view?.updateLoginButton(result: false)
@@ -73,5 +76,9 @@ final class AuthorizationPresenter: AutorizationPresenterProtocol {
     /// отработка нажатия скрытие пароля
     func createPasswordVisibilityButton() {
         view?.updatePasswordVisibilityButton()
+    }
+
+    func saveUserInfo(login: String, password: String) {
+        UserSettings.userInfo = UserInfo(name: "", surname: "", login: login, password: password)
     }
 }

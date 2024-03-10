@@ -17,6 +17,11 @@
 		5E89C5BB2B961C890021D3E1 /* TermsPrivacyPolicyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E89C5BA2B961C890021D3E1 /* TermsPrivacyPolicyController.swift */; };
 		5E89C5BD2B97304D0021D3E1 /* Flyweight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E89C5BC2B97304D0021D3E1 /* Flyweight.swift */; };
 		5E89C5BF2B99FA810021D3E1 /* TypeAlise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E89C5BE2B99FA810021D3E1 /* TypeAlise.swift */; };
+		5E89C5ED2B9C8D8C0021D3E1 /* LogActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E89C5EC2B9C8D8C0021D3E1 /* LogActions.swift */; };
+		5E89C5EF2B9C8F180021D3E1 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E89C5EE2B9C8F180021D3E1 /* Command.swift */; };
+		5E89C5F12B9C8F850021D3E1 /* Receiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E89C5F02B9C8F850021D3E1 /* Receiver.swift */; };
+		5E89C5F32B9C8FA00021D3E1 /* Invoker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E89C5F22B9C8FA00021D3E1 /* Invoker.swift */; };
+		5E89C5F52B9C8FBA0021D3E1 /* LoggerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E89C5F42B9C8FBA0021D3E1 /* LoggerManager.swift */; };
 		7F64F6382B95987500CA9D49 /* FavoritesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F64F6332B95987400CA9D49 /* FavoritesCoordinator.swift */; };
 		7F64F6392B95987500CA9D49 /* FavoritesBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F64F6342B95987400CA9D49 /* FavoritesBuilder.swift */; };
 		7F64F63A2B95987500CA9D49 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F64F6352B95987400CA9D49 /* EmptyView.swift */; };
@@ -85,6 +90,11 @@
 		5E89C5BA2B961C890021D3E1 /* TermsPrivacyPolicyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsPrivacyPolicyController.swift; sourceTree = "<group>"; };
 		5E89C5BC2B97304D0021D3E1 /* Flyweight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flyweight.swift; sourceTree = "<group>"; };
 		5E89C5BE2B99FA810021D3E1 /* TypeAlise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeAlise.swift; sourceTree = "<group>"; };
+		5E89C5EC2B9C8D8C0021D3E1 /* LogActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogActions.swift; sourceTree = "<group>"; };
+		5E89C5EE2B9C8F180021D3E1 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		5E89C5F02B9C8F850021D3E1 /* Receiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receiver.swift; sourceTree = "<group>"; };
+		5E89C5F22B9C8FA00021D3E1 /* Invoker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invoker.swift; sourceTree = "<group>"; };
+		5E89C5F42B9C8FBA0021D3E1 /* LoggerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerManager.swift; sourceTree = "<group>"; };
 		7F64F6332B95987400CA9D49 /* FavoritesCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesCoordinator.swift; sourceTree = "<group>"; };
 		7F64F6342B95987400CA9D49 /* FavoritesBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesBuilder.swift; sourceTree = "<group>"; };
 		7F64F6352B95987400CA9D49 /* EmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
@@ -172,6 +182,18 @@
 			);
 			name = TermsPrivacyPolicy;
 			path = ../TermsPrivacyPolicy;
+			sourceTree = "<group>";
+		};
+		5E89C5EB2B9C8CB90021D3E1 /* AnalyticsCollection */ = {
+			isa = PBXGroup;
+			children = (
+				5E89C5EC2B9C8D8C0021D3E1 /* LogActions.swift */,
+				5E89C5EE2B9C8F180021D3E1 /* Command.swift */,
+				5E89C5F02B9C8F850021D3E1 /* Receiver.swift */,
+				5E89C5F22B9C8FA00021D3E1 /* Invoker.swift */,
+				5E89C5F42B9C8FBA0021D3E1 /* LoggerManager.swift */,
+			);
+			path = AnalyticsCollection;
 			sourceTree = "<group>";
 		};
 		7F64F6322B95987400CA9D49 /* Favorites */ = {
@@ -273,6 +295,7 @@
 		7FE563802B8CD095002562F3 /* RecipeApp */ = {
 			isa = PBXGroup;
 			children = (
+				5E89C5EB2B9C8CB90021D3E1 /* AnalyticsCollection */,
 				7FAB185D2B9A5CBB001701BE /* Extensions */,
 				7FAB185C2B9A5C99001701BE /* Services */,
 				7FAB185B2B9A5C85001701BE /* Components */,
@@ -505,12 +528,14 @@
 				7FE564792B8F2871002562F3 /* AuthorizationViewController.swift in Sources */,
 				7FE563AD2B8D1BCE002562F3 /* RecipesPresenter.swift in Sources */,
 				5E89C5702B93AFA40021D3E1 /* RecipeImageCell.swift in Sources */,
+				5E89C5F12B9C8F850021D3E1 /* Receiver.swift in Sources */,
 				7FE564242B8E5239002562F3 /* BaseCoordinator.swift in Sources */,
 				5E89C5092B9102100021D3E1 /* RecipesCategories.swift in Sources */,
 				7FE5642F2B8F011C002562F3 /* RecipeCoordinator.swift in Sources */,
 				7FE563ED2B8E12A1002562F3 /* ProfileBuilder.swift in Sources */,
 				7FE563A52B8D0DA2002562F3 /* RecipesViewController.swift in Sources */,
 				7FE564822B8F567F002562F3 /* ProfileCoordinator.swift in Sources */,
+				5E89C5F32B9C8FA00021D3E1 /* Invoker.swift in Sources */,
 				7FE563EB2B8E1018002562F3 /* ProfileModel.swift in Sources */,
 				7FE563C12B8DC5D2002562F3 /* RecipeModel.swift in Sources */,
 				7F64F63E2B95989D00CA9D49 /* Service.swift in Sources */,
@@ -532,6 +557,7 @@
 				7FE563E92B8E0F5D002562F3 /* ProfilePresenter.swift in Sources */,
 				7FAB182C2B97C259001701BE /* SkeletonTableViewCell.swift in Sources */,
 				7FCDDBF92B91BC700065E4E5 /* CategoryPresenter.swift in Sources */,
+				5E89C5EF2B9C8F180021D3E1 /* Command.swift in Sources */,
 				7FCDDBF82B91BC700065E4E5 /* Extension+UITextField.swift in Sources */,
 				7FE563A02B8D0998002562F3 /* TabBarViewController.swift in Sources */,
 				7FE564282B8E5285002562F3 /* AppCoordinator.swift in Sources */,
@@ -540,9 +566,11 @@
 				5E89C5742B93AFF80021D3E1 /* RecipeECFTCell.swift in Sources */,
 				5E89C5072B909BEA0021D3E1 /* RecipesCustomCell.swift in Sources */,
 				7FE564782B8F2871002562F3 /* AuthorizationPresenter.swift in Sources */,
+				5E89C5F52B9C8FBA0021D3E1 /* LoggerManager.swift in Sources */,
 				7FE563822B8CD095002562F3 /* AppDelegate.swift in Sources */,
 				7FE564842B8F628B002562F3 /* AuthorizationCoordinator.swift in Sources */,
 				5E89C50B2B9107F60021D3E1 /* DishCategory.swift in Sources */,
+				5E89C5ED2B9C8D8C0021D3E1 /* LogActions.swift in Sources */,
 				7FE563AF2B8D23F5002562F3 /* RecipesBuilder.swift in Sources */,
 				7FE563EF2B8E2E8C002562F3 /* DetentsViewController.swift in Sources */,
 				7F64F63A2B95987500CA9D49 /* EmptyView.swift in Sources */,

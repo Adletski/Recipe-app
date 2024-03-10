@@ -88,7 +88,12 @@ final class RecipeDescriptionController: UIViewController {
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
         let shareBarButton = UIBarButtonItem(customView: shareButton)
-        let setFavoriteBarButton = UIBarButtonItem(customView: setFavorite)
+        let setFavoriteBarButton = UIBarButtonItem(
+            image: UIImage(named: Constant.savedButtonImage),
+            style: .plain,
+            target: self,
+            action: #selector(favoriteButtonPressed)
+        )
         navigationItem.rightBarButtonItems = [setFavoriteBarButton, shareBarButton]
     }
 
@@ -110,6 +115,39 @@ final class RecipeDescriptionController: UIViewController {
 
     @objc private func backButtonPressed() {
         presenter?.moveBack()
+    }
+
+    @objc private func favoriteButtonPressed() {
+        var favorites: [FoodModel] = []
+        if let selectedRecipe {
+            favorites.append(selectedRecipe)
+        }
+
+        // get all favorites
+        if let savedData = UserDefaults.standard.object(forKey: "favorites") as? Data {
+            do {
+                let savedContacts = try JSONDecoder().decode([FoodModel].self, from: savedData)
+                favorites = savedContacts
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        print(favorites)
+
+        // check if favorites already contains selected recipe
+        if !(favorites.contains { $0.name == selectedRecipe?.name }) {
+            if let selectedRecipe {
+                favorites.append(selectedRecipe)
+            }
+        }
+
+        // save favorite
+        do {
+            let encodedData = try JSONEncoder().encode(favorites)
+            UserDefaults.standard.set(encodedData, forKey: "favorites")
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }
 
