@@ -37,6 +37,8 @@
 		7FAB182C2B97C259001701BE /* SkeletonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB182B2B97C259001701BE /* SkeletonTableViewCell.swift */; };
 		7FAB18342B988952001701BE /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18332B988952001701BE /* SkeletonView.swift */; };
 		7FAB18362B98AF3A001701BE /* SortingViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18352B98AF39001701BE /* SortingViewControl.swift */; };
+		7FAB18612B9C8D9B001701BE /* MementoPractice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18602B9C8D9B001701BE /* MementoPractice.swift */; };
+		7FAB18632B9D0E48001701BE /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18622B9D0E48001701BE /* UserDefaultsManager.swift */; };
 		7FCDDBF82B91BC700065E4E5 /* Extension+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBEE2B91BC700065E4E5 /* Extension+UITextField.swift */; };
 		7FCDDBF92B91BC700065E4E5 /* CategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBEF2B91BC700065E4E5 /* CategoryPresenter.swift */; };
 		7FCDDBFA2B91BC700065E4E5 /* CategoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBF02B91BC700065E4E5 /* CategoryCoordinator.swift */; };
@@ -110,6 +112,8 @@
 		7FAB182B2B97C259001701BE /* SkeletonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonTableViewCell.swift; sourceTree = "<group>"; };
 		7FAB18332B988952001701BE /* SkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonView.swift; sourceTree = "<group>"; };
 		7FAB18352B98AF39001701BE /* SortingViewControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingViewControl.swift; sourceTree = "<group>"; };
+		7FAB18602B9C8D9B001701BE /* MementoPractice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MementoPractice.swift; sourceTree = "<group>"; };
+		7FAB18622B9D0E48001701BE /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		7FCDDBEE2B91BC700065E4E5 /* Extension+UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UITextField.swift"; sourceTree = "<group>"; };
 		7FCDDBEF2B91BC700065E4E5 /* CategoryPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPresenter.swift; sourceTree = "<group>"; };
 		7FCDDBF02B91BC700065E4E5 /* CategoryCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCoordinator.swift; sourceTree = "<group>"; };
@@ -278,6 +282,8 @@
 		7FE563752B8CD095002562F3 = {
 			isa = PBXGroup;
 			children = (
+				7FAB18622B9D0E48001701BE /* UserDefaultsManager.swift */,
+				7FAB18602B9C8D9B001701BE /* MementoPractice.swift */,
 				7FE563802B8CD095002562F3 /* RecipeApp */,
 				7FE5637F2B8CD095002562F3 /* Products */,
 			);
@@ -523,6 +529,7 @@
 			files = (
 				5E89C5722B93AFD20021D3E1 /* RecipeTextCell.swift in Sources */,
 				5E89C5BF2B99FA810021D3E1 /* TypeAlise.swift in Sources */,
+				7FAB18612B9C8D9B001701BE /* MementoPractice.swift in Sources */,
 				7FAB18062B95F6B8001701BE /* RecipeDescriptionCoordinator.swift in Sources */,
 				7F64F6462B959AD600CA9D49 /* RecipeImageCell.swift in Sources */,
 				7FE564792B8F2871002562F3 /* AuthorizationViewController.swift in Sources */,
@@ -575,6 +582,7 @@
 				7FE563EF2B8E2E8C002562F3 /* DetentsViewController.swift in Sources */,
 				7F64F63A2B95987500CA9D49 /* EmptyView.swift in Sources */,
 				7F64F6452B959AD600CA9D49 /* RecipeDescriptionController.swift in Sources */,
+				7FAB18632B9D0E48001701BE /* UserDefaultsManager.swift in Sources */,
 				7F64F6392B95987500CA9D49 /* FavoritesBuilder.swift in Sources */,
 				5E89C56E2B93AF6A0021D3E1 /* RecipeDescriptionController.swift in Sources */,
 				7FE563842B8CD095002562F3 /* SceneDelegate.swift in Sources */,

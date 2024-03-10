@@ -41,7 +41,7 @@ private enum Constants {
 }
 
 /// Модель для ячеек с едой
-struct FoodModel {
+struct FoodModel: Codable {
     /// Название изображения блюда
     let image: String
     /// Название блюда
