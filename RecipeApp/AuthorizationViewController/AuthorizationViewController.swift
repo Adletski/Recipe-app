@@ -319,6 +319,7 @@ final class AuthorizationViewController: UIViewController, AuthorizationViewProt
     @objc private func loginButtonTapped() {
         loginButton.setTitle(Constant.login, for: .normal)
         startTimer()
+        presenter?.saveUserInfo(login: emailTextField.text ?? "", password: passwordTextField.text ?? "")
     }
 
     /// обработчик нажатия ок
