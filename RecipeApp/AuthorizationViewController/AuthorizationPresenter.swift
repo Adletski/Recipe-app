@@ -79,6 +79,6 @@ final class AuthorizationPresenter: AutorizationPresenterProtocol {
     }
 
     func saveUserInfo(login: String, password: String) {
-        UserSettings.userInfo = UserInfo(name: "", surname: "", login: login, password: password)
+//        UserSettings.userInfo = UserInfo(name: "", surname: "", login: login, password: password)
     }
 }

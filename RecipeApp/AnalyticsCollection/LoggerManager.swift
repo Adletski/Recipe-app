@@ -5,7 +5,7 @@ import Foundation
 
 /// реализация логгера
 protocol LoggerManagerProtocol {
-    ///фунция для вызова добавления в логгер
+    /// фунция для вызова добавления в логгер
     func log(_ action: LogActions)
 }
 
