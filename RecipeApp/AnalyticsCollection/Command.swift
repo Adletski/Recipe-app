@@ -6,7 +6,7 @@ import Foundation
 /// Комманд
 final class Command {
     private let action: LogActions
-    
+
     var logMessages: String {
         switch action {
         case .openRecipe:
@@ -19,7 +19,7 @@ final class Command {
             return "Пользователь поделился рецептом из семги"
         }
     }
-    
+
     init(action: LogActions) {
         self.action = action
     }

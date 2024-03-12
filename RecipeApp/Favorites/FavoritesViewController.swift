@@ -97,4 +97,32 @@ extension FavoritesViewController: UITableViewDataSource {
         cell.configure(model: categories[indexPath.row])
         return cell
     }
+
+    func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
+        if editingStyle == .delete {
+            if let savedData = UserDefaults.standard.object(forKey: "favorites") as? Data {
+                do {
+                    var savedContacts = try JSONDecoder().decode([FoodModel].self, from: savedData)
+
+                    savedContacts.removeAll { $0.name == categories[indexPath.row].name }
+
+                    categories = savedContacts
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+            tableView.reloadData()
+
+            do {
+                let encodedData = try JSONEncoder().encode(categories)
+                UserDefaults.standard.set(encodedData, forKey: "favorites")
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
