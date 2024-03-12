@@ -10,11 +10,11 @@ protocol CategoryPresenterProtocol: AnyObject {
     /// Координатор флоу экрана
     var coordinator: CategoryCoordinator? { get set }
     /// Массив данных с продуктами
-    var categories: [FoodModel] { get set }
+    var recipes: [Recipe] { get set }
     /// Массив данных с продуктами, используемый для поиска/
-    var searchingCategories: [FoodModel] { get set }
+    var searchingCategories: [Recipe] { get set }
     /// Инициализатор с присвоением вью
-    init(view: CategoryViewControllerProtocol, coordinator: CategoryCoordinator, service: Service)
+    init(view: CategoryViewControllerProtocol, coordinator: CategoryCoordinator, networkService: NetworkServiceProtocol)
     /// Выход назад
     func moveBack()
     /// Открытие экрана описания рецепта
@@ -29,6 +29,7 @@ protocol CategoryPresenterProtocol: AnyObject {
     func cancelButtonPressed()
     /// Обработка нажатия на кнопку фильтра
     func filterButtonPressed(state: ButtonState)
+    func getRecipes()
 }
 
 final class CategoryPresenter: CategoryPresenterProtocol {
@@ -36,19 +37,32 @@ final class CategoryPresenter: CategoryPresenterProtocol {
 
     weak var view: CategoryViewControllerProtocol?
     var coordinator: CategoryCoordinator?
-    var service: Service
-    var categories: [FoodModel] = []
-    var searchingCategories: [FoodModel] = []
+    var networkService: NetworkServiceProtocol
+    var unfilteredRecipes: Recipes? {
+        didSet {
+            unfilteredRecipes?.hits.forEach {
+                recipes.append($0.recipe)
+            }
+            print(recipes)
+        }
+    }
+
+    var recipes: [Recipe] = []
+    var searchingCategories: [Recipe] = []
     var isSearching = false
     var isShowSkeleton = false
 
     // MARK: - Initializers
 
-    init(view: CategoryViewControllerProtocol, coordinator: CategoryCoordinator, service: Service) {
+    init(
+        view: CategoryViewControllerProtocol,
+        coordinator: CategoryCoordinator,
+        networkService: NetworkServiceProtocol
+    ) {
         self.view = view
         self.coordinator = coordinator
-        self.service = service
-        categories = service.getCategoryList()
+        self.networkService = networkService
+        getRecipes()
     }
 
     // MARK: - Public methods
@@ -67,13 +81,13 @@ final class CategoryPresenter: CategoryPresenterProtocol {
     func sortingButtonPressed(_ state: ButtonState) {
         switch state {
         case .normal:
-            categories.shuffle()
+            recipes.shuffle()
             view?.updateView()
         case .highToLow:
-            categories = categories.sorted(by: { $0.kkalCount < $1.kkalCount })
+//            recipes = recipes.sorted(by: { $0.kkalCount < $1.kkalCount })
             view?.updateView()
         case .lowToHigh:
-            categories = categories.sorted(by: { $0.kkalCount > $1.kkalCount })
+//            recipes = recipes.sorted(by: { $0.kkalCount > $1.kkalCount })
             view?.updateView()
         }
     }
@@ -88,7 +102,7 @@ final class CategoryPresenter: CategoryPresenterProtocol {
     }
 
     func searchBarDelegate(_ text: String) {
-        searchingCategories = categories.filter { $0.name.prefix(text.count) == text }
+//        searchingCategories = recipes.filter { $0.name.prefix(text.count) == text }
         isSearching = true
         view?.updateView()
     }
@@ -101,14 +115,26 @@ final class CategoryPresenter: CategoryPresenterProtocol {
     func filterButtonPressed(state: ButtonState) {
         switch state {
         case .normal:
-            categories = categories.shuffled()
+            recipes = recipes.shuffled()
             view?.updateView()
         case .highToLow:
-            categories = categories.sorted(by: { $0.kkalCount > $1.kkalCount })
+//            recipes = recipes.sorted(by: { $0.kkalCount > $1.kkalCount })
             view?.updateView()
         case .lowToHigh:
-            categories = categories.sorted(by: { $0.kkalCount < $1.kkalCount })
+//            recipes = recipes.sorted(by: { $0.kkalCount < $1.kkalCount })
             view?.updateView()
+        }
+    }
+
+    func getRecipes() {
+        networkService.getRecipes { [weak self] result in
+            guard self != nil else { return }
+            switch result {
+            case let .success(recipes):
+                self?.unfilteredRecipes = recipes
+            case let .failure(error):
+                print(error.localizedDescription)
+            }
         }
     }
 }

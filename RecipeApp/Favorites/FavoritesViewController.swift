@@ -16,7 +16,7 @@ final class FavoritesViewController: UIViewController, FavoritesViewControllerPr
     /// Презентер для управления логикой отображения экрана избранных.
     var presenter: FavoritesPresenterProtocol?
     /// Список категорий блюд
-    var categories: [FoodModel] = []
+    var categories: [Recipe] = []
 
     // MARK: - Visual Components
 
@@ -60,7 +60,7 @@ final class FavoritesViewController: UIViewController, FavoritesViewControllerPr
 
         if let savedData = UserDefaults.standard.object(forKey: "favorites") as? Data {
             do {
-                let savedContacts = try JSONDecoder().decode([FoodModel].self, from: savedData)
+                let savedContacts = try JSONDecoder().decode([Recipe].self, from: savedData)
                 categories = savedContacts
             } catch {
                 print(error.localizedDescription)
@@ -106,9 +106,9 @@ extension FavoritesViewController: UITableViewDataSource {
         if editingStyle == .delete {
             if let savedData = UserDefaults.standard.object(forKey: "favorites") as? Data {
                 do {
-                    var savedContacts = try JSONDecoder().decode([FoodModel].self, from: savedData)
+                    var savedContacts = try JSONDecoder().decode([Recipe].self, from: savedData)
 
-                    savedContacts.removeAll { $0.name == categories[indexPath.row].name }
+//                    savedContacts.removeAll { $0.name == categories[indexPath.row].name }
 
                     categories = savedContacts
                 } catch {
