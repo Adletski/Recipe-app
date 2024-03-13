@@ -39,6 +39,7 @@
 		7FAB18362B98AF3A001701BE /* SortingViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18352B98AF39001701BE /* SortingViewControl.swift */; };
 		7FAB18672B9DD746001701BE /* PracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18662B9DD746001701BE /* PracticeViewController.swift */; };
 		7FAB18692B9DEAC2001701BE /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18682B9DEAC2001701BE /* CustomCollectionViewCell.swift */; };
+		7FAB187D2BA0C729001701BE /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB187C2BA0C729001701BE /* NetworkService.swift */; };
 		7FCDDBF82B91BC700065E4E5 /* Extension+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBEE2B91BC700065E4E5 /* Extension+UITextField.swift */; };
 		7FCDDBF92B91BC700065E4E5 /* CategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBEF2B91BC700065E4E5 /* CategoryPresenter.swift */; };
 		7FCDDBFA2B91BC700065E4E5 /* CategoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBF02B91BC700065E4E5 /* CategoryCoordinator.swift */; };
@@ -114,6 +115,7 @@
 		7FAB18352B98AF39001701BE /* SortingViewControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingViewControl.swift; sourceTree = "<group>"; };
 		7FAB18662B9DD746001701BE /* PracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewController.swift; sourceTree = "<group>"; };
 		7FAB18682B9DEAC2001701BE /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
+		7FAB187C2BA0C729001701BE /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		7FCDDBEE2B91BC700065E4E5 /* Extension+UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UITextField.swift"; sourceTree = "<group>"; };
 		7FCDDBEF2B91BC700065E4E5 /* CategoryPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPresenter.swift; sourceTree = "<group>"; };
 		7FCDDBF02B91BC700065E4E5 /* CategoryCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCoordinator.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 				7FE564272B8E5285002562F3 /* AppCoordinator.swift */,
 				7FAB18662B9DD746001701BE /* PracticeViewController.swift */,
 				7FAB18682B9DEAC2001701BE /* CustomCollectionViewCell.swift */,
+				7FAB187C2BA0C729001701BE /* NetworkService.swift */,
 			);
 			path = RecipeApp;
 			sourceTree = "<group>";
@@ -537,6 +540,7 @@
 				5E89C5702B93AFA40021D3E1 /* RecipeImageCell.swift in Sources */,
 				5E89C5F12B9C8F850021D3E1 /* Receiver.swift in Sources */,
 				7FE564242B8E5239002562F3 /* BaseCoordinator.swift in Sources */,
+				7FAB187D2BA0C729001701BE /* NetworkService.swift in Sources */,
 				5E89C5092B9102100021D3E1 /* RecipesCategories.swift in Sources */,
 				7FE5642F2B8F011C002562F3 /* RecipeCoordinator.swift in Sources */,
 				7FE563ED2B8E12A1002562F3 /* ProfileBuilder.swift in Sources */,
