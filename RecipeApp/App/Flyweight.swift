@@ -23,7 +23,7 @@ extension UIColor {
         return color
     }
 }
-
+//MARK: - Extension
 /// Расширение для шрифтов
 extension UIFont {
     /// Создание жирного шрифта Verdana

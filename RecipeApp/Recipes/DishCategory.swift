@@ -5,7 +5,7 @@ import Foundation
 
 // MARK: - Types
 
-/// структура
+/// Структура для категории
 struct DishCategory {
     /// Название изображения
     let imageName: String
