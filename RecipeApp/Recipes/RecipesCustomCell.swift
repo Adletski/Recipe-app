@@ -5,7 +5,7 @@ import UIKit
 
 /// Протокол для нажатия кнопки
 protocol RecipesCustomCellDelegate: AnyObject {
-    /// кнопка нажатия
+    /// Кнопка нажатия
     func buttonTapped()
 }
 
@@ -14,7 +14,7 @@ final class RecipesCustomCell: UICollectionViewCell {
     enum Constant {
         static let identifier = "RecipesCustomCell"
         static let backgroundTextColor = "backgroungTextColor"
-        static let tappcolor = "tappcolor"
+        static let tappcolor = "castomBlue"
     }
 
     // MARK: - Public properties
@@ -70,7 +70,7 @@ final class RecipesCustomCell: UICollectionViewCell {
 
     // MARK: - Private methods
 
-    /// метод для создания ячейки
+    /// Метод для создания ячейки
     private func makeCell() {
         contentView.backgroundColor = .clear
         contentView.layer.cornerRadius = 18
@@ -80,14 +80,14 @@ final class RecipesCustomCell: UICollectionViewCell {
         contentView.layer.shadowOpacity = 0.5
     }
 
-    ///  метод для создания вью
+    /// Метод для создания вью
     private func makeView() {
         contentView.addSubview(recipeButton)
         recipeButton.addSubview(backgroundTextView)
         backgroundTextView.addSubview(titleLabel)
     }
 
-    ///  метод для установки ограничений
+    /// Метод для установки ограничений
     private func setupConstraint() {
         makeRecipeButtonConstraints()
         makeBackgroundTextViewConstraints()
@@ -134,8 +134,7 @@ final class RecipesCustomCell: UICollectionViewCell {
             recipeButton.layer.borderWidth = 0
         } else {
             titleLabel.backgroundColor = UIColor(named: Constant.tappcolor)
-            recipeButton.layer.borderColor = UIColor(red: 114 / 255, green: 186 / 255, blue: 191 / 255, alpha: 1)
-                .cgColor
+            recipeButton.layer.borderColor = UIColor(named: Constant.tappcolor)?.cgColor
             recipeButton.layer.borderWidth = 2
         }
         recipeButton.isSelected.toggle()

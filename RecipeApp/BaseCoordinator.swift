@@ -6,7 +6,7 @@ import UIKit
 /// это базовый координатор который будет как будто протокол
 class BaseCoordinator {
     var childCoordinators: [BaseCoordinator] = []
-
+    // MARK: - Public Methods
     func start() {
         fatalError("child должен быть реализован")
     }
