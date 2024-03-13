@@ -38,15 +38,6 @@ final class CategoryPresenter: CategoryPresenterProtocol {
     weak var view: CategoryViewControllerProtocol?
     var coordinator: CategoryCoordinator?
     var networkService: NetworkServiceProtocol
-    var unfilteredRecipes: Recipes? {
-        didSet {
-            unfilteredRecipes?.hits.forEach {
-                recipes.append($0.recipe)
-            }
-            print(recipes)
-        }
-    }
-
     var recipes: [Recipe] = []
     var searchingCategories: [Recipe] = []
     var isSearching = false
@@ -131,8 +122,9 @@ final class CategoryPresenter: CategoryPresenterProtocol {
             guard self != nil else { return }
             switch result {
             case let .success(recipes):
-                self?.unfilteredRecipes = recipes
+                self?.recipes = recipes
             case let .failure(error):
+                print("tut owibka")
                 print(error.localizedDescription)
             }
         }
