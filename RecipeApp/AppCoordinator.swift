@@ -3,43 +3,39 @@
 
 import Foundation
 
-/// координатор главный приложения
+/// главный координатор приложения
 final class AppCoordinator: BaseCoordinator {
     private var tabBarViewController: TabBarViewController?
-
+    /// Запускает работу координатора
     override func start() {
         if "admin" != "admin" {
             toMain()
         } else {
-            toAuth()
+            toMain()
         }
     }
-
+    //MARK: - Private Methods
+    /// Переходит к главному экрану приложения.
     private func toMain() {
         tabBarViewController = TabBarViewController()
-
-        // recipe
+        /// рецепты
         let recipeCoordinator = RecipeCoordinator()
         let recipeModuleView = RecipesBuilder.createRecipe(coordinator: recipeCoordinator)
         recipeCoordinator.setRootController(viewController: recipeModuleView)
         add(coordinator: recipeCoordinator)
-
-        // favorites
+        /// избранное
         let favoritesCoordinator = FavoritesCoordinator()
         let favoritesModuleView = FavoritesBuilder.createFavorites(coordinator: favoritesCoordinator)
         favoritesCoordinator.setupRootController(viewController: favoritesModuleView)
         add(coordinator: favoritesCoordinator)
-
-        // profile
+        /// профиль
         let profileCoordinator = ProfileCoordinator()
         let profileModuleView = ProfileBuilder.createProfile(coordinator: profileCoordinator)
         profileCoordinator.setupRootController(viewController: profileModuleView)
         add(coordinator: profileCoordinator)
-
         guard let recipeRootController = recipeCoordinator.rootController,
               let profileRootController = profileCoordinator.rootController,
               let favoritesRootController = favoritesCoordinator.rootController else { return }
-
         tabBarViewController?.setViewControllers([
             recipeRootController,
             favoritesRootController,
@@ -50,7 +46,7 @@ final class AppCoordinator: BaseCoordinator {
             setAsRoot(tabBarViewController)
         }
     }
-
+    /// Переходит к экрану авторизации
     private func toAuth() {
         let authCoordinator = AuthorizationCoordinator()
         authCoordinator.onFinishFlow = { [weak self] in

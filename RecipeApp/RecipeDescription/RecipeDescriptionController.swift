@@ -6,20 +6,23 @@ import UIKit
 /// Экран с рецептом
 final class RecipeDescriptionController: UIViewController {
     // MARK: - Constants
-
+    /// Перечисление, используемые в контроллере рецепта
     enum Constant {
+        /// Изображения стрелки
         static let arrowImage = "arrow"
+        /// Изображения кнопки отправки
         static let sendButtonImage = "sendButtonImage"
+        /// Изображения кнопки сохранения
         static let savedButtonImage = "savedButtonImage"
     }
 
     /// Перечисление для  деталей рецепта
     enum Details {
-        /// фото
+        /// Фото
         case photo
-        /// характеристики
+        /// Характеристики
         case characteristics
-        /// описание
+        /// Описание
         case description
     }
 
@@ -77,7 +80,7 @@ final class RecipeDescriptionController: UIViewController {
         view.addSubview(tableView)
         setupTableView()
     }
-
+    
     private func setupNavigationBar() {
         let backButton = UIBarButtonItem(
             image: UIImage(named: Constant.arrowImage),
@@ -112,18 +115,16 @@ final class RecipeDescriptionController: UIViewController {
     }
 
     // MARK: - IBAction
-
+    /// Обработчик нажатия кнопки "назад"
     @objc private func backButtonPressed() {
         presenter?.moveBack()
     }
-
+    /// Обработчик нажатия кнопки "добавить в избранное"
     @objc private func favoriteButtonPressed() {
         var favorites: [FoodModel] = []
         if let selectedRecipe {
             favorites.append(selectedRecipe)
         }
-
-        // get all favorites
         if let savedData = UserDefaults.standard.object(forKey: "favorites") as? Data {
             do {
                 let savedContacts = try JSONDecoder().decode([FoodModel].self, from: savedData)
@@ -133,15 +134,11 @@ final class RecipeDescriptionController: UIViewController {
             }
         }
         print(favorites)
-
-        // check if favorites already contains selected recipe
         if !(favorites.contains { $0.name == selectedRecipe?.name }) {
             if let selectedRecipe {
                 favorites.append(selectedRecipe)
             }
         }
-
-        // save favorite
         do {
             let encodedData = try JSONEncoder().encode(favorites)
             UserDefaults.standard.set(encodedData, forKey: "favorites")

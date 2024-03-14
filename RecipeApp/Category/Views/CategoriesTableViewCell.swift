@@ -33,7 +33,6 @@ final class CategoriesTableViewCell: UITableViewCell {
     private let foodImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: Constant.foodOne)
         return imageView
     }()
 
@@ -174,10 +173,24 @@ final class CategoriesTableViewCell: UITableViewCell {
     // MARK: - Pbulic methods
 
     /// Конфигурирует ячейку с данными модели
-    func configure(model: FoodModel) {
-        foodImageView.image = UIImage(named: model.image)
-        foodLabel.text = model.name
-        timeLabel.text = model.time
-        caloriesLabel.text = model.kkal
+    func configure(model: Recipe) {
+        NetworkService.downLoadImage(model.image) { result in
+            switch result {
+            case let .success(image):
+                DispatchQueue.main.async {
+                    self.foodImageView.image = image
+                }
+            case let .failure(failure):
+                print(failure.localizedDescription)
+            }
+        }
+        foodLabel.text = model.label
+        timeLabel.text = String(model.totalTime)
+        caloriesLabel.text = String(model.calories)
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        foodImageView.image = nil
     }
 }

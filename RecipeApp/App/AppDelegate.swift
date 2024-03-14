@@ -9,7 +9,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        UserDefaults.standard.set("Adlet@mail.ru", forKey: "login")
+        UserDefaults.standard.set("1@mail.ru", forKey: "login")
         UserDefaults.standard.set("qwerty", forKey: "password")
         return true
     }

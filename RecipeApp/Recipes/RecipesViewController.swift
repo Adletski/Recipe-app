@@ -71,7 +71,7 @@ extension RecipesViewController: UICollectionViewDataSource {
         presenter?.getCategoryCount() ?? 0
     }
 
-    /// создание и настройка ячейки
+    /// Создание и настройка ячейки
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
@@ -146,5 +146,5 @@ extension RecipesViewController: RecipesCustomCellDelegate {
     }
 }
 
-/// расширенеи для реализации протокола RecipesView
+/// Расширенеи для реализации протокола RecipesView
 extension RecipesViewController: RecipesView {}

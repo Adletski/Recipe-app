@@ -8,7 +8,7 @@ final class RecipeImageCell: UITableViewCell {
     // MARK: - Constants
 
     static let identifier = Constant.identifier
-
+    
     private enum Constant {
         static let minutesText = "min"
         static let caloriesText = "kcal"

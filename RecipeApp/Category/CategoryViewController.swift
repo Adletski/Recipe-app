@@ -8,6 +8,8 @@ protocol CategoryViewControllerProtocol: AnyObject {
     /// Обновляет таблицу с учетом количества калорий в блюдах
     func updateView()
     func updateSearchBar()
+    func success()
+    func failure()
 }
 
 /// Экран для категорий еды
@@ -87,6 +89,10 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
         searchBar.endEditing(true)
         tableView.reloadData()
     }
+
+    func success() {}
+
+    func failure() {}
 }
 
 extension CategoryViewController: SortingViewControlDelegate, SortingPickerDataSource {
@@ -136,7 +142,7 @@ extension CategoryViewController: UITableViewDataSource {
             if presenter?.isSearching ?? false {
                 return presenter?.searchingCategories.count ?? 0
             } else {
-                return presenter?.categories.count ?? 0
+                return presenter?.recipes.count ?? 0
             }
         }
     }
@@ -159,7 +165,7 @@ extension CategoryViewController: UITableViewDataSource {
                     cell.configure(model: food)
                 }
             } else {
-                if let food = presenter?.categories[indexPath.row] {
+                if let food = presenter?.recipes[indexPath.row] {
                     cell.configure(model: food)
                 }
             }
@@ -174,11 +180,11 @@ extension CategoryViewController: UITableViewDataSource {
 extension CategoryViewController: UITableViewDelegate {
     /// Вызывается при выборе ячейки таблицы
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedRecipe = presenter?.categories[indexPath.row]
+        let selectedRecipe = presenter?.recipes[indexPath.row]
         // модель рецепта в контроллер с рецептом
         if let selectedRecipe {
             //  переход на экран с рецептом
-            presenter?.openRecipeDescriptionVC(model: selectedRecipe)
+//            presenter?.openRecipeDescriptionVC(model: selectedRecipe)
         }
     }
 }
