@@ -118,7 +118,7 @@ final class CategoryPresenter: CategoryPresenterProtocol {
     }
 
     func getRecipes() {
-        networkService.getRecipes { [weak self] result in
+        networkService.getRecipes(dishType: "Salad") { [weak self] result in
             guard self != nil else { return }
             switch result {
             case let .success(recipes):

@@ -148,3 +148,10 @@ extension RecipesViewController: RecipesCustomCellDelegate {
 
 /// Расширенеи для реализации протокола RecipesView
 extension RecipesViewController: RecipesView {}
+
+extension RecipesViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(presenter?.recipeCatalog.categories[indexPath.row])
+        presenter.cellDidTap()
+    }
+}

@@ -17,13 +17,14 @@ protocol RecipesViewPresenterProtocol: AnyObject {
     func getCategoryCount() -> Int
     /// Перейти к выбранной категории
     func goToCategory(_ category: RecipeCategories)
+    var recipeCatalog: RecipeCatalog { get set }
 }
 
 /// Презентер экрана рецептов
 final class RecipesPresenter: RecipesViewPresenterProtocol {
     // MARK: - Private Properties
 
-    private let recipeCatalog = RecipeCatalog()
+    var recipeCatalog = RecipeCatalog()
 
     // MARK: - Initializers
 
@@ -53,4 +54,6 @@ final class RecipesPresenter: RecipesViewPresenterProtocol {
     func goToCategory(_ category: RecipeCategories) {
         coordinator?.showCategory()
     }
+
+    func cellDidTap(dish: String) {}
 }

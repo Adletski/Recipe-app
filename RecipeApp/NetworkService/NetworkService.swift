@@ -8,7 +8,7 @@ import UIKit
 /// Протокол для работы с сетью
 protocol NetworkServiceProtocol {
     /// Получение рецептов
-    func getRecipes(completion: @escaping (Result<[Recipe], Error>) -> Void)
+    func getRecipes(dishType: String, completion: @escaping (Result<[Recipe], Error>) -> Void)
     /// Получение детальной информации о рецепте по URI
     func getDetailRecipe(uri: String, completion: @escaping (Result<DetaliesResipe, Error>) -> Void)
 
@@ -26,7 +26,7 @@ final class NetworkService: NetworkServiceProtocol {
     // MARK: - Public Methods
 
     /// Получение рецептов
-    func getRecipes(completion: @escaping (Result<[Recipe], Error>) -> Void) {
+    func getRecipes(dishType: String, completion: @escaping (Result<[Recipe], Error>) -> Void) {
         var components = URLComponents(string: baseURL)
         components?.queryItems = [
             URLQueryItem(name: "type", value: "public"),
