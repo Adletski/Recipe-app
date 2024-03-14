@@ -7,6 +7,11 @@ import UIKit
 protocol NetworkServiceProtocol {
     /// Получение рецептов
     func getRecipes(completion: @escaping (Result<[Recipe], Error>) -> Void)
+    /// Получение детальной информации о рецепте по URI
+       func getDetailRecipe(uri: String, completion: @escaping (Result<Recipe, Error>) -> Void)
+       
+       /// Загрузка изображения по URL
+       static func downLoadImage(_ urlString: String, completion: @escaping (Result<UIImage?, Error>) -> Void)
 }
 
 ///Класс  для работы с сетью
