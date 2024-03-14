@@ -14,7 +14,9 @@ final class AppCoordinator: BaseCoordinator {
             toMain()
         }
     }
-    //MARK: - Private Methods
+
+    // MARK: - Private Methods
+
     /// Переходит к главному экрану приложения.
     private func toMain() {
         tabBarViewController = TabBarViewController()
@@ -46,6 +48,7 @@ final class AppCoordinator: BaseCoordinator {
             setAsRoot(tabBarViewController)
         }
     }
+
     /// Переходит к экрану авторизации
     private func toAuth() {
         let authCoordinator = AuthorizationCoordinator()

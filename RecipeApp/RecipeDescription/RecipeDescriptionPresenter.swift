@@ -7,11 +7,13 @@ protocol RecipeDescriptionPresenterProtocol {
     /// Координатор флоу экрана
     var coordinator: CategoryCoordinator? { get set }
     /// Массив данных с продуктами
-    var category: FoodModel? { get set }
+    var detailRecipe: DetaliesResipe? { get set }
+    var uri: String { get set }
     /// Инициализатор с присвоением вью
-    init(view: RecipeDescriptionController, coordinator: CategoryCoordinator)
+    init(view: RecipeDescriptionController, coordinator: CategoryCoordinator, uri: String)
     /// Выход назад
     func moveBack()
+    func viewDidLoaded()
 }
 
 final class RecipeDescriptionPresenter: RecipeDescriptionPresenterProtocol {
@@ -19,18 +21,45 @@ final class RecipeDescriptionPresenter: RecipeDescriptionPresenterProtocol {
 
     var coordinator: CategoryCoordinator?
     weak var view: RecipeDescriptionController?
-    var category: FoodModel?
+    var detailRecipe: DetaliesResipe? {
+        didSet {
+            view?.reloadTableView()
+        }
+    }
+
+    var uri: String
+    var networkService = NetworkService()
 
     // MARK: - Initializer
 
-    init(view: RecipeDescriptionController, coordinator: CategoryCoordinator) {
+    init(view: RecipeDescriptionController, coordinator: CategoryCoordinator, uri: String) {
         self.view = view
         self.coordinator = coordinator
+        self.uri = uri
+        getDetailRecipes()
     }
 
     // MARK: - Public methods
 
+    func getDetailRecipes() {
+        networkService.getDetailRecipe(uri: uri) { [weak self] result in
+            switch result {
+            case let .success(detailRecipe):
+                print(detailRecipe)
+                self?.detailRecipe = detailRecipe
+                print(detailRecipe)
+            case let .failure(error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+
     func moveBack() {
         coordinator?.moveBack()
+    }
+
+    func viewDidLoaded() {
+        print("view did loaded")
+        view?.reloadTableView()
     }
 }

@@ -8,7 +8,7 @@ final class RecipeImageCell: UITableViewCell {
     // MARK: - Constants
 
     static let identifier = Constant.identifier
-    
+
     private enum Constant {
         static let minutesText = "min"
         static let caloriesText = "kcal"
@@ -132,10 +132,19 @@ final class RecipeImageCell: UITableViewCell {
     // MARK: - Public Methods
 
     /// Конфигурация ячейки с рецептом
-    func configure(recipe: FoodModel?) {
-        guard let recipe = recipe else { return }
+    func configure(recipe: FoodModel) {
+        print(recipe.image)
         nameRecipeLabel.text = recipe.name
-        recipeImageView.image = UIImage(named: "\(recipe.image)")
+        NetworkService.downLoadImage(recipe.image, completion: { result in
+            switch result {
+            case let .success(image):
+                DispatchQueue.main.async {
+                    self.recipeImageView.image = image
+                }
+            case let .failure(failure):
+                print(failure.localizedDescription)
+            }
+        })
         gramsLabel.text = "\(recipe.weight) g"
         cookingTimeLabel.text = "\(recipe.time) \(Constant.min)"
     }
