@@ -59,101 +59,101 @@ struct FoodModel: Codable {
     /// Вес
     let weight: Int
     /// Углеводы
-    let carbohydrates: Float
+    let carbohydrates: String
     /// Жиры
-    let fats: Float
+    let fats: String
     /// Белки
-    let proteins: Float
+    let proteins: String
     /// Описание рецепта
     let descriptions: String
 
     // MARK: - Static Properties
 
-    /// свойство типа с мок-данными
-    static let fishRecipes: [FoodModel] = [
-        FoodModel(
-            image: "recipe",
-            name: "Simple Fish And Corn",
-            time: "60",
-            timeCount: 60, kkal: "1322",
-            kkalCount: 1322, weight: 793,
-            carbohydrates: 10.78,
-            fats: 10.00,
-            proteins: 97.30,
-            descriptions: Constants.descriptions
-        ),
-        FoodModel(
-            image: "recipe",
-            name: "Some fish",
-            time: "60",
-            timeCount: 60, kkal: "1322",
-            kkalCount: 1322, weight: 793,
-            carbohydrates: 10.78,
-            fats: 10.00,
-            proteins: 97.30,
-            descriptions: Constants.descriptions
-        ),
-        FoodModel(
-            image: "recipe",
-            name: "x3 Fish",
-            time: "60",
-            timeCount: 60, kkal: "1322",
-            kkalCount: 1322, weight: 793,
-            carbohydrates: 10.78,
-            fats: 10.00,
-            proteins: 97.30,
-            descriptions: Constants.descriptions
-        ),
-        FoodModel(
-            image: "recipe",
-            name: "Double fish",
-            time: "60",
-            timeCount: 60, kkal: "1322",
-            kkalCount: 1322, weight: 793,
-            carbohydrates: 10.78,
-            fats: 10.00,
-            proteins: 97.30,
-            descriptions: Constants.descriptions
-        ),
-        FoodModel(
-            image: "recipe",
-            name: "No fish",
-            time: "60",
-            timeCount: 60, kkal: "1322",
-            kkalCount: 1322,
-            weight: 793,
-            carbohydrates: 10.78,
-            fats: 10.00,
-            proteins: 97.30,
-            descriptions: Constants.descriptions
-        ),
-    ]
+//    /// свойство типа с мок-данными
+//    static let fishRecipes: [FoodModel] = [
+//        FoodModel(
+//            image: "recipe",
+//            name: "Simple Fish And Corn",
+//            time: "60",
+//            timeCount: 60, kkal: "1322",
+//            kkalCount: 1322, weight: 793,
+//            carbohydrates: 10.78,
+//            fats: 10.00,
+//            proteins: 97.30,
+//            descriptions: Constants.descriptions
+//        ),
+//        FoodModel(
+//            image: "recipe",
+//            name: "Some fish",
+//            time: "60",
+//            timeCount: 60, kkal: "1322",
+//            kkalCount: 1322, weight: 793,
+//            carbohydrates: 10.78,
+//            fats: 10.00,
+//            proteins: 97.30,
+//            descriptions: Constants.descriptions
+//        ),
+//        FoodModel(
+//            image: "recipe",
+//            name: "x3 Fish",
+//            time: "60",
+//            timeCount: 60, kkal: "1322",
+//            kkalCount: 1322, weight: 793,
+//            carbohydrates: 10.78,
+//            fats: 10.00,
+//            proteins: 97.30,
+//            descriptions: Constants.descriptions
+//        ),
+//        FoodModel(
+//            image: "recipe",
+//            name: "Double fish",
+//            time: "60",
+//            timeCount: 60, kkal: "1322",
+//            kkalCount: 1322, weight: 793,
+//            carbohydrates: 10.78,
+//            fats: 10.00,
+//            proteins: 97.30,
+//            descriptions: Constants.descriptions
+//        ),
+//        FoodModel(
+//            image: "recipe",
+//            name: "No fish",
+//            time: "60",
+//            timeCount: 60, kkal: "1322",
+//            kkalCount: 1322,
+//            weight: 793,
+//            carbohydrates: 10.78,
+//            fats: 10.00,
+//            proteins: 97.30,
+//            descriptions: Constants.descriptions
+//        ),
+//    ]
 
-    static let otherRecipes: [FoodModel] = [
-        FoodModel(
-            image: "recipe",
-            name: "Some meal",
-            time: "60",
-            timeCount: 60, kkal: "1322",
-            kkalCount: 1322, weight: 793,
-            carbohydrates: 10.78,
-            fats: 10.00,
-            proteins: 97.30,
-            descriptions: Constants.descriptions
-        ),
-    ]
+//    static let otherRecipes: [FoodModel] = [
+//        FoodModel(
+//            image: "recipe",
+//            name: "Some meal",
+//            time: "60",
+//            timeCount: 60, kkal: "1322",
+//            kkalCount: 1322, weight: 793,
+//            carbohydrates: 10.78,
+//            fats: 10.00,
+//            proteins: 97.30,
+//            descriptions: Constants.descriptions
+//        ),
+//    ]
 
     // MARK: - Static Methods
 
-    /// метод типа для получения данных
-    static func getRecipes(category: DishCategory) -> [FoodModel] {
-        switch category.type {
-        case .fish:
-            return FoodModel.fishRecipes
-        default:
-            return FoodModel.otherRecipes
-        }
-    }
+//    /// метод типа для получения данных
+//    static func getRecipes(category: DishCategory) -> [FoodModel] {
+//        switch category.type {
+//        case .fish:
+//            return FoodModel.fishRecipes
+//        default:
+//            return FoodModel.otherRecipes
+//        }
+//    }
 
     // MARK: - Initializers
 
@@ -166,9 +166,9 @@ struct FoodModel: Codable {
         kkal: String = "",
         kkalCount: Int = 0,
         weight: Int? = nil,
-        carbohydrates: Float? = nil,
-        fats: Float? = nil,
-        proteins: Float? = nil,
+        carbohydrates: String? = nil,
+        fats: String? = nil,
+        proteins: String? = nil,
         descriptions: String? = nil
     ) {
         self.image = image
@@ -179,9 +179,9 @@ struct FoodModel: Codable {
         self.kkal = kkal
         self.kkalCount = kkalCount
         self.weight = weight ?? 0
-        self.carbohydrates = carbohydrates ?? 0.0
-        self.fats = fats ?? 0.0
-        self.proteins = proteins ?? 0.0
+        self.carbohydrates = carbohydrates ?? ""
+        self.fats = fats ?? ""
+        self.proteins = proteins ?? ""
         self.descriptions = descriptions ?? ""
     }
 }

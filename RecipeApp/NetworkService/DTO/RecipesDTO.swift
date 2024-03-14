@@ -2,7 +2,9 @@
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
+
 // MARK: - Types
+
 /// DTO структура для рецепта
 struct HitDTO: Codable {
     let recipe: RecipeDTO

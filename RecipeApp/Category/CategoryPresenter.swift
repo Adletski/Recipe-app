@@ -18,7 +18,7 @@ protocol CategoryPresenterProtocol: AnyObject {
     /// Выход назад
     func moveBack()
     /// Открытие экрана описания рецепта
-    func openRecipeDescriptionVC(model: FoodModel)
+    func openRecipeDescriptionVC(uri: String)
     /// Обработка нажатия на кнопку времени
     func sortingButtonPressed(_ state: ButtonState)
     /// Оповещение презентера о прогрузке вью
@@ -64,8 +64,8 @@ final class CategoryPresenter: CategoryPresenterProtocol {
     }
 
     /// Открытие экрана описания рецепта
-    func openRecipeDescriptionVC(model: FoodModel) {
-        coordinator?.moveRecipeDescriptionVC(model: model)
+    func openRecipeDescriptionVC(uri: String) {
+        coordinator?.moveRecipeDescriptionVC(uri: uri)
     }
 
     /// Обработка нажатия на кнопку калорий

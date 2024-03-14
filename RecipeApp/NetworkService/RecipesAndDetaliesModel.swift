@@ -2,7 +2,9 @@
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
+
 // MARK: - Types
+
 /// Модель рецепта
 struct Recipe {
     var uri: String

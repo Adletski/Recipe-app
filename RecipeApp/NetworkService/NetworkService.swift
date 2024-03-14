@@ -2,26 +2,29 @@
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
-//MARK: - Types
+
+// MARK: - Types
+
 /// Протокол для работы с сетью
 protocol NetworkServiceProtocol {
     /// Получение рецептов
     func getRecipes(completion: @escaping (Result<[Recipe], Error>) -> Void)
     /// Получение детальной информации о рецепте по URI
-       func getDetailRecipe(uri: String, completion: @escaping (Result<Recipe, Error>) -> Void)
-       
-       /// Загрузка изображения по URL
-       static func downLoadImage(_ urlString: String, completion: @escaping (Result<UIImage?, Error>) -> Void)
+    func getDetailRecipe(uri: String, completion: @escaping (Result<DetaliesResipe, Error>) -> Void)
+
+    /// Загрузка изображения по URL
+    static func downLoadImage(_ urlString: String, completion: @escaping (Result<UIImage?, Error>) -> Void)
 }
 
-///Класс  для работы с сетью
+/// Класс  для работы с сетью
 final class NetworkService: NetworkServiceProtocol {
     let baseURL = "https://api.edamam.com/api/recipes/v2"
     let appID = "cfe9a239"
     let appKey = "5ed615922d17e88dbe36c5122d9cbd83"
     let dishType = "Soup"
-    
+
     // MARK: - Public Methods
+
     /// Получение рецептов
     func getRecipes(completion: @escaping (Result<[Recipe], Error>) -> Void) {
         var components = URLComponents(string: baseURL)
@@ -56,7 +59,7 @@ final class NetworkService: NetworkServiceProtocol {
     }
 
     /// Получение детальной информации о рецепте
-    func getDetailRecipe(uri: String, completion: @escaping (Result<Recipe, Error>) -> Void) {
+    func getDetailRecipe(uri: String, completion: @escaping (Result<DetaliesResipe, Error>) -> Void) {
         var components = URLComponents(string: baseURL + "/by-uri")
         components?.queryItems = [
             URLQueryItem(name: "app_key", value: appKey),
@@ -66,6 +69,7 @@ final class NetworkService: NetworkServiceProtocol {
         ]
 
         guard let url = components?.url else { return }
+        print(url)
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             if let error = error {
                 print("Error occurred: \(error)")
@@ -75,8 +79,9 @@ final class NetworkService: NetworkServiceProtocol {
             guard let data = data else { return }
             do {
                 let obj = try JSONDecoder().decode(ResponseDTO.self, from: data)
-                if let recipe = obj.hits.first?.recipe {
-                    completion(.success(Recipe(dto: recipe)))
+                if let detailRecipeDTO = obj.hits.first?.recipe {
+                    print(detailRecipeDTO)
+                    completion(.success(DetaliesResipe(dto: detailRecipeDTO)))
                 }
             } catch {
                 print("Error decoding data: \(error)")

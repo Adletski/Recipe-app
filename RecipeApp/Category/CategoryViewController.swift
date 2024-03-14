@@ -183,8 +183,7 @@ extension CategoryViewController: UITableViewDelegate {
         let selectedRecipe = presenter?.recipes[indexPath.row]
         // модель рецепта в контроллер с рецептом
         if let selectedRecipe {
-            //  переход на экран с рецептом
-//            presenter?.openRecipeDescriptionVC(model: selectedRecipe)
+            presenter?.openRecipeDescriptionVC(uri: selectedRecipe.uri)
         }
     }
 }
