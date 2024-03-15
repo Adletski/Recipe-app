@@ -10,6 +10,7 @@ protocol CategoryViewControllerProtocol: AnyObject {
     func updateSearchBar()
     func success()
     func failure()
+    func updateRecipes(_ recipes: [Recipe])
 }
 
 /// Экран для категорий еды
@@ -216,6 +217,7 @@ extension CategoryViewController {
         view.addSubview(searchBar)
         view.addSubview(sortingControlView)
         view.addSubview(tableView)
+        setupRefreshControl()
 
         searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -230,5 +232,27 @@ extension CategoryViewController {
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+    }
+}
+
+extension CategoryViewController {
+    private func setupRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+    }
+
+    @objc private func refreshData(_ sender: Any) {
+        presenter?.getRecipes()
+        // DispatchQueue.main.async {
+        //  self.tableView.refreshControl?.endRefreshing()
+        //  }
+    }
+
+    func updateRecipes(_ recipes: [Recipe]) {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.tableView.refreshControl?.endRefreshing()
+        }
     }
 }
