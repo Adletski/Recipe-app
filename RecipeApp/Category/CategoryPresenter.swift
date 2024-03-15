@@ -118,14 +118,24 @@ final class CategoryPresenter: CategoryPresenterProtocol {
     }
 
     func getRecipes() {
+        /* networkService.getRecipes(dishType: "Salad") { [weak self] result in
+             guard self != nil else { return }
+             switch result {
+             case let .success(recipes):
+                 self?.recipes = recipes
+             case let .failure(error):
+                 print("tut owibka")
+                 print(error.localizedDescription)
+             }
+         } */
         networkService.getRecipes(dishType: "Salad") { [weak self] result in
-            guard self != nil else { return }
+            guard let self = self else { return }
             switch result {
             case let .success(recipes):
-                self?.recipes = recipes
+                self.recipes = recipes
+                self.view?.updateRecipes(recipes)
             case let .failure(error):
-                print("tut owibka")
-                print(error.localizedDescription)
+                print("Ошибка: \(error.localizedDescription)")
             }
         }
     }

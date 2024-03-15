@@ -14,6 +14,8 @@ protocol RecipeDescriptionPresenterProtocol {
     /// Выход назад
     func moveBack()
     func viewDidLoaded()
+    func updateRecipeDetails(_ details: DetaliesResipe)
+    func refreshData()
 }
 
 final class RecipeDescriptionPresenter: RecipeDescriptionPresenterProtocol {
@@ -46,13 +48,15 @@ final class RecipeDescriptionPresenter: RecipeDescriptionPresenterProtocol {
             switch result {
             case let .success(detailRecipe):
                 print(detailRecipe)
-                self?.detailRecipe = detailRecipe
+               // self?.detailRecipe = detailRecipe
+                self?.updateRecipeDetails(detailRecipe)
                 print(detailRecipe)
             case let .failure(error):
                 print(error.localizedDescription)
             }
         }
     }
+    
 
     func moveBack() {
         coordinator?.moveBack()
@@ -61,5 +65,14 @@ final class RecipeDescriptionPresenter: RecipeDescriptionPresenterProtocol {
     func viewDidLoaded() {
         print("view did loaded")
         view?.reloadTableView()
+    }
+
+    func updateRecipeDetails(_ details: DetaliesResipe) {
+        detailRecipe = details
+        view?.reloadTableView()
+    }
+
+    func refreshData() {
+        getDetailRecipes()
     }
 }

@@ -39,6 +39,7 @@ final class RecipeDescriptionController: UIViewController {
     private let range: [Details] = [.photo, .characteristics, .description]
     private let recipeCells: [Details] = [.photo, .characteristics, .description]
     private let tableView = UITableView()
+    private let refreshControl = UIRefreshControl()
 
     // MARK: - Public properties
 
@@ -73,7 +74,9 @@ final class RecipeDescriptionController: UIViewController {
         setupView()
         setupNavigationBar()
         presenter?.viewDidLoaded()
+        setupRefreshControl()
     }
+    
 
     func reloadTableView() {
         DispatchQueue.main.async {
@@ -121,8 +124,18 @@ final class RecipeDescriptionController: UIViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
     }
+    
+    private func setupRefreshControl() {
+            let refreshControl = UIRefreshControl()
+            refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+            tableView.refreshControl = refreshControl
+        }
 
     // MARK: - IBAction
+
+    @objc private func refreshData(_ sender: UIRefreshControl) {
+        presenter?.getDetailRecipes()
+    }
 
     /// Обработчик нажатия кнопки "назад"
     @objc private func backButtonPressed() {

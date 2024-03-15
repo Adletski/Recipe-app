@@ -6,6 +6,7 @@ import UIKit
 /// Протокол для вью рецептов
 protocol RecipesView: AnyObject {
     var presenter: RecipesViewPresenterProtocol? { get set }
+    func showRecipes(_ recipes: [Recipe])
 }
 
 // MARK: - Visual Components
@@ -147,11 +148,14 @@ extension RecipesViewController: RecipesCustomCellDelegate {
 }
 
 /// Расширенеи для реализации протокола RecipesView
-extension RecipesViewController: RecipesView {}
+extension RecipesViewController: RecipesView {
+    func showRecipes(_ recipes: [Recipe]) {}
+}
 
 extension RecipesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(presenter?.recipeCatalog.categories[indexPath.row])
-        presenter.cellDidTap()
+        if let category = presenter?.getInfo(categoryNumber: indexPath.item) {
+            presenter?.cellDidTap(dish: category.type.rawValue)
+        }
     }
 }
