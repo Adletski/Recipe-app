@@ -83,6 +83,10 @@ final class RecipeDescriptionController: UIViewController {
         }
     }
 
+    func endRefreshing() {
+        refreshControl.endRefreshing()
+    }
+
     // MARK: - Private Methods
 
     private func setupView() {
@@ -133,8 +137,12 @@ final class RecipeDescriptionController: UIViewController {
     // MARK: - IBAction
 
     @objc private func refreshData(_ sender: UIRefreshControl) {
-//        presenter?.getDetailRecipes()
+        presenter?.refreshData()
     }
+
+    // @objc private func refreshData(_ sender: UIRefreshControl) {
+//        presenter?.getDetailRecipes()
+    // }
 
     /// Обработчик нажатия кнопки "назад"
     @objc private func backButtonPressed() {

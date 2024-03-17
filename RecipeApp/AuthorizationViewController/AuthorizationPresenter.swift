@@ -19,6 +19,7 @@ protocol AutorizationPresenterProtocol: AnyObject {
     func loginButtonTapped(login: String, password: String)
     /// отработка нажатия скрытие пароля
     func createPasswordVisibilityButton()
+    /// Сохранение информации о пользователе
     func saveUserInfo(login: String, password: String)
 }
 
@@ -73,11 +74,11 @@ final class AuthorizationPresenter: AutorizationPresenterProtocol {
         }
     }
 
-    /// отработка нажатия скрытие пароля
+    /// Отработка нажатия скрытие пароля
     func createPasswordVisibilityButton() {
         view?.updatePasswordVisibilityButton()
     }
-
+    /// Сохранение информации о пользователе
     func saveUserInfo(login: String, password: String) {
 //        UserSettings.userInfo = UserInfo(name: "", surname: "", login: login, password: password)
     }

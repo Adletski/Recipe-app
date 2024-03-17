@@ -6,11 +6,11 @@ import UIKit
 /// Координатор для категорий
 final class CategoryCoordinator: BaseCoordinator {
     // MARK: - Properties
-
     /// Корневой контроллер координатора
     var rootController: UIViewController?
     /// Замыкание, вызываемое по завершению флоу
     var onFinishFlow: (() -> ())?
+    /// Категория рецептов
     var category: RecipeCategories?
 
     // MARK: - Lifecycle
