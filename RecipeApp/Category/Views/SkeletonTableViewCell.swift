@@ -69,7 +69,7 @@ final class SkeletonTableViewCell: UITableViewCell {
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            customeview.topAnchor.constraint(equalTo: topAnchor, constant: 42),
+            customeview.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             customeview.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             customeview.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             customeview.heightAnchor.constraint(equalToConstant: 36),

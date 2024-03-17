@@ -142,8 +142,14 @@ extension RecipesViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension RecipesViewController: RecipesCustomCellDelegate {
-    func buttonTapped() {
-        presenter?.goToCategory(.fish)
+    func buttonTapped(title: String) {
+        if title == "Fish" {
+            presenter?.goToCategory(.fish)
+        } else if title == "Salad" {
+            presenter?.goToCategory(.salad)
+        } else if title == "Soup" {
+            presenter?.goToCategory(.soup)
+        }
     }
 }
 
