@@ -3,9 +3,13 @@
 
 import UIKit
 
+/// Менеджер локального файла для сохранения и получения изображений
 final class LocalFileManager {
     static let instance = LocalFileManager()
 
+    // MARK: - Public Methods
+
+    /// Сохраняет изображение в локальный файл
     func saveImage(image: UIImage, name: String) {
         guard let data = image.jpegData(compressionQuality: 1) ?? image.pngData() else {
             return
@@ -26,6 +30,7 @@ final class LocalFileManager {
         }
     }
 
+    /// Получает изображение из локального файла
     func getImage(name: String) -> Data? {
         guard let directory = try? FileManager.default.url(
             for: .documentDirectory,
@@ -45,6 +50,7 @@ final class LocalFileManager {
         return nil
     }
 
+    /// Директория документов приложения
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)
         return paths[0]

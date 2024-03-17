@@ -11,6 +11,7 @@ final class CategoryCoordinator: BaseCoordinator {
     var rootController: UIViewController?
     /// Замыкание, вызываемое по завершению флоу
     var onFinishFlow: (() -> ())?
+    /// Категория рецептов
     var category: RecipeCategories?
 
     // MARK: - Lifecycle

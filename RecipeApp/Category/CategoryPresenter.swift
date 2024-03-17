@@ -5,7 +5,9 @@ import Foundation
 
 /// Протокол презентера экрана категорий
 protocol CategoryPresenterProtocol: AnyObject {
+    /// Происходит ли поиск
     var isSearching: Bool { get set }
+    /// Отображается ли шимер
     var isShowSkeleton: Bool { get set }
     /// Координатор флоу экрана
     var coordinator: CategoryCoordinator? { get set }
@@ -13,7 +15,12 @@ protocol CategoryPresenterProtocol: AnyObject {
     var recipes: [Recipe] { get set }
     /// Массив данных с продуктами, используемый для поиска/
     var searchingCategories: [Recipe] { get set }
+    /// Состояние представления
     var state: ViewState<[Recipe]> { get set }
+    /// Сервис для работы с сетью
+    var networkService: NetworkServiceProtocol { get set }
+    /// Категория рецептов
+    var category: RecipeCategories { get set }
     /// Инициализатор с присвоением вью
     init(
         view: CategoryViewControllerProtocol,
@@ -29,28 +36,29 @@ protocol CategoryPresenterProtocol: AnyObject {
     func viewDidLoaded()
     /// Делегат для серчбара с передачей текста
     func searchBarDelegate(_ text: String)
-    /// Обработка  нажатися отмены серчбара
+    /// Обработка  нажатия отмены серчбара
     func cancelButtonPressed()
     /// Обработка нажатия на кнопку фильтра
     func filterButtonPressed(state: ButtonState)
-    /// фывфывф
+    /// Получение списка рецептов по категории
     func getRecipes(category: RecipeCategories)
-    /// фывфыв
-    var category: RecipeCategories { get set }
-    /// asdasd
+    /// Обработка нажатия на кнопку обновления
     func reloadButtonPressed()
-    /// asdasda
-    var networkService: NetworkServiceProtocol { get set }
 }
 
-/// фывфыв
+/// Состояние представления
 enum ViewState<Model> {
+    /// Загрузка
     case loading
+    /// Данные модели
     case data(_ model: Model)
+    /// Нет данных
     case noData
+    /// Ошибка
     case error(_ error: Error)
 }
 
+/// Презентер экрана категорий
 final class CategoryPresenter: CategoryPresenterProtocol {
     // MARK: - Public Properties
 
@@ -62,7 +70,6 @@ final class CategoryPresenter: CategoryPresenterProtocol {
     var isSearching = false
     var isShowSkeleton = false
     var category: RecipeCategories
-
     var state: ViewState<[Recipe]> = .loading {
         didSet {
             view?.updateState()
@@ -101,8 +108,10 @@ final class CategoryPresenter: CategoryPresenterProtocol {
     }
 
     func reloadButtonPressed() {
+        // state = .loading
+        // getRecipes(dishType: category.rawValue)
         state = .loading
-        getRecipes(dishType: category.rawValue)
+        getRecipes(category: category)
     }
 
     private func getRecipes(dishType: String) {
@@ -110,6 +119,7 @@ final class CategoryPresenter: CategoryPresenterProtocol {
             DispatchQueue.main.async {
                 switch result {
                 case let .success(recipes):
+                    self?.recipes = recipes
                     self?.state = !recipes.isEmpty ? .data(recipes) : .noData
                 case let .failure(error):
                     self?.state = .error(error)
@@ -127,6 +137,10 @@ final class CategoryPresenter: CategoryPresenterProtocol {
     func cancelButtonPressed() {
 //        isSearching = false
 //        view?.updateSearchBar()
+        state = .loading
+        searchingCategories.removeAll()
+        isSearching = false
+        getRecipes(category: category)
     }
 
     func filterButtonPressed(state: ButtonState) {
@@ -144,7 +158,7 @@ final class CategoryPresenter: CategoryPresenterProtocol {
     }
 
     func getRecipes(category: RecipeCategories) {
-//        var categoryTitle = ""
+        //        var categoryTitle = ""
 //        switch category {
 //        case .salad:
 //            categoryTitle = "Salad"

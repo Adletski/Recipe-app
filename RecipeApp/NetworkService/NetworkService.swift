@@ -23,7 +23,6 @@ final class NetworkService: NetworkServiceProtocol {
     let appID = "cfe9a239"
     let appKey = "5ed615922d17e88dbe36c5122d9cbd83"
     let dishType = "Soup"
-
     private let imageService = LoadImageService()
     lazy var proxy = Proxy(service: imageService)
 

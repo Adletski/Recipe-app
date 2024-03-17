@@ -287,15 +287,26 @@ extension CategoryViewController {
         tableView.refreshControl = refreshControl
     }
 
+    // @objc private func refreshData(_ sender: Any) {
+    //  presenter?.getRecipes(category: .fish)
+    // }
+    /*@objc private func refreshData(_ sender: Any) {
+         guard let currentCategory = presenter?.category else { return }
+         presenter?.getRecipes(category: currentCategory)
+     }
+
+     func updateRecipes(_ recipes: [Recipe]) {
+         presenter?.recipes = recipes
+         tableView.reloadData()
+     } */
     @objc private func refreshData(_ sender: Any) {
         presenter?.getRecipes(category: .fish)
     }
 
     func updateRecipes(_ recipes: [Recipe]) {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.tableView.refreshControl?.endRefreshing()
-        }
+        presenter?.recipes = recipes
+        tableView.reloadData()
+        tableView.refreshControl?.endRefreshing()
     }
 }
 

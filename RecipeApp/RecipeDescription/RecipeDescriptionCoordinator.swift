@@ -3,19 +3,21 @@
 
 import UIKit
 
-// Координатор для профиля
+/// Координатор для профиля
 final class RecipeDescriptionCoordinator: BaseCoordinator {
     // MARK: - Properties
 
     var rootController: UINavigationController?
     var onFinishFlow: (() -> ())?
 
-    // MARK: - Initializer
+    // MARK: - Public Methods
 
+    // Устанавливает корневой контроллер навигации координатора
     func setupRootController(viewController: UIViewController) {
         rootController = UINavigationController(rootViewController: viewController)
     }
 
+    /// Перемещает назад на один контроллер в стеке навигации
     func moveBack() {
         rootController?.navigationController?.popViewController(animated: true)
     }

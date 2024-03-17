@@ -113,7 +113,7 @@ final class CategoriesTableViewCell: UITableViewCell {
 
     // MARK: - Private methods
 
-    /// добавление UI  элементов
+    /// Добавление UI  элементов
     private func setupUI() {
         selectionStyle = .none
         contentView.addSubview(wrapView)
@@ -128,7 +128,7 @@ final class CategoriesTableViewCell: UITableViewCell {
         contentView.addSubview(caloriesStackViewH)
     }
 
-    /// настройка констрейтов
+    /// Настройка констрейтов
     private func setupConstraints() {
         clockImageView.heightAnchor.constraint(equalToConstant: 12).isActive = true
         clockImageView.widthAnchor.constraint(equalToConstant: 12).isActive = true
