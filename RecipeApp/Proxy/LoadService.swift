@@ -28,7 +28,6 @@ final class Proxy: LoadServiceProtocol {
 
     func loadImage(name: String, url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         let cacheData = manager.getImage(name: String(name.suffix(32)))
-        print(cacheData, "cachedata printing")
         if cacheData == nil {
             service.loadImage(name: name, url: url) { data, response, error in
                 guard let data = data else { return }
@@ -38,23 +37,7 @@ final class Proxy: LoadServiceProtocol {
                 completion(data, response, error)
             }
         } else {
-            print("data from cache")
             completion(cacheData, nil, nil)
         }
     }
 }
-
-// func loadImage() {
-//    let imageView = UIImageView()
-//
-//    let imageService = LoadImageService()
-//    let proxy = Proxy(service: imageService)
-//    let url = URL(string: "https://oboi-download.ru/files/wallpapers/1457/30349.jpg")!
-//
-//    proxy.loadImage(url: url) { [weak self] data, response, error in
-//        guard let self = self, let data = data, error == nil else { return }
-//        DispatchQueue.main.async {
-//            self.imageView.image = UIImage(data: data)
-//        }
-//    }
-// }

@@ -11,7 +11,7 @@ final class CategoryCoordinator: BaseCoordinator {
     var rootController: UIViewController?
     /// Замыкание, вызываемое по завершению флоу
     var onFinishFlow: (() -> ())?
-    var category: RecipeCategories = .fish
+    var category: RecipeCategories?
 
     // MARK: - Lifecycle
 
@@ -22,7 +22,7 @@ final class CategoryCoordinator: BaseCoordinator {
             view: categoryViewController,
             coordinator: self,
             networkService: networkService,
-            category: .fish
+            category: category ?? .fish
         )
         categoryViewController.presenter = categoryPresenter
         rootController = categoryViewController

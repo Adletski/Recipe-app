@@ -62,7 +62,6 @@ final class RecipeDescriptionPresenter: RecipeDescriptionPresenterProtocol {
     }
 
     func viewDidLoaded() {
-        print("view did loaded")
         view?.reloadTableView()
     }
 

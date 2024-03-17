@@ -96,12 +96,13 @@ final class CategoryPresenter: CategoryPresenterProtocol {
     }
 
     func viewDidLoaded() {
-        getRecipes(dishType: "Salad")
+        print(category.rawValue, "viewdidloaded")
+        getRecipes(dishType: category.rawValue)
     }
 
     func reloadButtonPressed() {
         state = .loading
-        getRecipes(dishType: "Salad")
+        getRecipes(dishType: category.rawValue)
     }
 
     private func getRecipes(dishType: String) {
@@ -111,7 +112,6 @@ final class CategoryPresenter: CategoryPresenterProtocol {
                 case let .success(recipes):
                     self?.state = !recipes.isEmpty ? .data(recipes) : .noData
                 case let .failure(error):
-                    print("error")
                     self?.state = .error(error)
                 }
             }
