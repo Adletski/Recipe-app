@@ -6,7 +6,7 @@ import UIKit
 /// Протокол для нажатия кнопки
 protocol RecipesCustomCellDelegate: AnyObject {
     /// Кнопка нажатия
-    func buttonTapped()
+    func buttonTapped(title: String)
 }
 
 /// Создание кастомной ячейки для каталога рецептов
@@ -128,7 +128,7 @@ final class RecipesCustomCell: UICollectionViewCell {
 
     /// Обработка нажатия на кнопку ячейки
     @objc func tappedButton() {
-        delegate?.buttonTapped()
+        delegate?.buttonTapped(title: titleLabel.text ?? "")
         if recipeButton.isSelected {
             titleLabel.backgroundColor = .clear
             recipeButton.layer.borderWidth = 0

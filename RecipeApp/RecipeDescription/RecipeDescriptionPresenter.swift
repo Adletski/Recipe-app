@@ -48,7 +48,7 @@ final class RecipeDescriptionPresenter: RecipeDescriptionPresenterProtocol {
             switch result {
             case let .success(detailRecipe):
                 print(detailRecipe)
-               // self?.detailRecipe = detailRecipe
+                // self?.detailRecipe = detailRecipe
                 self?.updateRecipeDetails(detailRecipe)
                 print(detailRecipe)
             case let .failure(error):
@@ -56,7 +56,6 @@ final class RecipeDescriptionPresenter: RecipeDescriptionPresenterProtocol {
             }
         }
     }
-    
 
     func moveBack() {
         coordinator?.moveBack()

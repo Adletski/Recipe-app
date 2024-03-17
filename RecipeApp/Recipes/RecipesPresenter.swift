@@ -55,7 +55,7 @@ final class RecipesPresenter: RecipesViewPresenterProtocol {
 
     /// Перейти к выбранной категории
     func goToCategory(_ category: RecipeCategories) {
-        coordinator?.showCategory()
+        coordinator?.showCategory(category: category)
     }
 
     func cellDidTap(dish: String) {
