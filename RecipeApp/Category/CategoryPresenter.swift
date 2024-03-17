@@ -44,12 +44,11 @@ protocol CategoryPresenterProtocol: AnyObject {
     func getRecipes(category: RecipeCategories)
     /// Обработка нажатия на кнопку обновления
     func reloadButtonPressed()
-    
 }
 
 /// Состояние представления
 enum ViewState<Model> {
-    ///Загрузка
+    /// Загрузка
     case loading
     /// Данные модели
     case data(_ model: Model)
@@ -58,6 +57,7 @@ enum ViewState<Model> {
     /// Ошибка
     case error(_ error: Error)
 }
+
 /// Презентер экрана категорий
 final class CategoryPresenter: CategoryPresenterProtocol {
     // MARK: - Public Properties
@@ -108,8 +108,10 @@ final class CategoryPresenter: CategoryPresenterProtocol {
     }
 
     func reloadButtonPressed() {
+        // state = .loading
+        // getRecipes(dishType: category.rawValue)
         state = .loading
-        getRecipes(dishType: category.rawValue)
+        getRecipes(category: category)
     }
 
     private func getRecipes(dishType: String) {
@@ -117,6 +119,7 @@ final class CategoryPresenter: CategoryPresenterProtocol {
             DispatchQueue.main.async {
                 switch result {
                 case let .success(recipes):
+                    self?.recipes = recipes
                     self?.state = !recipes.isEmpty ? .data(recipes) : .noData
                 case let .failure(error):
                     self?.state = .error(error)
@@ -134,6 +137,10 @@ final class CategoryPresenter: CategoryPresenterProtocol {
     func cancelButtonPressed() {
 //        isSearching = false
 //        view?.updateSearchBar()
+        state = .loading
+        searchingCategories.removeAll()
+        isSearching = false
+        getRecipes(category: category)
     }
 
     func filterButtonPressed(state: ButtonState) {
@@ -151,7 +158,7 @@ final class CategoryPresenter: CategoryPresenterProtocol {
     }
 
     func getRecipes(category: RecipeCategories) {
-//        var categoryTitle = ""
+        //        var categoryTitle = ""
 //        switch category {
 //        case .salad:
 //            categoryTitle = "Salad"

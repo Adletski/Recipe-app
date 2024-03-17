@@ -22,6 +22,7 @@ final class AuthorizationCoordinator: BaseCoordinator {
     }
 
     // MARK: - Public Methods
+
     /// Завершает флоу авторизации
     func finish() {
         onFinishFlow?()

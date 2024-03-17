@@ -78,6 +78,7 @@ final class AuthorizationPresenter: AutorizationPresenterProtocol {
     func createPasswordVisibilityButton() {
         view?.updatePasswordVisibilityButton()
     }
+
     /// Сохранение информации о пользователе
     func saveUserInfo(login: String, password: String) {
 //        UserSettings.userInfo = UserInfo(name: "", surname: "", login: login, password: password)
