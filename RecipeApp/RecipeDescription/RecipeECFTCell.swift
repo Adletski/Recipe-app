@@ -173,9 +173,9 @@ final class RecipeECFPCell: UITableViewCell {
 
     func configure(recipe: FoodModel?) {
         enercSubViewLabel.text = "\(recipe?.kkal ?? "") \(Constant.kkal)"
-        carbohydratesSubViewLabel.text = "\(recipe?.carbohydrates ?? 0) \(Constant.gcal)"
-        fatsSubViewLabel.text = "\(recipe?.fats ?? 0) \(Constant.gcal)"
-        proteinsSubViewLabel.text = "\(recipe?.proteins ?? 0) \(Constant.gcal)"
+        carbohydratesSubViewLabel.text = recipe?.carbohydrates
+        fatsSubViewLabel.text = recipe?.fats
+        proteinsSubViewLabel.text = recipe?.proteins
     }
 
     // MARK: - Private Methods

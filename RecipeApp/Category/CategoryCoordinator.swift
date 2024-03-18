@@ -11,6 +11,8 @@ final class CategoryCoordinator: BaseCoordinator {
     var rootController: UIViewController?
     /// Замыкание, вызываемое по завершению флоу
     var onFinishFlow: (() -> ())?
+    /// Категория рецептов
+    var category: RecipeCategories?
 
     // MARK: - Lifecycle
 
@@ -20,7 +22,8 @@ final class CategoryCoordinator: BaseCoordinator {
         let categoryPresenter = CategoryPresenter(
             view: categoryViewController,
             coordinator: self,
-            networkService: networkService
+            networkService: networkService,
+            category: category ?? .fish
         )
         categoryViewController.presenter = categoryPresenter
         rootController = categoryViewController
@@ -34,13 +37,13 @@ final class CategoryCoordinator: BaseCoordinator {
     }
 
     /// Переход на экран описания рецепта
-    func moveRecipeDescriptionVC(model: FoodModel) {
+    func moveRecipeDescriptionVC(uri: String) {
         let recipeDescriptionViewController = RecipeDescriptionController()
         let recipeDescriptionPresenter = RecipeDescriptionPresenter(
             view: recipeDescriptionViewController,
-            coordinator: self
+            coordinator: self,
+            uri: uri
         )
-        recipeDescriptionViewController.selectedRecipe = model
         recipeDescriptionViewController.presenter = recipeDescriptionPresenter
         rootController?.navigationController?.pushViewController(recipeDescriptionViewController, animated: true)
     }

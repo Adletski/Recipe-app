@@ -16,8 +16,9 @@ final class RecipeCoordinator: BaseCoordinator {
         rootController = UINavigationController(rootViewController: viewController)
     }
 
-    func showCategory() {
+    func showCategory(category: RecipeCategories) {
         let categoryCoordinator = CategoryCoordinator()
+        categoryCoordinator.category = category
         categoryCoordinator.start()
         categoryCoordinator.onFinishFlow = { [weak self] in
             self?.remove(coordinator: categoryCoordinator)

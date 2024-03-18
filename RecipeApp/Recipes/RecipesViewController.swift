@@ -6,6 +6,7 @@ import UIKit
 /// Протокол для вью рецептов
 protocol RecipesView: AnyObject {
     var presenter: RecipesViewPresenterProtocol? { get set }
+    func showRecipes(_ recipes: [Recipe])
 }
 
 // MARK: - Visual Components
@@ -141,10 +142,26 @@ extension RecipesViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension RecipesViewController: RecipesCustomCellDelegate {
-    func buttonTapped() {
-        presenter?.goToCategory(.fish)
+    func buttonTapped(title: String) {
+        if title == "Fish" {
+            presenter?.goToCategory(.fish)
+        } else if title == "Salad" {
+            presenter?.goToCategory(.salad)
+        } else if title == "Soup" {
+            presenter?.goToCategory(.soup)
+        }
     }
 }
 
 /// Расширенеи для реализации протокола RecipesView
-extension RecipesViewController: RecipesView {}
+extension RecipesViewController: RecipesView {
+    func showRecipes(_ recipes: [Recipe]) {}
+}
+
+extension RecipesViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let category = presenter?.getInfo(categoryNumber: indexPath.item) {
+            presenter?.cellDidTap(dish: category.type.rawValue)
+        }
+    }
+}

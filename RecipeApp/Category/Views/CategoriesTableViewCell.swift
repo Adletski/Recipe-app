@@ -113,7 +113,7 @@ final class CategoriesTableViewCell: UITableViewCell {
 
     // MARK: - Private methods
 
-    /// добавление UI  элементов
+    /// Добавление UI  элементов
     private func setupUI() {
         selectionStyle = .none
         contentView.addSubview(wrapView)
@@ -128,7 +128,7 @@ final class CategoriesTableViewCell: UITableViewCell {
         contentView.addSubview(caloriesStackViewH)
     }
 
-    /// настройка констрейтов
+    /// Настройка констрейтов
     private func setupConstraints() {
         clockImageView.heightAnchor.constraint(equalToConstant: 12).isActive = true
         clockImageView.widthAnchor.constraint(equalToConstant: 12).isActive = true
@@ -174,19 +174,23 @@ final class CategoriesTableViewCell: UITableViewCell {
 
     /// Конфигурирует ячейку с данными модели
     func configure(model: Recipe) {
-        NetworkService.downLoadImage(model.image) { result in
-            switch result {
-            case let .success(image):
-                DispatchQueue.main.async {
-                    self.foodImageView.image = image
-                }
-            case let .failure(failure):
-                print(failure.localizedDescription)
-            }
-        }
+//        NetworkService.downLoadImage(model.image) { result in
+//            switch result {
+//            case let .success(image):
+//                DispatchQueue.main.async {
+//                    self.foodImageView.image = image
+//                }
+//            case let .failure(error):
+//                print(error)
+//            }
+//        }
         foodLabel.text = model.label
         timeLabel.text = String(model.totalTime)
         caloriesLabel.text = String(model.calories)
+    }
+
+    func configure(data: Data) {
+        foodImageView.image = UIImage(data: data)
     }
 
     override func prepareForReuse() {

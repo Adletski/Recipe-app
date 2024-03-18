@@ -94,6 +94,7 @@ final class HeaderView: UIView {
 
     // MARK: - IBAction
 
+    /// Обработчик нажатия кнопки редактирования профиля
     @objc private func editButtonPressed() {
         delegate?.editButtonDidPress()
     }

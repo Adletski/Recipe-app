@@ -6,6 +6,7 @@ import UIKit
 /// Экран с рецептом
 final class RecipeDescriptionController: UIViewController {
     // MARK: - Constants
+
     /// Перечисление, используемые в контроллере рецепта
     enum Constant {
         /// Изображения стрелки
@@ -38,6 +39,7 @@ final class RecipeDescriptionController: UIViewController {
     private let range: [Details] = [.photo, .characteristics, .description]
     private let recipeCells: [Details] = [.photo, .characteristics, .description]
     private let tableView = UITableView()
+    private let refreshControl = UIRefreshControl()
 
     // MARK: - Public properties
 
@@ -71,6 +73,18 @@ final class RecipeDescriptionController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupNavigationBar()
+        presenter?.viewDidLoaded()
+        setupRefreshControl()
+    }
+
+    func reloadTableView() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+
+    func endRefreshing() {
+        refreshControl.endRefreshing()
     }
 
     // MARK: - Private Methods
@@ -80,7 +94,7 @@ final class RecipeDescriptionController: UIViewController {
         view.addSubview(tableView)
         setupTableView()
     }
-    
+
     private func setupNavigationBar() {
         let backButton = UIBarButtonItem(
             image: UIImage(named: Constant.arrowImage),
@@ -114,11 +128,27 @@ final class RecipeDescriptionController: UIViewController {
         tableView.separatorStyle = .none
     }
 
+    private func setupRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+    }
+
     // MARK: - IBAction
+
+    @objc private func refreshData(_ sender: UIRefreshControl) {
+        presenter?.refreshData()
+    }
+
+    // @objc private func refreshData(_ sender: UIRefreshControl) {
+//        presenter?.getDetailRecipes()
+    // }
+
     /// Обработчик нажатия кнопки "назад"
     @objc private func backButtonPressed() {
         presenter?.moveBack()
     }
+
     /// Обработчик нажатия кнопки "добавить в избранное"
     @objc private func favoriteButtonPressed() {
         var favorites: [FoodModel] = []
@@ -133,7 +163,7 @@ final class RecipeDescriptionController: UIViewController {
                 print(error.localizedDescription)
             }
         }
-        print(favorites)
+
         if !(favorites.contains { $0.name == selectedRecipe?.name }) {
             if let selectedRecipe {
                 favorites.append(selectedRecipe)
@@ -172,20 +202,22 @@ extension RecipeDescriptionController: UITableViewDataSource {
             ) as? RecipeImageCell else {
                 return UITableViewCell()
             }
-            cell.configure(recipe: FoodModel(
-                image: selectedRecipe?.image ?? "",
-                name: selectedRecipe?.name ?? "",
-                title: selectedRecipe?.title ?? "",
-                time: selectedRecipe?.time ?? "",
-                timeCount: selectedRecipe?.timeCount ?? 0,
-                kkal: selectedRecipe?.kkal ?? "",
-                kkalCount: selectedRecipe?.kkalCount ?? 0,
-                weight: selectedRecipe?.weight,
-                carbohydrates: selectedRecipe?.carbohydrates,
-                fats: selectedRecipe?.fats,
-                proteins: selectedRecipe?.proteins,
-                descriptions: selectedRecipe?.descriptions
-            ))
+            if let recipe = presenter?.detailRecipe {
+                cell.configure(recipe: FoodModel(
+                    image: recipe.imagesUrl,
+                    name: recipe.label,
+                    title: recipe.label,
+                    time: recipe.totalTime,
+                    timeCount: Int(recipe.totalTime) ?? 0,
+                    kkal: recipe.calories,
+                    kkalCount: Int(recipe.calories) ?? 0,
+                    weight: Int(recipe.totalWeight) ?? 0,
+                    carbohydrates: recipe.carbohydrates,
+                    fats: recipe.fats,
+                    proteins: recipe.proteins,
+                    descriptions: recipe.ingredients.joined(separator: "\n")
+                ))
+            }
             return cell
         case .characteristics:
             guard let cell = tableView.dequeueReusableCell(
@@ -194,24 +226,31 @@ extension RecipeDescriptionController: UITableViewDataSource {
             ) as? RecipeECFPCell else {
                 return UITableViewCell()
             }
-            cell.configure(recipe: FoodModel(
-                timeCount: selectedRecipe?.timeCount ?? 0, kkal: selectedRecipe?.kkal ?? "",
-                kkalCount: selectedRecipe?.kkalCount ?? 0,
-                carbohydrates: selectedRecipe?.carbohydrates,
-                fats: selectedRecipe?.fats,
-                proteins: selectedRecipe?.proteins
-            ))
+            if let recipe = presenter?.detailRecipe {
+                cell.configure(recipe: FoodModel(
+                    timeCount: Int(recipe.totalTime) ?? 0,
+                    kkal: recipe.calories,
+                    kkalCount: Int(recipe.calories) ?? 0,
+                    carbohydrates: recipe.carbohydrates,
+                    fats: recipe.fats,
+                    proteins: recipe.proteins
+                ))
+            }
             return cell
         case .description:
+            print("description")
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: RecipeTextCell.identifier,
                 for: indexPath
             ) as? RecipeTextCell else {
                 return UITableViewCell()
             }
-            cell.configure(recipe: FoodModel(
-                descriptions: selectedRecipe?.descriptions
-            ))
+            print(presenter?.detailRecipe?.ingredients)
+            if let recipeDescriptions = presenter?.detailRecipe?.ingredients.joined(separator: "\n") {
+                cell.configure(recipe: FoodModel(
+                    descriptions: recipeDescriptions
+                ))
+            }
             return cell
         }
     }

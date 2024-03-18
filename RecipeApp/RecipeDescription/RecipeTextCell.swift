@@ -27,14 +27,17 @@ final class RecipeTextCell: UITableViewCell {
         return view
     }()
 
-    private let textRecipeLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
-        label.font = UIFont(name: Constant.verdana, size: 14)
-        label.numberOfLines = 0
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    private let textRecipeTextView: UITextView = {
+        let textView = UITextView()
+        textView.textColor = .black
+        textView.backgroundColor = .clear
+        textView.font = UIFont(name: Constant.verdana, size: 14)
+        textView.isEditable = false
+        textView.isScrollEnabled = false
+        textView.textContainer.lineFragmentPadding = 0
+        textView.textContainerInset = .zero
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        return textView
     }()
 
     private let gradientLayer: CAGradientLayer = {
@@ -68,7 +71,7 @@ final class RecipeTextCell: UITableViewCell {
     // MARK: - Public Methods
 
     func configure(recipe: FoodModel?) {
-        textRecipeLabel.text = recipe?.descriptions
+        textRecipeTextView.text = recipe?.descriptions
     }
 
     // MARK: - Private Methods
@@ -76,12 +79,12 @@ final class RecipeTextCell: UITableViewCell {
     private func setupView() {
         backgroundColorView.layer.addSublayer(gradientLayer)
         contentView.addSubview(backgroundColorView)
-        contentView.addSubview(textRecipeLabel)
+        contentView.addSubview(textRecipeTextView)
     }
 
     private func setupConstraints() {
         setBackgroundColorViewConstraints()
-        setTextRecipeLabelConstraints()
+        setTextRecipeTextViewConstraints()
     }
 
     private func setBackgroundColorViewConstraints() {
@@ -91,13 +94,13 @@ final class RecipeTextCell: UITableViewCell {
         backgroundColorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
     }
 
-    private func setTextRecipeLabelConstraints() {
-        textRecipeLabel.topAnchor.constraint(equalTo: backgroundColorView.topAnchor).isActive = true
-        textRecipeLabel.bottomAnchor.constraint(equalTo: backgroundColorView.bottomAnchor, constant: -10)
+    private func setTextRecipeTextViewConstraints() {
+        textRecipeTextView.topAnchor.constraint(equalTo: backgroundColorView.topAnchor).isActive = true
+        textRecipeTextView.bottomAnchor.constraint(equalTo: backgroundColorView.bottomAnchor, constant: -10)
             .isActive = true
-        textRecipeLabel.leadingAnchor.constraint(equalTo: backgroundColorView.leadingAnchor, constant: 10)
+        textRecipeTextView.leadingAnchor.constraint(equalTo: backgroundColorView.leadingAnchor, constant: 10)
             .isActive = true
-        textRecipeLabel.trailingAnchor.constraint(equalTo: backgroundColorView.trailingAnchor, constant: -27)
+        textRecipeTextView.trailingAnchor.constraint(equalTo: backgroundColorView.trailingAnchor, constant: -27)
             .isActive = true
     }
 }

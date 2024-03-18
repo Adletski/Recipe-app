@@ -10,6 +10,8 @@ protocol CategoryViewControllerProtocol: AnyObject {
     func updateSearchBar()
     func success()
     func failure()
+    func updateRecipes(_ recipes: [Recipe])
+    func updateState()
 }
 
 /// Экран для категорий еды
@@ -28,6 +30,28 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
     var presenter: CategoryPresenterProtocol?
 
     // MARK: - Visual components
+
+    private lazy var leftArrowBarButtonItem: UIBarButtonItem = {
+        let leftArrowBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: Constant.arrow),
+            style: .done,
+            target: self,
+            action: #selector(arrowPressed)
+        )
+        leftArrowBarButtonItem.tintColor = .black
+        return leftArrowBarButtonItem
+    }()
+
+    private lazy var leftTitleBarButtonItem: UIBarButtonItem = {
+        let leftTitleBarButtonItem = UIBarButtonItem(title: Constant.fish, image: nil, target: nil, action: nil)
+        leftTitleBarButtonItem.tintColor = .black
+        leftTitleBarButtonItem.style = .plain
+        leftTitleBarButtonItem.setTitleTextAttributes(
+            [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25, weight: .bold)],
+            for: .normal
+        )
+        return leftTitleBarButtonItem
+    }()
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -57,6 +81,9 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
         return sortingView
     }()
 
+    private let noDataView = NoDataView()
+    private let failedDownloadDataView = FailedDownloadDataView()
+
     private let names = [Constant.calories, Constant.time]
 
     // MARK: - Lifecycle
@@ -70,6 +97,7 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNavigationBar()
+        leftTitleBarButtonItem.title = presenter?.category.rawValue
     }
 
     // MARK: - Private methods
@@ -93,6 +121,10 @@ final class CategoryViewController: UIViewController, CategoryViewControllerProt
     func success() {}
 
     func failure() {}
+
+    func updateState() {
+        tableView.reloadData()
+    }
 }
 
 extension CategoryViewController: SortingViewControlDelegate, SortingPickerDataSource {
@@ -127,50 +159,62 @@ extension CategoryViewController: UISearchBarDelegate {
 extension CategoryViewController: UITableViewDataSource {
     /// Возвращает количество секций в таблице
     func numberOfSections(in tableView: UITableView) -> Int {
-        if presenter?.isShowSkeleton ?? false {
-            return 1
-        } else {
-            return 1
-        }
+        1
     }
 
     /// Возвращает количество строк в указанной секции таблицы
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if presenter?.isShowSkeleton ?? false {
+        switch presenter?.state {
+        case .loading:
             return 1
-        } else {
-            if presenter?.isSearching ?? false {
-                return presenter?.searchingCategories.count ?? 0
-            } else {
-                return presenter?.recipes.count ?? 0
-            }
+        case let .data(recipes):
+            return recipes.count
+        case .noData, .error, .none:
+            return 1
         }
     }
 
     /// Возвращает ячейку для указанного индекса
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if presenter?.isShowSkeleton ?? false {
+        tableView.isHidden = false
+        switch presenter?.state {
+        case .loading:
+            failedDownloadDataView.isHidden = true
+            noDataView.isHidden = true
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: Constant.skeleton,
                 for: indexPath
             ) as? SkeletonTableViewCell else { return UITableViewCell() }
             return cell
-        } else {
+        case let .data(recipes):
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: CategoriesTableViewCell.identifier,
                 for: indexPath
             ) as? CategoriesTableViewCell else { return UITableViewCell() }
-            if presenter?.isSearching ?? false {
-                if let food = presenter?.searchingCategories[indexPath.row] {
-                    cell.configure(model: food)
-                }
-            } else {
-                if let food = presenter?.recipes[indexPath.row] {
-                    cell.configure(model: food)
-                }
+            cell.configure(model: recipes[indexPath.row])
+            if let urlString = URL(string: recipes[indexPath.row].image) {
+                presenter?.networkService.proxy.loadImage(
+                    name: recipes[indexPath.row].uri,
+                    url: urlString,
+                    completion: { data, _, _ in
+                        guard let data = data else { return }
+                        DispatchQueue.main.async {
+                            cell.configure(data: data)
+                        }
+                    }
+                )
             }
             return cell
+        case .noData:
+            tableView.isHidden = true
+            noDataView.isHidden = false
+        case .error:
+            tableView.isHidden = true
+            failedDownloadDataView.isHidden = false
+        case .none:
+            break
         }
+        return UITableViewCell()
     }
 }
 
@@ -183,8 +227,7 @@ extension CategoryViewController: UITableViewDelegate {
         let selectedRecipe = presenter?.recipes[indexPath.row]
         // модель рецепта в контроллер с рецептом
         if let selectedRecipe {
-            //  переход на экран с рецептом
-//            presenter?.openRecipeDescriptionVC(model: selectedRecipe)
+            presenter?.openRecipeDescriptionVC(uri: selectedRecipe.uri)
         }
     }
 }
@@ -194,29 +237,22 @@ extension CategoryViewController: UITableViewDelegate {
 extension CategoryViewController {
     private func setupNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = false
-        let leftArrow = UIBarButtonItem(
-            image: UIImage(named: Constant.arrow),
-            style: .done,
-            target: self,
-            action: #selector(arrowPressed)
-        )
-        leftArrow.tintColor = .black
-        let leftTitle = UIBarButtonItem(title: Constant.fish, image: nil, target: nil, action: nil)
-        leftTitle.tintColor = .black
-        leftTitle.style = .plain
-        leftTitle.setTitleTextAttributes(
-            [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25, weight: .bold)],
-            for: .normal
-        )
-        navigationItem.leftBarButtonItems = [leftArrow, leftTitle]
+        navigationItem.leftBarButtonItems = [leftArrowBarButtonItem, leftTitleBarButtonItem]
     }
 
     /// Настройка пользовательского интерфейса
     private func setupUI() {
+        failedDownloadDataView.delegate = self
+        failedDownloadDataView.isHidden = true
+        noDataView.isHidden = true
+
         view.backgroundColor = .white
         view.addSubview(searchBar)
         view.addSubview(sortingControlView)
         view.addSubview(tableView)
+        view.addSubview(noDataView)
+        view.addSubview(failedDownloadDataView)
+        setupRefreshControl()
 
         searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -231,5 +267,51 @@ extension CategoryViewController {
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+
+        noDataView.topAnchor.constraint(equalTo: sortingControlView.bottomAnchor).isActive = true
+        noDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        noDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        noDataView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+
+        failedDownloadDataView.topAnchor.constraint(equalTo: sortingControlView.bottomAnchor).isActive = true
+        failedDownloadDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        failedDownloadDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        failedDownloadDataView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+    }
+}
+
+extension CategoryViewController {
+    private func setupRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+    }
+
+    // @objc private func refreshData(_ sender: Any) {
+    //  presenter?.getRecipes(category: .fish)
+    // }
+    /*@objc private func refreshData(_ sender: Any) {
+         guard let currentCategory = presenter?.category else { return }
+         presenter?.getRecipes(category: currentCategory)
+     }
+
+     func updateRecipes(_ recipes: [Recipe]) {
+         presenter?.recipes = recipes
+         tableView.reloadData()
+     } */
+    @objc private func refreshData(_ sender: Any) {
+        presenter?.getRecipes(category: .fish)
+    }
+
+    func updateRecipes(_ recipes: [Recipe]) {
+        presenter?.recipes = recipes
+        tableView.reloadData()
+        tableView.refreshControl?.endRefreshing()
+    }
+}
+
+extension CategoryViewController: FailedDownloadDataViewDelegate {
+    func reloadButtonPressed() {
+        presenter?.reloadButtonPressed()
     }
 }
