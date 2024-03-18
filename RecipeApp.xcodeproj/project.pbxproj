@@ -42,6 +42,9 @@
 		7FAB18912BA63D59001701BE /* LoadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18902BA63D59001701BE /* LoadService.swift */; };
 		7FAB18932BA72E9C001701BE /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18922BA72E9C001701BE /* LocalFileManager.swift */; };
 		7FAB18952BA778B3001701BE /* FileManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18942BA778B3001701BE /* FileManagerViewController.swift */; };
+		7FAB18972BA7922A001701BE /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18962BA7922A001701BE /* KeychainManager.swift */; };
+		7FAB18A22BA8176C001701BE /* RecipeCD+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18A02BA8176C001701BE /* RecipeCD+CoreDataProperties.swift */; };
+		7FAB18A82BA8280B001701BE /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7FAB18A62BA8280B001701BE /* CoreData.xcdatamodeld */; };
 		7FCDDBF82B91BC700065E4E5 /* Extension+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBEE2B91BC700065E4E5 /* Extension+UITextField.swift */; };
 		7FCDDBF92B91BC700065E4E5 /* CategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBEF2B91BC700065E4E5 /* CategoryPresenter.swift */; };
 		7FCDDBFA2B91BC700065E4E5 /* CategoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCDDBF02B91BC700065E4E5 /* CategoryCoordinator.swift */; };
@@ -120,6 +123,9 @@
 		7FAB18902BA63D59001701BE /* LoadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadService.swift; sourceTree = "<group>"; };
 		7FAB18922BA72E9C001701BE /* LocalFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
 		7FAB18942BA778B3001701BE /* FileManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerViewController.swift; sourceTree = "<group>"; };
+		7FAB18962BA7922A001701BE /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		7FAB18A02BA8176C001701BE /* RecipeCD+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecipeCD+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		7FAB18A72BA8280B001701BE /* RecipeCD.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RecipeCD.xcdatamodel; sourceTree = "<group>"; };
 		7FCDDBEE2B91BC700065E4E5 /* Extension+UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UITextField.swift"; sourceTree = "<group>"; };
 		7FCDDBEF2B91BC700065E4E5 /* CategoryPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPresenter.swift; sourceTree = "<group>"; };
 		7FCDDBF02B91BC700065E4E5 /* CategoryCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCoordinator.swift; sourceTree = "<group>"; };
@@ -272,6 +278,15 @@
 			path = Proxy;
 			sourceTree = "<group>";
 		};
+		7FAB18982BA7FD59001701BE /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				7FAB18A62BA8280B001701BE /* CoreData.xcdatamodeld */,
+				7FAB18A02BA8176C001701BE /* RecipeCD+CoreDataProperties.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		7FCDDBED2B91BC700065E4E5 /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,6 +339,7 @@
 		7FE563802B8CD095002562F3 /* RecipeApp */ = {
 			isa = PBXGroup;
 			children = (
+				7FAB18982BA7FD59001701BE /* CoreData */,
 				7FAB188F2BA63D4D001701BE /* Proxy */,
 				5E89C5EB2B9C8CB90021D3E1 /* AnalyticsCollection */,
 				7FAB185D2B9A5CBB001701BE /* Extensions */,
@@ -341,6 +357,7 @@
 				7FE564272B8E5285002562F3 /* AppCoordinator.swift */,
 				5E8CA19F2BA203A200B5CF67 /* NetworkService */,
 				7FAB18942BA778B3001701BE /* FileManagerViewController.swift */,
+				7FAB18962BA7922A001701BE /* KeychainManager.swift */,
 			);
 			path = RecipeApp;
 			sourceTree = "<group>";
@@ -569,6 +586,7 @@
 				7FE564822B8F567F002562F3 /* ProfileCoordinator.swift in Sources */,
 				5E89C5F32B9C8FA00021D3E1 /* Invoker.swift in Sources */,
 				7FE563EB2B8E1018002562F3 /* ProfileModel.swift in Sources */,
+				7FAB18A22BA8176C001701BE /* RecipeCD+CoreDataProperties.swift in Sources */,
 				7FE563C12B8DC5D2002562F3 /* RecipeModel.swift in Sources */,
 				7F64F63E2B95989D00CA9D49 /* Service.swift in Sources */,
 				7FAB18342B988952001701BE /* SkeletonView.swift in Sources */,
@@ -593,6 +611,7 @@
 				7FAB182C2B97C259001701BE /* SkeletonTableViewCell.swift in Sources */,
 				7FCDDBF92B91BC700065E4E5 /* CategoryPresenter.swift in Sources */,
 				5E8CA1A22BA2041100B5CF67 /* ResponseDTO.swift in Sources */,
+				7FAB18A82BA8280B001701BE /* CoreData.xcdatamodeld in Sources */,
 				5E89C5EF2B9C8F180021D3E1 /* Command.swift in Sources */,
 				7FCDDBF82B91BC700065E4E5 /* Extension+UITextField.swift in Sources */,
 				7FE563A02B8D0998002562F3 /* TabBarViewController.swift in Sources */,
@@ -610,6 +629,7 @@
 				5E89C5ED2B9C8D8C0021D3E1 /* LogActions.swift in Sources */,
 				7FE563AF2B8D23F5002562F3 /* RecipesBuilder.swift in Sources */,
 				7FE563EF2B8E2E8C002562F3 /* DetentsViewController.swift in Sources */,
+				7FAB18972BA7922A001701BE /* KeychainManager.swift in Sources */,
 				7F64F63A2B95987500CA9D49 /* EmptyView.swift in Sources */,
 				7F64F6452B959AD600CA9D49 /* RecipeDescriptionController.swift in Sources */,
 				7F64F6392B95987500CA9D49 /* FavoritesBuilder.swift in Sources */,
@@ -896,6 +916,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7FAB18A62BA8280B001701BE /* CoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7FAB18A72BA8280B001701BE /* RecipeCD.xcdatamodel */,
+			);
+			currentVersion = 7FAB18A72BA8280B001701BE /* RecipeCD.xcdatamodel */;
+			path = CoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7FE563762B8CD095002562F3 /* Project object */;
 }

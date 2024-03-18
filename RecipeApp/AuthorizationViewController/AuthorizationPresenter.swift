@@ -65,9 +65,14 @@ final class AuthorizationPresenter: AutorizationPresenterProtocol {
 
     /// отработка для кнопки с плашкой
     func loginButtonTapped(login: String, password: String) {
-        let usLogin = UserDefaults.standard.object(forKey: "login") as? String
-        let usPassword = UserDefaults.standard.object(forKey: "password") as? String
-        if login == usLogin, password == usPassword {
+        var status = false
+        do {
+            status = try KeychainManager.save(password: password.data(using: .utf8) ?? Data(), account: login)
+        } catch {
+            print(error)
+        }
+
+        if status {
             coordinator?.finish()
         } else {
             view?.updateLoginButton(result: false)
