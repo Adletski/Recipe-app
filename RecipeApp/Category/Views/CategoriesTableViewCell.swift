@@ -174,16 +174,6 @@ final class CategoriesTableViewCell: UITableViewCell {
 
     /// Конфигурирует ячейку с данными модели
     func configure(model: Recipe) {
-//        NetworkService.downLoadImage(model.image) { result in
-//            switch result {
-//            case let .success(image):
-//                DispatchQueue.main.async {
-//                    self.foodImageView.image = image
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
         foodLabel.text = model.label
         timeLabel.text = String(model.totalTime)
         caloriesLabel.text = String(model.calories)
