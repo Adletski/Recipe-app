@@ -12,7 +12,9 @@ final class RecipesBuilder {
     }
 
     // MARK: - Public Methods
-
+    /// Создание экрана с рецептами
+    /// - Parameter coordinator: Координатор для экрана с рецептами
+    /// - Returns: Экземпляр RecipesViewController
     static func createRecipe(coordinator: RecipeCoordinator) -> RecipesViewController {
         let viewController = RecipesViewController()
         let recipePresenter = RecipesPresenter(view: viewController, coordinator: coordinator)
